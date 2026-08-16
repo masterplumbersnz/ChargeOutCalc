@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charge Out Rate Calculator | Master Plumbers</title>
+    <style>
+        :root {
+            --dark-blue: #00395D;
+            --aqua: #5AC5CC;
+            --black: #000000;
+            --white: #FFFFFF;
+            --required-bg: #E0F2F3;
+            --required-border: #00395D;
+            --estimate-bg: #EEF3F5;
+            --estimate-border: #5AC5CC;
+            --grey-bg: #F4F7F8;
+            --grey-line: #DCE4E6;
+            --text-muted: #4A5A62;
+            --warn-bg: #FFF0EC;
+            --warn-text: #9A3B1F;
+            --good-bg: #EAF8F5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;a
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.5;
+        }
+
+        .mpc-wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 16px 48px;
+        }
+
+        /* ---------- Header ---------- */
+        .mpc-header {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 28px 24px;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 24px;
+        }
+
+        .mpc-header h1 {
+            margin: 0 0 6px;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .mpc-header p {
+            margin: 0;
+            color: #CFE9EC;
+            font-size: .95rem;
+            max-width: 680px;
+        }
+
+        .mpc-intro {
+            background: var(--grey-bg);
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            font-size: .92rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-intro strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-scope-note {
+            font-size: .82rem;
+            color: var(--text-muted);
+            background: var(--white);
+            border-left: 3px solid var(--aqua);
+            padding: 8px 12px;
+            margin-bottom: 22px;
+        }
+
+        /* ---------- Trade selector ---------- */
+        .mpc-trade-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .mpc-trade-row label {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+        }
+
+        .mpc-segmented {
+            display: inline-flex;
+            border: 2px solid var(--dark-blue);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mpc-segmented button {
+            border: none;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 9px 18px;
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .mpc-segmented button+button {
+            border-left: 2px solid var(--dark-blue);
+        }
+
+        .mpc-segmented button.active {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-segmented button:hover:not(.active) {
+            background: #E8F5F6;
+        }
+
+        .mpc-gasfitting-note {
+            font-size: .82rem;
+            color: var(--text-muted);
+            flex-basis: 100%;
+        }
+
+        /* ---------- Legend ---------- */
+        .mpc-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 20px;
+            font-size: .82rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mpc-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, .15);
+        }
+
+        /* ---------- Role cards ---------- */
+        .mpc-roles {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .mpc-role-card {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            padding: 18px 18px 14px;
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 57, 93, .06);
+        }
+
+        .mpc-role-card h3 {
+            margin: 0 0 4px;
+            color: var(--dark-blue);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .mpc-role-title-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mpc-headcount {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .mpc-headcount input {
+            width: 52px;
+            text-align: center;
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 4px;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .mpc-rate-pills {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .mpc-result-pill {
+            background: var(--aqua);
+            color: var(--dark-blue);
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: .95rem;
+            white-space: nowrap;
+        }
+
+        .mpc-result-pill.mpc-incgst {
+            background: var(--grey-bg);
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: .78rem;
+        }
+
+        .mpc-result-empty {
+            color: #3d6d72;
+            font-weight: 600;
+            font-size: .82rem;
+        }
+
+        .mpc-section-label {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--aqua);
+            font-weight: 700;
+            margin: 14px 0 6px;
+        }
+
+        .mpc-section-label:first-of-type {
+            margin-top: 6px;
+        }
+
+        .mpc-field-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px 14px;
+        }
+
+        .mpc-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+        }
+
+        .mpc-field-label-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .mpc-field label {
+            font-size: .76rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.25;
+        }
+
+        .mpc-reset-icon {
+            background: none;
+            border: none;
+            color: var(--aqua);
+            cursor: pointer;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 0;
+            text-decoration: underline;
+            white-space: nowrap;
+        }
+
+        .mpc-field input[type="number"],
+        .mpc-field select {
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 8px 9px;
+            font-size: .95rem;
+            font-family: inherit;
+            width: 100%;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .mpc-field input.mpc-required {
+            background: var(--required-bg);
+            border: 1px solid var(--required-border);
+            border-left-width: 4px;
+        }
+
+        .mpc-field input.mpc-estimate {
+            background: var(--estimate-bg);
+            border: 1px dashed var(--estimate-border);
+        }
+
+        .mpc-field input.mpc-neutral {
+            background: var(--white);
+        }
+
+        .mpc-field input:focus,
+        .mpc-field select:focus {
+            outline: 2px solid var(--dark-blue);
+            outline-offset: 1px;
+        }
+
+        .mpc-readout {
+            background: var(--grey-bg);
+            border-radius: 6px;
+            padding: 8px 9px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+        }
+
+        .mpc-helper-text {
+            font-size: .72rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .mpc-warning {
+            font-size: .74rem;
+            color: var(--warn-text);
+            background: var(--warn-bg);
+            border-radius: 5px;
+            padding: 4px 7px;
+            margin-top: 2px;
+        }
+
+        .mpc-minicalc-toggle {
+            background: none;
+            border: none;
+            color: var(--dark-blue);
+            font-size: .72rem;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            text-align: left;
+            margin-top: 2px;
+        }
+
+        .mpc-minicalc {
+            display: none;
+            margin-top: 6px;
+            background: var(--grey-bg);
+            border: 1px dashed var(--grey-line);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: .78rem;
+        }
+
+        .mpc-minicalc.open {
+            display: block;
+        }
+
+        .mpc-minicalc-row {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .mpc-minicalc-row .mpc-field {
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .mpc-minicalc-row input {
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 6px 8px;
+            width: 100%;
+        }
+
+        .mpc-minicalc-result {
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .mpc-minicalc-use {
+            background: var(--dark-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: .76rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mpc-minicalc-use:hover {
+            background: #00253d;
+        }
+
+        .mpc-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .mpc-compare-readout {
+            background: var(--good-bg);
+            border-radius: 6px;
+            padding: 8px 9px;
+        }
+
+        .mpc-compare-readout .mpc-compare-label {
+            font-size: .72rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .mpc-compare-readout .mpc-compare-value {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+        }
+
+        .mpc-compare-value.mpc-negative {
+            color: #9A3B1F;
+        }
+
+        .mpc-toggle-breakdown {
+            margin-top: 12px;
+            background: none;
+            border: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: .82rem;
+            cursor: pointer;
+            padding: 4px 0;
+            text-decoration: underline;
+        }
+
+        .mpc-breakdown {
+            display: none;
+            margin-top: 10px;
+            border-top: 1px dashed var(--grey-line);
+            padding-top: 10px;
+        }
+
+        .mpc-breakdown.open {
+            display: block;
+        }
+
+        .mpc-breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px 16px;
+            font-size: .82rem;
+        }
+
+        .mpc-breakdown-grid div {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px solid #F0F3F4;
+        }
+
+        .mpc-breakdown-grid div b {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .mpc-breakdown-section-title {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--aqua);
+            font-weight: 700;
+            margin: 10px 0 4px;
+        }
+
+        /* ---------- Business-wide summary ---------- */
+        .mpc-summary {
+            background: var(--dark-blue);
+            color: var(--white);
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin-bottom: 28px;
+        }
+
+        .mpc-summary h3 {
+            margin: 0 0 6px;
+            font-size: 1.05rem;
+        }
+
+        .mpc-summary p {
+            margin: 0 0 14px;
+            font-size: .85rem;
+            color: #CFE9EC;
+        }
+
+        .mpc-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .mpc-summary-stat {
+            background: rgba(255, 255, 255, .08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .mpc-summary-stat .label {
+            font-size: .74rem;
+            color: #CFE9EC;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .mpc-summary-stat .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--aqua);
+        }
+
+        .mpc-summary-empty {
+            font-size: .85rem;
+            color: #CFE9EC;
+        }
+
+        /* ---------- Assumptions accordion ---------- */
+        .mpc-assumptions {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .mpc-assumptions summary {
+            cursor: pointer;
+            background: var(--grey-bg);
+            padding: 14px 18px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+            list-style: none;
+        }
+
+        .mpc-assumptions summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .mpc-assumptions summary::before {
+            content: "▸ ";
+            color: var(--aqua);
+        }
+
+        .mpc-assumptions[open] summary::before {
+            content: "▾ ";
+        }
+
+        .mpc-assumptions-body {
+            padding: 16px 18px 6px;
+        }
+
+        .mpc-assumptions-body p {
+            font-size: .85rem;
+            color: var(--text-muted);
+            margin-top: 0;
+        }
+
+        .mpc-assumption-row {
+            display: grid;
+            grid-template-columns: 1.4fr 110px 2fr;
+            gap: 12px;
+            align-items: start;
+            padding: 10px 0;
+            border-bottom: 1px solid #F0F3F4;
+            font-size: .84rem;
+        }
+
+        .mpc-assumption-row label {
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .mpc-assumption-row input {
+            border: 1px dashed var(--estimate-border);
+            border-radius: 6px;
+            padding: 6px 8px;
+            background: var(--estimate-bg);
+            color: var(--dark-blue);
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .mpc-assumption-row .mpc-source {
+            color: var(--text-muted);
+            font-size: .8rem;
+        }
+
+        .mpc-reset {
+            margin: 14px 0 4px;
+            background: var(--white);
+            border: 2px solid var(--dark-blue);
+            color: var(--dark-blue);
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .85rem;
+        }
+
+        .mpc-reset:hover {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-disclaimer {
+            font-size: .78rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--grey-line);
+            padding-top: 14px;
+            margin-top: 10px;
+        }
+
+        @media (max-width:600px) {
+            .mpc-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .mpc-assumption-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .mpc-role-card h3 {
+                align-items: flex-start;
+            }
+
+            .mpc-rate-pills {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mpc-wrap">
+
+        <div class="mpc-header">
+            <h1>Charge Out Rate Calculator</h1>
+            <p>For Plumbing, Gasfitting &amp; Drainlaying businesses — prepared for Master Plumbers, Gasfitters &amp;
+                Drainlayers NZ Inc members.</p>
+        </div>
+
+        <div class="mpc-intro">
+            <strong>What this calculator does:</strong> Punch in what you pay an apprentice, labourer, tradesperson or
+            certifier, and this tool works out every hidden cost of employing them (ACC levies, KiwiSaver, annual leave,
+            public holidays, sick leave, and your own vehicle and overhead costs), then suggests a charge out rate that
+            covers the lot and builds in your margin.
+            Enter the hourly wage in the highlighted field for each role — that's all you need for a suggested rate. All
+            cost inputs and outputs below are <strong>excl. GST</strong> unless marked otherwise; use the "incl. GST"
+            figure when quoting a customer. Add how many staff you have at each grade and your own current charge-out
+            rate to see the gap across your whole business.
+        </div>
+        <div class="mpc-scope-note">
+            This gives a <strong>labour charge-out rate only</strong>. It excludes materials and material markup,
+            subcontractors, job-specific plant hire, permits/certification fees and call-out charges — add those
+            separately when pricing a job. This is a planning tool, not financial or tax advice.
+        </div>
+
+        <div class="mpc-trade-row">
+            <label for="mpc-trade">Trade:</label>
+            <div class="mpc-segmented" id="mpc-trade-toggle" role="group" aria-label="Select trade">
+                <button type="button" data-trade="Plumbing" class="active">Plumbing</button>
+                <button type="button" data-trade="Gasfitting">Gasfitting</button>
+                <button type="button" data-trade="Drainlaying">Drainlaying</button>
+            </div>
+            <div class="mpc-gasfitting-note">Gasfitting adds a certification &amp; risk premium <em>on top of</em> the
+                suggested rate for every role (not stacked into the markup). Plumbing and Drainlaying use the same base
+                rate.</div>
+        </div>
+
+        <div class="mpc-legend">
+            <span><span class="mpc-swatch"
+                    style="background:var(--required-bg); border-color:var(--required-border);"></span> Hourly wage —
+                the only field you need to fill in</span>
+            <span><span class="mpc-swatch"
+                    style="background:var(--estimate-bg); border-color:var(--estimate-border); border-style:dashed;"></span>
+                Pre-filled estimate — overtype with your own numbers</span>
+            <span><span class="mpc-swatch" style="background:var(--white); border-color:#B9C6C9"></span> Your own
+                business numbers (no statutory default)</span>
+            <span><span class="mpc-swatch" style="background:var(--grey-bg); border-color:var(--grey-line)"></span>
+                Calculated automatically</span>
+        </div>
+
+        <div class="mpc-roles" id="mpc-roles"></div>
+
+        <div class="mpc-summary" id="mpc-summary"></div>
+
+        <details class="mpc-assumptions" id="mpc-assumptions">
+            <summary>Assumptions &amp; sources — every rate feeding this calculator</summary>
+            <div class="mpc-assumptions-body">
+                <p>Change any value below and the whole calculator recalculates. These default to published 2026/27
+                    statutory rates and industry estimates — see the notes for sources, and always confirm your own ACC
+                    rate against your latest invoice or MyACC for Business, since it depends on your BIC code and
+                    experience rating.</p>
+                <div id="mpc-assumption-list"></div>
+                <button type="button" class="mpc-reset" id="mpc-reset-btn">Reset all to defaults</button>
+            </div>
+        </details>
+
+        <div class="mpc-disclaimer">
+            Data sources: ACC Levy Guidebook 2026/27; Employment New Zealand; Inland Revenue; MBIE. Figures are shown
+            excl. GST unless marked otherwise. This is a planning tool, not financial or tax advice — please check
+            figures against your own accounts and ACC invoice before relying on them.
+        </div>
+
+    </div>
+
+    <script>
+        (function () {
+
+            // ---------------------------------------------------------------
+            // Assumptions
+            // ---------------------------------------------------------------
+            const defaultAssumptions = {
+                hoursPerWeek: { value: 40, label: "Ordinary hours per week", source: "Standard full time working week. Adjust if your team works different hours." },
+                weeksPaidPerYear: { value: 52, label: "Weeks paid per year", source: "Fixed: number of weeks in a year." },
+                annualLeaveWeeks: { value: 4, label: "Annual leave entitlement (weeks/year)", source: "Holidays Act 2003 statutory minimum after 12 months' continuous employment. Source: Employment New Zealand." },
+                publicHolidayDays: { value: 12, label: "Public holidays (days/year)", source: "11 national public holidays plus 1 regional anniversary day. Source: Employment New Zealand." },
+                sickLeaveDays: { value: 10, label: "Sick leave entitlement (days/year)", source: "Statutory minimum. Source: Employment New Zealand. Reduce if your team typically takes less than full entitlement." },
+                nonBillablePct: { value: 0.2, label: "Default non-billable time at work (%)", source: "Starting estimate for travel, training, admin, quoting and downtime — not a statutory figure. Editable per role on the Calculator; many trade businesses run 75-85% billable utilisation.", isPct: true },
+                accWorkLevy: { value: 0.014, label: "ACC Work Levy (%)", source: "Approximate rate for Classification Unit 42310 'Plumbing services', 2026/27 levy year (has sat close to $1.40 per $100 in recent years). Your own rate depends on your registered BIC code and experience rating, so confirm the exact figure on your latest ACC invoice or in MyACC for Business. Source: ACC Levy Guidebook 2026/27, acc.co.nz", isPct: true },
+                accSaferLevy: { value: 0.0008, label: "ACC Working Safer Levy (%)", source: "A flat rate charged to all employers, funding WorkSafe New Zealand. Source: ACC Levy Guidebook 2026/27, acc.co.nz", isPct: true },
+                accMaxLiableEarnings: { value: 156641, label: "ACC maximum liable earnings ($/year)", source: "ACC Work Levy and Working Safer Levy are only charged up to this amount of earnings per employee per year. Source: ACC/Inland Revenue, 2026/27 levy year." },
+                kiwiSaverPct: { value: 0.035, label: "KiwiSaver employer contribution (%)", source: "Minimum compulsory employer contribution on gross pay for employees who are KiwiSaver members, effective 1 April 2026 (scheduled to rise to 4% from 1 April 2028). Not subject to the ACC earnings cap. Source: Inland Revenue, ird.govt.nz/kiwisaver-changes", isPct: true },
+                defaultMarkup: { value: 0.4, label: "Default markup on true cost (%)", source: "A business decision, not a statutory figure — the starting markup applied on top of true cost. Note: a 40% markup is equivalent to a 28.6% gross margin, not 40% margin. Adjust per role to hit your own profitability target.", isPct: true },
+                gstRate: { value: 0.15, label: "GST rate (%)", source: "New Zealand's standard GST rate, used only to show the incl.-GST charge out figure alongside the excl.-GST figure.", isPct: true },
+                vehicleAppLab: { value: 1500, label: "Default vehicle & tools, Apprentice/Labourer ($/year, excl. GST)", source: "Starting estimate for a basic tool allowance, since apprentices and labourers typically travel with a senior tradesperson. This is NOT a statutory figure — replace with your own number, or use the mini-calculator on the Calculator tab (annual motor expenses ÷ number of vehicles). If you own a vehicle outright, remember to include depreciation as part of its true annual cost, not just running expenses." },
+                vehicleTradeCert: { value: 13000, label: "Default vehicle & tools, Tradesperson/Certifier ($/year, excl. GST)", source: "Roughly $9,000-$11,000/year in running costs (fuel, insurance, rego/WOF, servicing, tyres) for a dedicated work vehicle, plus tools/equipment. Excludes finance/lease repayments — add your own on top if that applies. If the vehicle is owned outright, include depreciation as part of its true annual cost. Replace with your own figure, or use the mini-calculator (annual motor expenses ÷ number of vehicles)." },
+                defaultOverheads: { value: 8000, label: "Default share of overheads, all roles ($/year, excl. GST)", source: "A rough starting point only — work out your own by taking total annual overheads (excl. vehicles/tools already counted above) and dividing by your number of billable staff, or use the mini-calculator on the Calculator tab." },
+                gasfittingLoading: { value: 0.1, label: "Gasfitting certification & risk premium (%)", source: "Editable estimate reflecting gas certification, higher public liability/insurance exposure, and scarcity of registered gasfitters. Applied as a true premium on top of the full suggested rate (rate × (1 + premium)) when Gasfitting is selected — it is not folded into the markup. Review against your own insurance and compliance costs." }
+            };
+
+            let A = JSON.parse(JSON.stringify(defaultAssumptions));
+
+            const roleDefs = [
+                { key: "apprentice", name: "Apprentice", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true },
+                { key: "labourer", name: "Labourer", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true },
+                { key: "tradesperson", name: "Tradesperson", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true },
+                { key: "certifier", name: "Certifier", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true }
+            ];
+
+            let trade = "Plumbing";
+            let roleState = {};
+
+            function defaultStateForRole(r) {
+                return {
+                    wage: null,
+                    kiwiSaver: r.kiwiSaverDefault,
+                    vehicle: A[r.vehicleKey].value,
+                    overheads: A.defaultOverheads.value,
+                    nonBillablePct: A.nonBillablePct.value,
+                    markup: A.defaultMarkup.value,
+                    headcount: 1,
+                    currentRate: null,
+                    breakdownOpen: false,
+                    vehicleCalcOpen: false,
+                    overheadCalcOpen: false,
+                    vehicleCalcInputs: { motorExpenses: null, vehicleCount: 1 },
+                    overheadCalcInputs: { totalOverheads: null, staffCount: 1 }
+                };
+            }
+            function initRoleState() {
+                roleDefs.forEach(r => { roleState[r.key] = defaultStateForRole(r); });
+            }
+            initRoleState();
+
+            function certifierTitle() {
+                if (trade === "Plumbing") return "Certifying Plumber";
+                if (trade === "Gasfitting") return "Certifying Gasfitter";
+                return "Certifying Drainlayer";
+            }
+
+            function fmtMoney(n) {
+                if (n === null || n === undefined || isNaN(n)) return "—";
+                return "$" + n.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+            function fmtMoneyWhole(n) {
+                if (n === null || n === undefined || isNaN(n)) return "—";
+                return "$" + Math.round(n).toLocaleString("en-NZ");
+            }
+            function fmtHours(n) { return n.toLocaleString("en-NZ", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
+            function fmtPct2(n) { return (n * 100).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"; }
+
+            // ---------------------------------------------------------------
+            // Core calculation
+            // ---------------------------------------------------------------
+            function computeRole(state) {
+                const wage = state.wage;
+                if (wage === null || wage === "") { return { hasWage: false }; }
+                if (isNaN(wage) || wage < 0) { return { hasWage: true, error: "Hourly wage can't be negative." }; }
+
+                const hoursPerWeek = A.hoursPerWeek.value;
+                const weeksPaid = A.weeksPaidPerYear.value;
+
+                const annualWage = wage * hoursPerWeek * weeksPaid;
+                const cappedWage = Math.min(annualWage, A.accMaxLiableEarnings.value);
+                const accWork = cappedWage * A.accWorkLevy.value;
+                const accSafer = cappedWage * A.accSaferLevy.value;
+                const kiwiSaver = state.kiwiSaver ? annualWage * A.kiwiSaverPct.value : 0;
+                const totalEmploymentCost = annualWage + accWork + accSafer + kiwiSaver;
+
+                const paidHours = hoursPerWeek * weeksPaid;
+                const annualLeaveHours = hoursPerWeek * A.annualLeaveWeeks.value;
+                const publicHolidayHours = (A.publicHolidayDays.value / 5) * hoursPerWeek;
+                const sickLeaveHours = (A.sickLeaveDays.value / 5) * hoursPerWeek;
+                const hoursWorked = paidHours - annualLeaveHours - publicHolidayHours - sickLeaveHours;
+
+                if (hoursWorked <= 0) {
+                    return { hasWage: true, error: "Paid leave assumptions add up to more than paid hours — check the Assumptions & Sources panel." };
+                }
+
+                let nonBillable = Number(state.nonBillablePct);
+                if (isNaN(nonBillable)) nonBillable = 0;
+                if (nonBillable < 0) nonBillable = 0;
+                if (nonBillable > 0.99) {
+                    return { hasWage: true, error: "Non-billable time must be below 100%." };
+                }
+                const billableHours = hoursWorked * (1 - nonBillable);
+                if (billableHours <= 0) {
+                    return { hasWage: true, error: "Billable hours came out at zero or below — check non-billable time and leave assumptions." };
+                }
+
+                const trueLabourCostPerHour = totalEmploymentCost / billableHours;
+                const vehicle = Number(state.vehicle) || 0;
+                const overheads = Number(state.overheads) || 0;
+                const totalOverhead = vehicle + overheads;
+                const overheadPerHour = totalOverhead / billableHours;
+                const trueFullCost = trueLabourCostPerHour + overheadPerHour;
+
+                let markup = Number(state.markup);
+                if (isNaN(markup) || markup < 0) markup = 0;
+                const marginPct = markup / (1 + markup);
+
+                const gasLoading = trade === "Gasfitting" ? A.gasfittingLoading.value : 0;
+                const suggestedExGST = trueFullCost * (1 + markup) * (1 + gasLoading);
+                const suggestedIncGST = suggestedExGST * (1 + A.gstRate.value);
+
+                const headcount = Math.max(1, Math.round(Number(state.headcount) || 1));
+                let currentRate = state.currentRate;
+                if (currentRate === "" || currentRate === undefined) currentRate = null;
+                if (currentRate !== null) currentRate = Number(currentRate);
+
+                let gapPerHour = null, gapPerMonth = null, gapPerYear = null;
+                if (currentRate !== null && !isNaN(currentRate)) {
+                    gapPerHour = suggestedExGST - currentRate;
+                    gapPerYear = gapPerHour * billableHours * headcount;
+                    gapPerMonth = gapPerYear / 12;
+                }
+
+                return {
+                    hasWage: true, error: null,
+                    annualWage, accWork, accSafer, kiwiSaver, totalEmploymentCost, cappedWage,
+                    paidHours, annualLeaveHours, publicHolidayHours, sickLeaveHours, hoursWorked,
+                    nonBillable, billableHours,
+                    trueLabourCostPerHour, vehicle, overheads, totalOverhead, overheadPerHour,
+                    trueFullCost, markup, marginPct, gasLoading, suggestedExGST, suggestedIncGST,
+                    headcount, currentRate, gapPerHour, gapPerMonth, gapPerYear
+                };
+            }
+
+            // ---------------------------------------------------------------
+            // Rendering
+            // ---------------------------------------------------------------
+            const rolesEl = document.getElementById("mpc-roles");
+            const summaryEl = document.getElementById("mpc-summary");
+
+            function renderRoles() {
+                rolesEl.innerHTML = "";
+                let anyGapKnown = false;
+                let totalGapMonth = 0, totalGapYear = 0, totalHeadcount = 0;
+
+                roleDefs.forEach(r => {
+                    const state = roleState[r.key];
+                    const result = computeRole(state);
+                    const displayName = r.key === "certifier" ? certifierTitle() : r.name;
+
+                    if (result.hasWage && !result.error) {
+                        totalHeadcount += result.headcount;
+                        if (result.gapPerYear !== null && !isNaN(result.gapPerYear)) {
+                            anyGapKnown = true;
+                            totalGapMonth += result.gapPerMonth;
+                            totalGapYear += result.gapPerYear;
+                        }
+                    }
+
+                    const card = document.createElement("div");
+                    card.className = "mpc-role-card";
+
+                    let pillHtml;
+                    if (result.hasWage && result.error) {
+                        pillHtml = `<span class="mpc-result-pill" style="background:var(--warn-bg); color:var(--warn-text);">check inputs</span>`;
+                    } else if (result.hasWage) {
+                        pillHtml = `<div class="mpc-rate-pills">
+            <span class="mpc-result-pill">${fmtMoney(result.suggestedExGST)}/hr ex GST</span>
+            <span class="mpc-result-pill mpc-incgst">${fmtMoney(result.suggestedIncGST)}/hr incl. GST</span>
+          </div>`;
+                    } else {
+                        pillHtml = `<span class="mpc-result-pill" style="background:var(--grey-bg); color:var(--text-muted);"><span class="mpc-result-empty">enter a wage</span></span>`;
+                    }
+
+                    const warningHtml = (result.hasWage && result.error)
+                        ? `<div class="mpc-warning">${result.error}</div>` : "";
+
+                    card.innerHTML = `
+        <h3>
+          <div class="mpc-role-title-left">
+            ${displayName}
+            <span class="mpc-headcount"><label for="hc-${r.key}">Staff at this grade</label><input type="number" min="1" step="1" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}"></span>
+          </div>
+          ${pillHtml}
+        </h3>
+        ${warningHtml}
+
+        <div class="mpc-section-label">Wage &amp; costs</div>
+        <div class="mpc-field-grid">
+          <div class="mpc-field">
+            <label>Hourly wage paid ($), required</label>
+            <input type="number" step="0.01" min="0" class="mpc-required" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : state.wage}" placeholder="0.00">
+          </div>
+          <div class="mpc-field">
+            <label>KiwiSaver member?</label>
+            <select data-role="${r.key}" data-field="kiwiSaver">
+              <option value="yes" ${state.kiwiSaver ? "selected" : ""}>Yes</option>
+              <option value="no" ${!state.kiwiSaver ? "selected" : ""}>No</option>
+            </select>
+          </div>
+          <div class="mpc-field">
+            <div class="mpc-field-label-row">
+              <label>Vehicle &amp; tools ($/yr, excl. GST)</label>
+              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="vehicle">reset</button>
+            </div>
+            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="vehicle" value="${state.vehicle}">
+            <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="${r.key}">${state.vehicleCalcOpen ? "Hide" : "Calculate from motor expenses ▸"}</button>
+            <div class="mpc-minicalc ${state.vehicleCalcOpen ? "open" : ""}" data-minicalc="vehicle" data-role="${r.key}">
+              <div class="mpc-minicalc-row">
+                <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="number" min="0" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : state.vehicleCalcInputs.motorExpenses}"></div>
+                <div class="mpc-field"><label>Number of vehicles</label><input type="number" min="1" step="1" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
+              </div>
+              <div class="mpc-minicalc-result">${vehicleCalcResultHtml(state)}</div>
+            </div>
+          </div>
+          <div class="mpc-field">
+            <div class="mpc-field-label-row">
+              <label>Share of overheads ($/yr, excl. GST)</label>
+              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="overheads">reset</button>
+            </div>
+            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="overheads" value="${state.overheads}">
+            <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="${r.key}">${state.overheadCalcOpen ? "Hide" : "Calculate from total overheads ▸"}</button>
+            <div class="mpc-minicalc ${state.overheadCalcOpen ? "open" : ""}" data-minicalc="overhead" data-role="${r.key}">
+              <div class="mpc-minicalc-row">
+                <div class="mpc-field"><label>Total annual overheads ($)</label><input type="number" min="0" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : state.overheadCalcInputs.totalOverheads}"></div>
+                <div class="mpc-field"><label>Number of billable staff</label><input type="number" min="1" step="1" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
+              </div>
+              <div class="mpc-minicalc-result">${overheadCalcResultHtml(state)}</div>
+            </div>
+          </div>
+          <div class="mpc-field">
+            <div class="mpc-field-label-row">
+              <label>Non-billable time (%)</label>
+              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="nonBillablePct">reset</button>
+            </div>
+            <input type="number" step="1" min="0" max="99" class="mpc-estimate" data-role="${r.key}" data-field="nonBillablePct" value="${Math.round(state.nonBillablePct * 100)}">
+          </div>
+          <div class="mpc-field">
+            <div class="mpc-field-label-row">
+              <label>Markup on true cost (%)</label>
+              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="markup">reset</button>
+            </div>
+            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="markup" value="${Math.round(state.markup * 100)}">
+            ${result.hasWage && !result.error ? `<div class="mpc-helper-text">≈ ${(result.marginPct * 100).toFixed(1)}% gross margin (before any gasfitting premium)</div>` : ""}
+          </div>
+          <div class="mpc-field">
+            <label>True full cost ($/hr, excl. GST)</label>
+            <div class="mpc-readout">${result.hasWage && !result.error ? fmtMoney(result.trueFullCost) : "—"}</div>
+          </div>
+        </div>
+
+        <div class="mpc-section-label">Compare to your current rate</div>
+        <div class="mpc-field-grid">
+          <div class="mpc-field">
+            <label>Your current charge out rate ($/hr, excl. GST)</label>
+            <input type="number" step="0.01" min="0" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : state.currentRate}" placeholder="optional">
+          </div>
+        </div>
+        ${result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate) ? `
+        <div class="mpc-compare-grid">
+          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per hour</span><span class="mpc-compare-value ${result.gapPerHour < 0 ? 'mpc-negative' : ''}">${fmtMoney(result.gapPerHour)}</span></div>
+          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per month (this grade)</span><span class="mpc-compare-value ${result.gapPerMonth < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerMonth)}</span></div>
+          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per year (this grade)</span><span class="mpc-compare-value ${result.gapPerYear < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerYear)}</span></div>
+        </div>` : ""}
+
+        <button type="button" class="mpc-toggle-breakdown" data-role="${r.key}">${state.breakdownOpen ? "Hide full breakdown ▲" : "Show full breakdown ▼"}</button>
+        <div class="mpc-breakdown ${state.breakdownOpen ? "open" : ""}" data-breakdown="${r.key}">
+          ${result.hasWage && !result.error ? renderBreakdown(result) : '<p style="font-size:.85rem;color:var(--text-muted);">Enter an hourly wage above to see the full breakdown.</p>'}
+        </div>
+      `;
+                    rolesEl.appendChild(card);
+                });
+
+                attachRoleListeners();
+                renderSummary(anyGapKnown, totalGapMonth, totalGapYear, totalHeadcount);
+            }
+
+            function vehicleCalcResultHtml(state) {
+                const me = Number(state.vehicleCalcInputs.motorExpenses);
+                const vc = Number(state.vehicleCalcInputs.vehicleCount) || 1;
+                if (!me || me <= 0) {
+                    return `<span style="color:var(--text-muted);">Enter your motor expenses and vehicle count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>`;
+                }
+                const perVehicle = me / vc;
+                return `Per vehicle: <span class="mpc-minicalc-result">${fmtMoneyWhole(perVehicle)}/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="vehicle">Use this value</button>`;
+            }
+            function overheadCalcResultHtml(state) {
+                const to = Number(state.overheadCalcInputs.totalOverheads);
+                const sc = Number(state.overheadCalcInputs.staffCount) || 1;
+                if (!to || to <= 0) {
+                    return `<span style="color:var(--text-muted);">Enter your total overheads and billable staff count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>`;
+                }
+                const perStaff = to / sc;
+                return `Per billable staff member: <span class="mpc-minicalc-result">${fmtMoneyWhole(perStaff)}/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="overhead">Use this value</button>`;
+            }
+
+            function renderBreakdown(res) {
+                return `
+      <div class="mpc-breakdown-section-title">Wages &amp; statutory on-costs</div>
+      <div class="mpc-breakdown-grid">
+        <div><span>Annual wage cost</span><b>${fmtMoney(res.annualWage)}</b></div>
+        <div><span>ACC-liable earnings (capped)</span><b>${fmtMoney(res.cappedWage)}</b></div>
+        <div><span>ACC Work Levy</span><b>${fmtMoney(res.accWork)}</b></div>
+        <div><span>ACC Working Safer Levy</span><b>${fmtMoney(res.accSafer)}</b></div>
+        <div><span>KiwiSaver employer</span><b>${fmtMoney(res.kiwiSaver)}</b></div>
+        <div><span>Total annual employment cost</span><b>${fmtMoney(res.totalEmploymentCost)}</b></div>
+      </div>
+      <div class="mpc-breakdown-section-title">Paid leave &amp; capacity</div>
+      <div class="mpc-breakdown-grid">
+        <div><span>Paid hours per year</span><b>${fmtHours(res.paidHours)}</b></div>
+        <div><span>Annual leave hours</span><b>${fmtHours(res.annualLeaveHours)}</b></div>
+        <div><span>Public holiday hours</span><b>${fmtHours(res.publicHolidayHours)}</b></div>
+        <div><span>Sick leave hours</span><b>${fmtHours(res.sickLeaveHours)}</b></div>
+        <div><span>Hours worked (at business)</span><b>${fmtHours(res.hoursWorked)}</b></div>
+        <div><span>Non-billable time</span><b>${(res.nonBillable * 100).toFixed(0)}%</b></div>
+        <div><span>Billable hours per year</span><b>${fmtHours(res.billableHours)}</b></div>
+      </div>
+      <div class="mpc-breakdown-section-title">True labour cost &amp; overheads</div>
+      <div class="mpc-breakdown-grid">
+        <div><span>True labour cost / billable hr</span><b>${fmtMoney(res.trueLabourCostPerHour)}</b></div>
+        <div><span>Vehicle &amp; tools</span><b>${fmtMoney(res.vehicle)}</b></div>
+        <div><span>Share of overheads</span><b>${fmtMoney(res.overheads)}</b></div>
+        <div><span>Total annual overhead</span><b>${fmtMoney(res.totalOverhead)}</b></div>
+        <div><span>Overhead cost / billable hr</span><b>${fmtMoney(res.overheadPerHour)}</b></div>
+        <div><span>True full cost / hr (excl. GST)</span><b>${fmtMoney(res.trueFullCost)}</b></div>
+      </div>
+      <div class="mpc-breakdown-section-title">Suggested charge out rate</div>
+      <div class="mpc-breakdown-grid">
+        <div><span>Markup applied</span><b>${(res.markup * 100).toFixed(0)}% (≈${(res.marginPct * 100).toFixed(1)}% margin)</b></div>
+        <div><span>Gasfitting premium</span><b>${(res.gasLoading * 100).toFixed(0)}% on top of rate</b></div>
+        <div><span>Suggested rate, excl. GST</span><b>${fmtMoney(res.suggestedExGST)}/hr</b></div>
+        <div><span>Suggested rate, incl. GST</span><b>${fmtMoney(res.suggestedIncGST)}/hr</b></div>
+      </div>
+    `;
+            }
+
+            function renderSummary(anyGapKnown, totalGapMonth, totalGapYear, totalHeadcount) {
+                if (!anyGapKnown) {
+                    summaryEl.innerHTML = `
+        <h3>Business-wide potential</h3>
+        <p class="mpc-summary-empty">Enter "your current charge out rate" on at least one role above (and how many staff you have at that grade) to see the potential gain across your whole business.</p>
+      `;
+                    return;
+                }
+                const posNeg = totalGapYear >= 0 ? "gain" : "shortfall";
+                summaryEl.innerHTML = `
+      <h3>Business-wide potential</h3>
+      <p>Based on the current rates you've entered, across ${totalHeadcount} billable staff.</p>
+      <div class="mpc-summary-grid">
+        <div class="mpc-summary-stat"><span class="label">Monthly ${posNeg}</span><span class="value">${fmtMoneyWhole(Math.abs(totalGapMonth))}</span></div>
+        <div class="mpc-summary-stat"><span class="label">Annual ${posNeg}</span><span class="value">${fmtMoneyWhole(Math.abs(totalGapYear))}</span></div>
+      </div>
+    `;
+            }
+
+            // ---------------------------------------------------------------
+            // Event handling
+            // ---------------------------------------------------------------
+            function attachRoleListeners() {
+                rolesEl.querySelectorAll("input[data-role][data-field]").forEach(el => {
+                    el.addEventListener("input", onFieldChange);
+                });
+                rolesEl.querySelectorAll("select[data-role][data-field]").forEach(el => {
+                    el.addEventListener("change", onFieldChange);
+                });
+                rolesEl.querySelectorAll(".mpc-toggle-breakdown").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const key = btn.getAttribute("data-role");
+                        roleState[key].breakdownOpen = !roleState[key].breakdownOpen;
+                        renderRoles();
+                    });
+                });
+                rolesEl.querySelectorAll(".mpc-reset-icon").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const role = btn.getAttribute("data-reset-role");
+                        const field = btn.getAttribute("data-reset-field");
+                        const rDef = roleDefs.find(r => r.key === role);
+                        if (field === "vehicle") roleState[role].vehicle = A[rDef.vehicleKey].value;
+                        else if (field === "overheads") roleState[role].overheads = A.defaultOverheads.value;
+                        else if (field === "nonBillablePct") roleState[role].nonBillablePct = A.nonBillablePct.value;
+                        else if (field === "markup") roleState[role].markup = A.defaultMarkup.value;
+                        renderRoles();
+                    });
+                });
+                rolesEl.querySelectorAll("[data-minicalc-toggle]").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const role = btn.getAttribute("data-role");
+                        const kind = btn.getAttribute("data-minicalc-toggle");
+                        if (kind === "vehicle") roleState[role].vehicleCalcOpen = !roleState[role].vehicleCalcOpen;
+                        else roleState[role].overheadCalcOpen = !roleState[role].overheadCalcOpen;
+                        renderRoles();
+                    });
+                });
+                rolesEl.querySelectorAll("[data-mc-role]").forEach(el => {
+                    el.addEventListener("input", (e) => {
+                        const role = e.target.getAttribute("data-mc-role");
+                        const kind = e.target.getAttribute("data-mc-kind");
+                        const field = e.target.getAttribute("data-mc-field");
+                        let v = e.target.value === "" ? null : parseFloat(e.target.value);
+                        if (kind === "vehicle") roleState[role].vehicleCalcInputs[field] = v;
+                        else roleState[role].overheadCalcInputs[field] = v;
+                        renderRoles();
+                    });
+                });
+                rolesEl.querySelectorAll("[data-mc-use]").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        const container = e.target.closest(".mpc-minicalc");
+                        const role = container.getAttribute("data-role");
+                        const kind = btn.getAttribute("data-mc-use");
+                        if (kind === "vehicle") {
+                            const me = Number(roleState[role].vehicleCalcInputs.motorExpenses);
+                            const vc = Number(roleState[role].vehicleCalcInputs.vehicleCount) || 1;
+                            if (me > 0) roleState[role].vehicle = Math.round(me / vc);
+                        } else {
+                            const to = Number(roleState[role].overheadCalcInputs.totalOverheads);
+                            const sc = Number(roleState[role].overheadCalcInputs.staffCount) || 1;
+                            if (to > 0) roleState[role].overheads = Math.round(to / sc);
+                        }
+                        renderRoles();
+                    });
+                });
+            }
+
+            function onFieldChange(e) {
+                const role = e.target.getAttribute("data-role");
+                const field = e.target.getAttribute("data-field");
+                let val = e.target.value;
+
+                if (field === "kiwiSaver") {
+                    roleState[role].kiwiSaver = (val === "yes");
+                } else if (field === "wage") {
+                    roleState[role].wage = val === "" ? null : parseFloat(val);
+                } else if (field === "currentRate") {
+                    roleState[role].currentRate = val === "" ? null : parseFloat(val);
+                } else if (field === "markup" || field === "nonBillablePct") {
+                    roleState[role][field] = val === "" ? 0 : parseFloat(val) / 100;
+                } else if (field === "headcount") {
+                    roleState[role].headcount = val === "" ? 1 : Math.max(1, Math.round(parseFloat(val)));
+                } else {
+                    roleState[role][field] = val === "" ? 0 : parseFloat(val);
+                }
+                renderRoles();
+                const selector = `[data-role="${role}"][data-field="${field}"]`;
+                const newEl = rolesEl.querySelector(selector);
+                if (newEl) {
+                    newEl.focus();
+                    if (newEl.type === "number" && document.activeElement === newEl) {
+                        const pos = newEl.value.length;
+                        try { newEl.setSelectionRange(pos, pos); } catch (err) { }
+                    }
+                }
+            }
+
+            // ---------------------------------------------------------------
+            // Trade toggle
+            // ---------------------------------------------------------------
+            document.getElementById("mpc-trade-toggle").addEventListener("click", (e) => {
+                const btn = e.target.closest("button[data-trade]");
+                if (!btn) return;
+                trade = btn.getAttribute("data-trade");
+                document.querySelectorAll("#mpc-trade-toggle button").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                renderRoles();
+            });
+
+            // ---------------------------------------------------------------
+            // Assumptions panel
+            // ---------------------------------------------------------------
+            const assumptionListEl = document.getElementById("mpc-assumption-list");
+
+            function renderAssumptions() {
+                assumptionListEl.innerHTML = "";
+                Object.keys(A).forEach(key => {
+                    const a = A[key];
+                    const displayVal = a.isPct ? (a.value * 100) : a.value;
+                    const row = document.createElement("div");
+                    row.className = "mpc-assumption-row";
+                    row.innerHTML = `
+        <label>${a.label}</label>
+        <input type="number" step="${a.isPct ? '0.01' : '1'}" data-assumption="${key}" value="${displayVal}">
+        <div class="mpc-source">${a.source}</div>
+      `;
+                    assumptionListEl.appendChild(row);
+                });
+                assumptionListEl.querySelectorAll("input[data-assumption]").forEach(el => {
+                    el.addEventListener("input", (e) => {
+                        const key = e.target.getAttribute("data-assumption");
+                        let v = parseFloat(e.target.value);
+                        if (isNaN(v)) v = 0;
+                        A[key].value = A[key].isPct ? v / 100 : v;
+                        renderRoles();
+                    });
+                });
+            }
+
+            document.getElementById("mpc-reset-btn").addEventListener("click", () => {
+                A = JSON.parse(JSON.stringify(defaultAssumptions));
+                initRoleState();
+                renderAssumptions();
+                renderRoles();
+            });
+
+            // ---------------------------------------------------------------
+            // Init
+            // ---------------------------------------------------------------
+            renderAssumptions();
+            renderRoles();
+
+        })();
+    </script>
+</body>
+
+</html>

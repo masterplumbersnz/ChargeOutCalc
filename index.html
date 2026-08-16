@@ -29,7 +29,7 @@
 
         html,
         body {
-            margin: 0;a
+            margin: 0;
             padding: 0;
         }
 
@@ -277,16 +277,20 @@
 
         .mpc-field-label-row {
             display: flex;
-            align-items: baseline;
+            align-items: flex-end;
             justify-content: space-between;
             gap: 6px;
+            min-height: 2.4em;
         }
 
         .mpc-field label {
             font-size: .76rem;
             font-weight: 600;
             color: var(--text-muted);
-            line-height: 1.25;
+            line-height: 1.2;
+            min-height: 2.4em;
+            display: flex;
+            align-items: flex-end;
         }
 
         .mpc-reset-icon {
@@ -301,7 +305,7 @@
             white-space: nowrap;
         }
 
-        .mpc-field input[type="number"],
+        .mpc-field input[type="text"],
         .mpc-field select {
             border: 1px solid #B9C6C9;
             border-radius: 6px;
@@ -773,6 +777,68 @@
                 gasfittingLoading: { value: 0.1, label: "Gasfitting certification & risk premium (%)", source: "Editable estimate reflecting gas certification, higher public liability/insurance exposure, and scarcity of registered gasfitters. Applied as a true premium on top of the full suggested rate (rate × (1 + premium)) when Gasfitting is selected — it is not folded into the markup. Review against your own insurance and compliance costs." }
             };
 
+            // Select the full value on focus/tap so typing a new number replaces it
+            // instantly, instead of needing the up/down arrows or manual clearing.
+            // (Suppressed once after a programmatic re-focus post-render, so it
+            // doesn't re-select and swallow the digit the person just typed.)
+            let suppressNextAutoSelect = false;
+            document.addEventListener("focusin", function (e) {
+                if (e.target && e.target.tagName === "INPUT" && e.target.hasAttribute("inputmode")) {
+                    if (suppressNextAutoSelect) {
+                        suppressNextAutoSelect = false;
+                        return;
+                    }
+                    e.target.select();
+                }
+            });
+
+            // Parse editable numbers without losing common formatting while someone types.
+            // Inputs remain type="text" so values such as "32." can exist temporarily;
+            // this is important because type="number" and immediate re-rendering can make
+            // decimal entry unreliable on some browsers/mobile keyboards.
+            function parseUserNumber(raw) {
+                if (raw === null || raw === undefined) return null;
+                const cleaned = String(raw)
+                    .trim()
+                    .replace(/[$\s]/g, "")
+                    .replace(/,/g, "");
+                if (cleaned === "" || cleaned === "." || cleaned === "-" || cleaned === "-.") return null;
+                const n = Number(cleaned);
+                return Number.isFinite(n) ? n : null;
+            }
+
+            function editableNumber(n, maxDecimals = 4) {
+                if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
+                return Number(n).toLocaleString("en-NZ", {
+                    useGrouping: false,
+                    maximumFractionDigits: maxDecimals
+                });
+            }
+
+            function editablePct(fraction) {
+                return editableNumber(Number(fraction) * 100, 4);
+            }
+
+            // renderRoles() rebuilds the cards. Preserve the exact text and caret position
+            // in the field being edited so entering 32.50, 17.5%, etc. feels natural.
+            function renderRolesPreservingInput(selector, rawValue, selectionStart, selectionEnd) {
+                renderRoles();
+                const newEl = rolesEl.querySelector(selector);
+                if (!newEl) return;
+
+                newEl.value = rawValue;
+                suppressNextAutoSelect = true;
+                try { newEl.focus({ preventScroll: true }); }
+                catch (err) { newEl.focus(); }
+
+                if (document.activeElement === newEl) {
+                    const len = newEl.value.length;
+                    const start = Math.min(selectionStart === null || selectionStart === undefined ? len : selectionStart, len);
+                    const end = Math.min(selectionEnd === null || selectionEnd === undefined ? start : selectionEnd, len);
+                    try { newEl.setSelectionRange(start, end); } catch (err) { }
+                }
+            }
+
             let A = JSON.parse(JSON.stringify(defaultAssumptions));
 
             const roleDefs = [
@@ -948,7 +1014,7 @@
         <h3>
           <div class="mpc-role-title-left">
             ${displayName}
-            <span class="mpc-headcount"><label for="hc-${r.key}">Staff at this grade</label><input type="number" min="1" step="1" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}"></span>
+            <span class="mpc-headcount"><label for="hc-${r.key}">Staff at this grade</label><input type="text" inputmode="numeric" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}"></span>
           </div>
           ${pillHtml}
         </h3>
@@ -958,7 +1024,7 @@
         <div class="mpc-field-grid">
           <div class="mpc-field">
             <label>Hourly wage paid ($), required</label>
-            <input type="number" step="0.01" min="0" class="mpc-required" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : state.wage}" placeholder="0.00">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-required" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : state.wage}" placeholder="0.00">
           </div>
           <div class="mpc-field">
             <label>KiwiSaver member?</label>
@@ -972,12 +1038,12 @@
               <label>Vehicle &amp; tools ($/yr, excl. GST)</label>
               <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="vehicle">reset</button>
             </div>
-            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="vehicle" value="${state.vehicle}">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="vehicle" value="${state.vehicle}">
             <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="${r.key}">${state.vehicleCalcOpen ? "Hide" : "Calculate from motor expenses ▸"}</button>
             <div class="mpc-minicalc ${state.vehicleCalcOpen ? "open" : ""}" data-minicalc="vehicle" data-role="${r.key}">
               <div class="mpc-minicalc-row">
-                <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="number" min="0" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : state.vehicleCalcInputs.motorExpenses}"></div>
-                <div class="mpc-field"><label>Number of vehicles</label><input type="number" min="1" step="1" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
+                <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="text" inputmode="decimal" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : state.vehicleCalcInputs.motorExpenses}"></div>
+                <div class="mpc-field"><label>Number of vehicles</label><input type="text" inputmode="numeric" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
               </div>
               <div class="mpc-minicalc-result">${vehicleCalcResultHtml(state)}</div>
             </div>
@@ -987,12 +1053,12 @@
               <label>Share of overheads ($/yr, excl. GST)</label>
               <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="overheads">reset</button>
             </div>
-            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="overheads" value="${state.overheads}">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="overheads" value="${state.overheads}">
             <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="${r.key}">${state.overheadCalcOpen ? "Hide" : "Calculate from total overheads ▸"}</button>
             <div class="mpc-minicalc ${state.overheadCalcOpen ? "open" : ""}" data-minicalc="overhead" data-role="${r.key}">
               <div class="mpc-minicalc-row">
-                <div class="mpc-field"><label>Total annual overheads ($)</label><input type="number" min="0" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : state.overheadCalcInputs.totalOverheads}"></div>
-                <div class="mpc-field"><label>Number of billable staff</label><input type="number" min="1" step="1" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
+                <div class="mpc-field"><label>Total annual overheads ($)</label><input type="text" inputmode="decimal" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : state.overheadCalcInputs.totalOverheads}"></div>
+                <div class="mpc-field"><label>Number of billable staff</label><input type="text" inputmode="numeric" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
               </div>
               <div class="mpc-minicalc-result">${overheadCalcResultHtml(state)}</div>
             </div>
@@ -1002,14 +1068,14 @@
               <label>Non-billable time (%)</label>
               <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="nonBillablePct">reset</button>
             </div>
-            <input type="number" step="1" min="0" max="99" class="mpc-estimate" data-role="${r.key}" data-field="nonBillablePct" value="${Math.round(state.nonBillablePct * 100)}">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="nonBillablePct" value="${editablePct(state.nonBillablePct)}">
           </div>
           <div class="mpc-field">
             <div class="mpc-field-label-row">
               <label>Markup on true cost (%)</label>
               <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="markup">reset</button>
             </div>
-            <input type="number" step="1" min="0" class="mpc-estimate" data-role="${r.key}" data-field="markup" value="${Math.round(state.markup * 100)}">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="markup" value="${editablePct(state.markup)}">
             ${result.hasWage && !result.error ? `<div class="mpc-helper-text">≈ ${(result.marginPct * 100).toFixed(1)}% gross margin (before any gasfitting premium)</div>` : ""}
           </div>
           <div class="mpc-field">
@@ -1022,7 +1088,7 @@
         <div class="mpc-field-grid">
           <div class="mpc-field">
             <label>Your current charge out rate ($/hr, excl. GST)</label>
-            <input type="number" step="0.01" min="0" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : state.currentRate}" placeholder="optional">
+            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : state.currentRate}" placeholder="optional">
           </div>
         </div>
         ${result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate) ? `
@@ -1081,7 +1147,7 @@
         <div><span>Public holiday hours</span><b>${fmtHours(res.publicHolidayHours)}</b></div>
         <div><span>Sick leave hours</span><b>${fmtHours(res.sickLeaveHours)}</b></div>
         <div><span>Hours worked (at business)</span><b>${fmtHours(res.hoursWorked)}</b></div>
-        <div><span>Non-billable time</span><b>${(res.nonBillable * 100).toFixed(0)}%</b></div>
+        <div><span>Non-billable time</span><b>${editablePct(res.nonBillable)}%</b></div>
         <div><span>Billable hours per year</span><b>${fmtHours(res.billableHours)}</b></div>
       </div>
       <div class="mpc-breakdown-section-title">True labour cost &amp; overheads</div>
@@ -1095,8 +1161,8 @@
       </div>
       <div class="mpc-breakdown-section-title">Suggested charge out rate</div>
       <div class="mpc-breakdown-grid">
-        <div><span>Markup applied</span><b>${(res.markup * 100).toFixed(0)}% (≈${(res.marginPct * 100).toFixed(1)}% margin)</b></div>
-        <div><span>Gasfitting premium</span><b>${(res.gasLoading * 100).toFixed(0)}% on top of rate</b></div>
+        <div><span>Markup applied</span><b>${editablePct(res.markup)}% (≈${(res.marginPct * 100).toFixed(1)}% margin)</b></div>
+        <div><span>Gasfitting premium</span><b>${editablePct(res.gasLoading)}% on top of rate</b></div>
         <div><span>Suggested rate, excl. GST</span><b>${fmtMoney(res.suggestedExGST)}/hr</b></div>
         <div><span>Suggested rate, incl. GST</span><b>${fmtMoney(res.suggestedIncGST)}/hr</b></div>
       </div>
@@ -1165,10 +1231,21 @@
                         const role = e.target.getAttribute("data-mc-role");
                         const kind = e.target.getAttribute("data-mc-kind");
                         const field = e.target.getAttribute("data-mc-field");
-                        let v = e.target.value === "" ? null : parseFloat(e.target.value);
+                        const raw = e.target.value;
+                        const start = e.target.selectionStart;
+                        const end = e.target.selectionEnd;
+                        const parsed = parseUserNumber(raw);
+
+                        let v = parsed;
+                        if (field === "vehicleCount" || field === "staffCount") {
+                            v = parsed === null ? 1 : Math.max(1, Math.round(parsed));
+                        }
+
                         if (kind === "vehicle") roleState[role].vehicleCalcInputs[field] = v;
                         else roleState[role].overheadCalcInputs[field] = v;
-                        renderRoles();
+
+                        const selector = `[data-mc-role="${role}"][data-mc-kind="${kind}"][data-mc-field="${field}"]`;
+                        renderRolesPreservingInput(selector, raw, start, end);
                     });
                 });
                 rolesEl.querySelectorAll("[data-mc-use]").forEach(btn => {
@@ -1193,31 +1270,32 @@
             function onFieldChange(e) {
                 const role = e.target.getAttribute("data-role");
                 const field = e.target.getAttribute("data-field");
-                let val = e.target.value;
+                const raw = e.target.value;
+                const start = e.target.selectionStart;
+                const end = e.target.selectionEnd;
 
                 if (field === "kiwiSaver") {
-                    roleState[role].kiwiSaver = (val === "yes");
-                } else if (field === "wage") {
-                    roleState[role].wage = val === "" ? null : parseFloat(val);
+                    roleState[role].kiwiSaver = (raw === "yes");
+                    renderRoles();
+                    return;
+                }
+
+                const parsed = parseUserNumber(raw);
+
+                if (field === "wage") {
+                    roleState[role].wage = parsed;
                 } else if (field === "currentRate") {
-                    roleState[role].currentRate = val === "" ? null : parseFloat(val);
+                    roleState[role].currentRate = parsed;
                 } else if (field === "markup" || field === "nonBillablePct") {
-                    roleState[role][field] = val === "" ? 0 : parseFloat(val) / 100;
+                    roleState[role][field] = parsed === null ? 0 : parsed / 100;
                 } else if (field === "headcount") {
-                    roleState[role].headcount = val === "" ? 1 : Math.max(1, Math.round(parseFloat(val)));
+                    roleState[role].headcount = parsed === null ? 1 : Math.max(1, Math.round(parsed));
                 } else {
-                    roleState[role][field] = val === "" ? 0 : parseFloat(val);
+                    roleState[role][field] = parsed === null ? 0 : parsed;
                 }
-                renderRoles();
+
                 const selector = `[data-role="${role}"][data-field="${field}"]`;
-                const newEl = rolesEl.querySelector(selector);
-                if (newEl) {
-                    newEl.focus();
-                    if (newEl.type === "number" && document.activeElement === newEl) {
-                        const pos = newEl.value.length;
-                        try { newEl.setSelectionRange(pos, pos); } catch (err) { }
-                    }
-                }
+                renderRolesPreservingInput(selector, raw, start, end);
             }
 
             // ---------------------------------------------------------------
@@ -1241,12 +1319,12 @@
                 assumptionListEl.innerHTML = "";
                 Object.keys(A).forEach(key => {
                     const a = A[key];
-                    const displayVal = a.isPct ? (a.value * 100) : a.value;
+                    const displayVal = a.isPct ? editablePct(a.value) : editableNumber(a.value, 6);
                     const row = document.createElement("div");
                     row.className = "mpc-assumption-row";
                     row.innerHTML = `
         <label>${a.label}</label>
-        <input type="number" step="${a.isPct ? '0.01' : '1'}" data-assumption="${key}" value="${displayVal}">
+        <input type="text" inputmode="decimal" data-assumption="${key}" value="${displayVal}">
         <div class="mpc-source">${a.source}</div>
       `;
                     assumptionListEl.appendChild(row);
@@ -1254,8 +1332,8 @@
                 assumptionListEl.querySelectorAll("input[data-assumption]").forEach(el => {
                     el.addEventListener("input", (e) => {
                         const key = e.target.getAttribute("data-assumption");
-                        let v = parseFloat(e.target.value);
-                        if (isNaN(v)) v = 0;
+                        const parsed = parseUserNumber(e.target.value);
+                        const v = parsed === null ? 0 : parsed;
                         A[key].value = A[key].isPct ? v / 100 : v;
                         renderRoles();
                     });

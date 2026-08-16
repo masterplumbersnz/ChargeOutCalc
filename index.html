@@ -166,218 +166,405 @@
             border: 1px solid rgba(0, 0, 0, .15);
         }
 
-        /* ---------- Role cards ---------- */
+        /* ---------- Responsive spreadsheet-style input table ---------- */
         .mpc-roles {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
             margin-bottom: 28px;
         }
 
-        .mpc-role-card {
+        .mpc-table-intro {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 0 10px;
+        }
+
+        .mpc-table-intro h2 {
+            margin: 0;
+            color: var(--dark-blue);
+            font-size: 1.08rem;
+        }
+
+        .mpc-table-intro p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: .8rem;
+            text-align: right;
+        }
+
+        .mpc-input-table {
             border: 1px solid var(--grey-line);
             border-radius: 10px;
-            padding: 18px 18px 14px;
+            overflow: hidden;
             background: var(--white);
             box-shadow: 0 1px 3px rgba(0, 57, 93, .06);
         }
 
-        .mpc-role-card h3 {
-            margin: 0 0 4px;
-            color: var(--dark-blue);
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .mpc-role-title-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .mpc-headcount {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: .78rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .mpc-headcount input {
-            width: 52px;
-            text-align: center;
-            border: 1px solid #B9C6C9;
-            border-radius: 6px;
-            padding: 4px;
-            font-weight: 700;
-            color: var(--dark-blue);
-        }
-
-        .mpc-rate-pills {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 2px;
-        }
-
-        .mpc-result-pill {
-            background: var(--aqua);
-            color: var(--dark-blue);
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: .95rem;
-            white-space: nowrap;
-        }
-
-        .mpc-result-pill.mpc-incgst {
-            background: var(--grey-bg);
-            color: var(--dark-blue);
-            font-weight: 600;
-            font-size: .78rem;
-        }
-
-        .mpc-result-empty {
-            color: #3d6d72;
-            font-weight: 600;
-            font-size: .82rem;
-        }
-
-        .mpc-section-label {
-            font-size: .72rem;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            color: var(--aqua);
-            font-weight: 700;
-            margin: 14px 0 6px;
-        }
-
-        .mpc-section-label:first-of-type {
-            margin-top: 6px;
-        }
-
-        .mpc-field-grid {
+        .mpc-table-head,
+        .mpc-role-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px 14px;
+            grid-template-columns: minmax(135px, 1.35fr) minmax(100px, 1fr) minmax(88px, .85fr) minmax(112px, 1.05fr) minmax(112px, 1.05fr) minmax(92px, .9fr) minmax(92px, .9fr) minmax(105px, 1fr) minmax(145px, 1.25fr);
         }
 
-        .mpc-field {
+        .mpc-table-head {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-table-head > div {
+            position: relative;
+            padding: 10px 8px;
+            font-size: .7rem;
+            line-height: 1.2;
+            font-weight: 700;
+            display: flex;
+            align-items: end;
+            border-right: 1px solid rgba(255,255,255,.14);
+        }
+
+        /* Keep desktop help icons tucked into the top-right of the header cell. */
+        .mpc-table-head .mpc-heading-with-help {
+            padding-right: 18px;
+        }
+
+        .mpc-table-head .mpc-help {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .mpc-table-head > div:last-child {
+            border-right: 0;
+        }
+
+        /* ---------- Accessible help tooltips ---------- */
+        .mpc-heading-with-help,
+        .mpc-mobile-cell-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mpc-help {
+            position: relative;
+            display: inline-flex;
+            flex: 0 0 auto;
+        }
+
+        .mpc-help-button {
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-size: .68rem;
+            font-weight: 800;
+            line-height: 16px;
+            text-align: center;
+            cursor: help;
+            opacity: .9;
+        }
+
+        .mpc-help-button:focus {
+            outline: 2px solid var(--aqua);
+            outline-offset: 2px;
+        }
+
+        .mpc-help-bubble {
+            position: absolute;
+            z-index: 50;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(310px, 78vw);
+            padding: 9px 10px;
+            border-radius: 7px;
+            background: #001F33;
+            color: var(--white);
+            box-shadow: 0 5px 18px rgba(0, 32, 51, .22);
+            font-size: .75rem;
+            font-weight: 500;
+            line-height: 1.35;
+            text-align: left;
+            white-space: normal;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .12s ease, visibility .12s ease;
+        }
+
+        .mpc-help-bubble::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -5px;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #001F33;
+        }
+
+        .mpc-help:hover .mpc-help-bubble,
+        .mpc-help:focus-within .mpc-help-bubble {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mpc-mobile-cell-label {
+            display: none;
+        }
+
+        .mpc-role-group + .mpc-role-group {
+            border-top: 1px solid var(--grey-line);
+        }
+
+        .mpc-role-row {
+            min-width: 0;
+        }
+
+        .mpc-cell {
+            min-width: 0;
+            padding: 9px 8px;
+            border-right: 1px solid #EDF1F2;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             gap: 4px;
-            position: relative;
         }
 
-        .mpc-field-label-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 6px;
-            min-height: 2.4em;
+        .mpc-cell:last-child {
+            border-right: 0;
         }
 
-        .mpc-field label {
-            font-size: .76rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            line-height: 1.2;
-            min-height: 2.4em;
-            display: flex;
-            align-items: flex-end;
-        }
-
-        .mpc-reset-icon {
-            background: none;
-            border: none;
-            color: var(--aqua);
-            cursor: pointer;
-            font-size: .72rem;
-            font-weight: 700;
-            padding: 0;
-            text-decoration: underline;
-            white-space: nowrap;
-        }
-
+        .mpc-cell input[type="text"],
+        .mpc-cell select,
         .mpc-field input[type="text"],
         .mpc-field select {
             border: 1px solid #B9C6C9;
             border-radius: 6px;
-            padding: 8px 9px;
-            font-size: .95rem;
+            padding: 8px 8px;
+            font-size: .9rem;
             font-family: inherit;
             width: 100%;
+            min-width: 0;
             color: var(--dark-blue);
-            font-weight: 600;
+            font-weight: 650;
+            background: var(--white);
         }
 
+        .mpc-cell input.mpc-required,
         .mpc-field input.mpc-required {
             background: var(--required-bg);
-            border: 1px solid var(--required-border);
+            border-color: var(--required-border);
             border-left-width: 4px;
         }
 
+        .mpc-cell input.mpc-estimate,
         .mpc-field input.mpc-estimate {
             background: var(--estimate-bg);
             border: 1px dashed var(--estimate-border);
         }
 
+        .mpc-cell input.mpc-neutral,
         .mpc-field input.mpc-neutral {
             background: var(--white);
         }
 
+        .mpc-cell input:focus,
+        .mpc-cell select:focus,
         .mpc-field input:focus,
         .mpc-field select:focus {
             outline: 2px solid var(--dark-blue);
             outline-offset: 1px;
         }
 
+        .mpc-role-cell {
+            justify-content: center;
+            background: #FAFCFC;
+        }
+
+        .mpc-role-name {
+            color: var(--dark-blue);
+            font-weight: 750;
+            font-size: .9rem;
+            line-height: 1.2;
+        }
+
+        .mpc-details-toggle {
+            background: none;
+            border: 0;
+            padding: 2px 0;
+            color: var(--dark-blue);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font: inherit;
+            font-size: .7rem;
+            font-weight: 650;
+            cursor: pointer;
+            text-align: left;
+            width: fit-content;
+        }
+
+        .mpc-reset-icon {
+            background: none;
+            border: none;
+            color: var(--dark-blue);
+            cursor: pointer;
+            font-size: .66rem;
+            font-weight: 650;
+            padding: 0;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            width: fit-content;
+            opacity: .72;
+        }
+
+        .mpc-reset-icon:hover,
+        .mpc-details-toggle:hover {
+            opacity: 1;
+        }
+
         .mpc-readout {
             background: var(--grey-bg);
             border-radius: 6px;
-            padding: 8px 9px;
-            font-weight: 700;
+            padding: 8px;
+            font-weight: 750;
             color: var(--dark-blue);
-            font-size: .95rem;
+            font-size: .9rem;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
         }
 
-        .mpc-helper-text {
-            font-size: .72rem;
+        .mpc-rate-cell-box {
+            background: var(--aqua);
+            border-radius: 7px;
+            padding: 7px 8px;
+            color: var(--dark-blue);
+            line-height: 1.15;
+        }
+
+        .mpc-rate-cell-box strong {
+            display: block;
+            font-size: .92rem;
+            white-space: nowrap;
+        }
+
+        .mpc-rate-cell-box span {
+            display: block;
+            font-size: .68rem;
+            margin-top: 3px;
+            font-weight: 650;
+        }
+
+        .mpc-rate-empty {
+            background: var(--grey-bg);
             color: var(--text-muted);
-            margin-top: 1px;
         }
 
         .mpc-warning {
-            font-size: .74rem;
+            font-size: .72rem;
             color: var(--warn-text);
             background: var(--warn-bg);
             border-radius: 5px;
-            padding: 4px 7px;
+            padding: 5px 7px;
+        }
+
+        .mpc-helper-text {
+            font-size: .66rem;
+            color: var(--text-muted);
+            line-height: 1.25;
+        }
+
+        .mpc-row-details {
+            display: none;
+            background: #FBFCFC;
+            border-top: 1px dashed var(--grey-line);
+            padding: 14px;
+        }
+
+        .mpc-row-details.open {
+            display: block;
+        }
+
+        .mpc-details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            align-items: start;
+        }
+
+        .mpc-field {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mpc-field label {
+            color: var(--text-muted);
+            font-size: .72rem;
+            line-height: 1.25;
+            font-weight: 650;
+        }
+
+        .mpc-detail-kpi {
+            background: var(--good-bg);
+            border-radius: 7px;
+            padding: 9px 10px;
+            min-height: 64px;
+        }
+
+        .mpc-detail-kpi .label {
+            display: block;
+            color: var(--text-muted);
+            font-size: .68rem;
+            line-height: 1.2;
+        }
+
+        .mpc-detail-kpi .value {
+            display: block;
+            margin-top: 4px;
+            color: var(--dark-blue);
+            font-size: .95rem;
+            font-weight: 750;
+        }
+
+        .mpc-detail-kpi .value.mpc-negative {
+            color: var(--warn-text);
+        }
+
+        .mpc-details-section-title {
+            grid-column: 1 / -1;
+            color: var(--aqua);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-size: .69rem;
+            font-weight: 750;
             margin-top: 2px;
         }
 
-        .mpc-minicalc-toggle {
+        .mpc-minicalc-toggle,
+        .mpc-toggle-breakdown {
             background: none;
             border: none;
             color: var(--dark-blue);
             font-size: .72rem;
-            font-weight: 600;
+            font-weight: 650;
             text-decoration: underline;
+            text-underline-offset: 2px;
             cursor: pointer;
-            padding: 0;
+            padding: 2px 0;
             text-align: left;
-            margin-top: 2px;
+            width: fit-content;
         }
 
         .mpc-minicalc {
             display: none;
-            margin-top: 6px;
+            grid-column: 1 / -1;
             background: var(--grey-bg);
             border: 1px dashed var(--grey-line);
             border-radius: 8px;
@@ -390,28 +577,10 @@
         }
 
         .mpc-minicalc-row {
-            display: flex;
-            gap: 8px;
-            align-items: flex-end;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
             margin-bottom: 8px;
-        }
-
-        .mpc-minicalc-row .mpc-field {
-            flex: 1;
-            min-width: 110px;
-        }
-
-        .mpc-minicalc-row input {
-            border: 1px solid #B9C6C9;
-            border-radius: 6px;
-            padding: 6px 8px;
-            width: 100%;
-        }
-
-        .mpc-minicalc-result {
-            font-weight: 700;
-            color: var(--dark-blue);
         }
 
         .mpc-minicalc-use {
@@ -425,50 +594,9 @@
             cursor: pointer;
         }
 
-        .mpc-minicalc-use:hover {
-            background: #00253d;
-        }
-
-        .mpc-compare-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .mpc-compare-readout {
-            background: var(--good-bg);
-            border-radius: 6px;
-            padding: 8px 9px;
-        }
-
-        .mpc-compare-readout .mpc-compare-label {
-            font-size: .72rem;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .mpc-compare-readout .mpc-compare-value {
+        .mpc-minicalc-result {
             font-weight: 700;
             color: var(--dark-blue);
-            font-size: .95rem;
-        }
-
-        .mpc-compare-value.mpc-negative {
-            color: #9A3B1F;
-        }
-
-        .mpc-toggle-breakdown {
-            margin-top: 12px;
-            background: none;
-            border: none;
-            color: var(--dark-blue);
-            font-weight: 600;
-            font-size: .82rem;
-            cursor: pointer;
-            padding: 4px 0;
-            text-decoration: underline;
         }
 
         .mpc-breakdown {
@@ -484,9 +612,9 @@
 
         .mpc-breakdown-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
             gap: 8px 16px;
-            font-size: .82rem;
+            font-size: .8rem;
         }
 
         .mpc-breakdown-grid div {
@@ -499,15 +627,15 @@
 
         .mpc-breakdown-grid div b {
             color: var(--dark-blue);
-            font-weight: 600;
+            font-weight: 650;
         }
 
         .mpc-breakdown-section-title {
-            font-size: .72rem;
+            font-size: .7rem;
             text-transform: uppercase;
             letter-spacing: .5px;
             color: var(--aqua);
-            font-weight: 700;
+            font-weight: 750;
             margin: 10px 0 4px;
         }
 
@@ -657,22 +785,181 @@
             margin-top: 10px;
         }
 
-        @media (max-width:600px) {
-            .mpc-header h1 {
-                font-size: 1.3rem;
+        @media (max-width: 900px) {
+            .mpc-table-intro {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .mpc-table-intro p {
+                text-align: left;
+            }
+
+            .mpc-input-table {
+                border: 0;
+                box-shadow: none;
+                background: transparent;
+                overflow: visible;
+            }
+
+            .mpc-table-head {
+                display: none;
+            }
+
+            .mpc-role-group {
+                border: 1px solid var(--grey-line) !important;
+                border-radius: 10px;
+                overflow: hidden;
+                background: var(--white);
+                box-shadow: 0 1px 3px rgba(0,57,93,.05);
+            }
+
+            .mpc-role-group + .mpc-role-group {
+                margin-top: 12px;
+            }
+
+            .mpc-role-row {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px 10px;
+                padding: 14px;
+            }
+
+            .mpc-cell {
+                border: 0;
+                padding: 0;
+                justify-content: flex-start;
+            }
+
+            .mpc-cell::before {
+                content: attr(data-label);
+                display: block;
+                color: var(--text-muted);
+                font-size: .68rem;
+                font-weight: 700;
+                line-height: 1.2;
+                min-height: 1.7em;
+            }
+
+            .mpc-cell.mpc-has-mobile-label::before {
+                display: none;
+            }
+
+            .mpc-mobile-cell-label {
+                display: inline-flex;
+                width: fit-content;
+                min-height: 1.7em;
+                color: var(--text-muted);
+                font-size: .68rem;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            .mpc-mobile-cell-label .mpc-help-button {
+                width: 17px;
+                height: 17px;
+                line-height: 15px;
+                color: var(--dark-blue);
+                font-size: .64rem;
+            }
+
+            .mpc-mobile-cell-label .mpc-help-bubble {
+                left: 0;
+                transform: none;
+                width: min(300px, calc(100vw - 56px));
+            }
+
+            .mpc-mobile-cell-label .mpc-help-bubble::before {
+                left: 8px;
+                transform: none;
+            }
+
+            .mpc-role-cell,
+            .mpc-cell:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .mpc-role-cell {
+                background: transparent;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid var(--grey-line);
+                padding-bottom: 9px;
+            }
+
+            .mpc-role-cell::before {
+                display: none;
+            }
+
+            .mpc-role-name {
+                font-size: 1rem;
+            }
+
+            .mpc-rate-cell-box strong {
+                font-size: 1rem;
+            }
+
+            .mpc-details-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .mpc-assumption-row {
                 grid-template-columns: 1fr;
                 gap: 4px;
             }
+        }
 
-            .mpc-role-card h3 {
-                align-items: flex-start;
+        @media (max-width: 520px) {
+            .mpc-wrap {
+                padding-left: 12px;
+                padding-right: 12px;
             }
 
-            .mpc-rate-pills {
-                align-items: flex-start;
+            .mpc-header {
+                padding: 22px 18px;
+            }
+
+            .mpc-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .mpc-segmented {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+            }
+
+            .mpc-segmented button {
+                padding: 9px 6px;
+                font-size: .8rem;
+            }
+
+            .mpc-role-row {
+                gap: 11px 8px;
+                padding: 12px;
+            }
+
+            .mpc-cell input[type="text"],
+            .mpc-cell select,
+            .mpc-field input[type="text"],
+            .mpc-field select {
+                font-size: 16px;
+            }
+
+            .mpc-details-grid,
+            .mpc-minicalc-row {
+                grid-template-columns: 1fr;
+            }
+
+            .mpc-detail-kpi {
+                min-height: 0;
+            }
+
+            .mpc-summary-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -713,19 +1000,6 @@
             <div class="mpc-gasfitting-note">Gasfitting adds a certification &amp; risk premium <em>on top of</em> the
                 suggested rate for every role (not stacked into the markup). Plumbing and Drainlaying use the same base
                 rate.</div>
-        </div>
-
-        <div class="mpc-legend">
-            <span><span class="mpc-swatch"
-                    style="background:var(--required-bg); border-color:var(--required-border);"></span> Hourly wage —
-                the only field you need to fill in</span>
-            <span><span class="mpc-swatch"
-                    style="background:var(--estimate-bg); border-color:var(--estimate-border); border-style:dashed;"></span>
-                Pre-filled estimate — overtype with your own numbers</span>
-            <span><span class="mpc-swatch" style="background:var(--white); border-color:#B9C6C9"></span> Your own
-                business numbers (no statutory default)</span>
-            <span><span class="mpc-swatch" style="background:var(--grey-bg); border-color:var(--grey-line)"></span>
-                Calculated automatically</span>
         </div>
 
         <div class="mpc-roles" id="mpc-roles"></div>
@@ -815,6 +1089,16 @@
                 });
             }
 
+            // Display larger editable numbers with NZ thousands separators while keeping
+            // decimals intact. Parsing already strips commas, so formatting is display-only.
+            function editableGroupedNumber(n, maxDecimals = 4) {
+                if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
+                return Number(n).toLocaleString("en-NZ", {
+                    useGrouping: true,
+                    maximumFractionDigits: maxDecimals
+                });
+            }
+
             function editablePct(fraction) {
                 return editableNumber(Number(fraction) * 100, 4);
             }
@@ -861,6 +1145,7 @@
                     markup: A.defaultMarkup.value,
                     headcount: 1,
                     currentRate: null,
+                    detailsOpen: false,
                     breakdownOpen: false,
                     vehicleCalcOpen: false,
                     overheadCalcOpen: false,
@@ -978,6 +1263,46 @@
                 let anyGapKnown = false;
                 let totalGapMonth = 0, totalGapYear = 0, totalHeadcount = 0;
 
+                const intro = document.createElement("div");
+                intro.className = "mpc-table-intro";
+                intro.innerHTML = `
+                    <h2>Enter your wages &amp; costs</h2>
+                    <p>Spreadsheet-style on larger screens; automatically switches to cards on mobile.</p>
+                `;
+                rolesEl.appendChild(intro);
+
+                const table = document.createElement("div");
+                table.className = "mpc-input-table";
+                table.setAttribute("role", "table");
+                table.setAttribute("aria-label", "Charge out rate inputs by role");
+                table.innerHTML = `
+                    <div class="mpc-table-head" role="row">
+                        <div role="columnheader">Role</div>
+                        <div role="columnheader">Hourly wage<br>paid ($)</div>
+                        <div role="columnheader">KiwiSaver<br>member?</div>
+                        <div role="columnheader">
+                            <span class="mpc-heading-with-help">Vehicle &amp; tools
+                                <span class="mpc-help">
+                                    <button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button>
+                                    <span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span>
+                                </span>
+                            </span><br>($/year)
+                        </div>
+                        <div role="columnheader">
+                            <span class="mpc-heading-with-help">Share of overheads
+                                <span class="mpc-help">
+                                    <button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button>
+                                    <span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span>
+                                </span>
+                            </span><br>($/year)
+                        </div>
+                        <div role="columnheader">Non-billable<br>time (%)</div>
+                        <div role="columnheader">Markup on<br>true cost (%)</div>
+                        <div role="columnheader">True full<br>cost ($/hr)</div>
+                        <div role="columnheader">Suggested<br>rate ($/hr)</div>
+                    </div>
+                `;
+
                 roleDefs.forEach(r => {
                     const state = roleState[r.key];
                     const result = computeRole(state);
@@ -992,120 +1317,144 @@
                         }
                     }
 
-                    const card = document.createElement("div");
-                    card.className = "mpc-role-card";
+                    const group = document.createElement("div");
+                    group.className = "mpc-role-group";
+                    group.setAttribute("role", "rowgroup");
 
-                    let pillHtml;
+                    let rateHtml;
                     if (result.hasWage && result.error) {
-                        pillHtml = `<span class="mpc-result-pill" style="background:var(--warn-bg); color:var(--warn-text);">check inputs</span>`;
+                        rateHtml = `<div class="mpc-rate-cell-box mpc-rate-empty"><strong>Check inputs</strong><span>See warning in Details</span></div>`;
                     } else if (result.hasWage) {
-                        pillHtml = `<div class="mpc-rate-pills">
-            <span class="mpc-result-pill">${fmtMoney(result.suggestedExGST)}/hr ex GST</span>
-            <span class="mpc-result-pill mpc-incgst">${fmtMoney(result.suggestedIncGST)}/hr incl. GST</span>
-          </div>`;
+                        rateHtml = `<div class="mpc-rate-cell-box"><strong>${fmtMoney(result.suggestedExGST)}</strong><span>ex GST · ${fmtMoney(result.suggestedIncGST)} incl. GST</span></div>`;
                     } else {
-                        pillHtml = `<span class="mpc-result-pill" style="background:var(--grey-bg); color:var(--text-muted);"><span class="mpc-result-empty">enter a wage</span></span>`;
+                        rateHtml = `<div class="mpc-rate-cell-box mpc-rate-empty"><strong>—</strong><span>Enter a wage</span></div>`;
                     }
 
-                    const warningHtml = (result.hasWage && result.error)
-                        ? `<div class="mpc-warning">${result.error}</div>` : "";
+                    const row = document.createElement("div");
+                    row.className = "mpc-role-row";
+                    row.setAttribute("role", "row");
+                    row.innerHTML = `
+                        <div class="mpc-cell mpc-role-cell" data-label="Role" role="rowheader">
+                            <span class="mpc-role-name">${displayName}</span>
+                            <button type="button" class="mpc-details-toggle" data-details-role="${r.key}" aria-expanded="${state.detailsOpen ? 'true' : 'false'}">${state.detailsOpen ? 'Hide details' : 'Details & comparison'}</button>
+                        </div>
 
-                    card.innerHTML = `
-        <h3>
-          <div class="mpc-role-title-left">
-            ${displayName}
-            <span class="mpc-headcount"><label for="hc-${r.key}">Staff at this grade</label><input type="text" inputmode="numeric" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}"></span>
-          </div>
-          ${pillHtml}
-        </h3>
-        ${warningHtml}
+                        <div class="mpc-cell" data-label="Hourly wage paid ($)" role="cell">
+                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-required" aria-label="${displayName} hourly wage paid" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : editableGroupedNumber(state.wage, 4)}" placeholder="0.00">
+                            ${result.hasWage && result.error ? `<div class="mpc-warning">${result.error}</div>` : ''}
+                        </div>
 
-        <div class="mpc-section-label">Wage &amp; costs</div>
-        <div class="mpc-field-grid">
-          <div class="mpc-field">
-            <label>Hourly wage paid ($), required</label>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-required" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : state.wage}" placeholder="0.00">
-          </div>
-          <div class="mpc-field">
-            <label>KiwiSaver member?</label>
-            <select data-role="${r.key}" data-field="kiwiSaver">
-              <option value="yes" ${state.kiwiSaver ? "selected" : ""}>Yes</option>
-              <option value="no" ${!state.kiwiSaver ? "selected" : ""}>No</option>
-            </select>
-          </div>
-          <div class="mpc-field">
-            <div class="mpc-field-label-row">
-              <label>Vehicle &amp; tools ($/yr, excl. GST)</label>
-              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="vehicle">reset</button>
-            </div>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="vehicle" value="${state.vehicle}">
-            <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="${r.key}">${state.vehicleCalcOpen ? "Hide" : "Calculate from motor expenses ▸"}</button>
-            <div class="mpc-minicalc ${state.vehicleCalcOpen ? "open" : ""}" data-minicalc="vehicle" data-role="${r.key}">
-              <div class="mpc-minicalc-row">
-                <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="text" inputmode="decimal" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : state.vehicleCalcInputs.motorExpenses}"></div>
-                <div class="mpc-field"><label>Number of vehicles</label><input type="text" inputmode="numeric" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
-              </div>
-              <div class="mpc-minicalc-result">${vehicleCalcResultHtml(state)}</div>
-            </div>
-          </div>
-          <div class="mpc-field">
-            <div class="mpc-field-label-row">
-              <label>Share of overheads ($/yr, excl. GST)</label>
-              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="overheads">reset</button>
-            </div>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="overheads" value="${state.overheads}">
-            <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="${r.key}">${state.overheadCalcOpen ? "Hide" : "Calculate from total overheads ▸"}</button>
-            <div class="mpc-minicalc ${state.overheadCalcOpen ? "open" : ""}" data-minicalc="overhead" data-role="${r.key}">
-              <div class="mpc-minicalc-row">
-                <div class="mpc-field"><label>Total annual overheads ($)</label><input type="text" inputmode="decimal" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : state.overheadCalcInputs.totalOverheads}"></div>
-                <div class="mpc-field"><label>Number of billable staff</label><input type="text" inputmode="numeric" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
-              </div>
-              <div class="mpc-minicalc-result">${overheadCalcResultHtml(state)}</div>
-            </div>
-          </div>
-          <div class="mpc-field">
-            <div class="mpc-field-label-row">
-              <label>Non-billable time (%)</label>
-              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="nonBillablePct">reset</button>
-            </div>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="nonBillablePct" value="${editablePct(state.nonBillablePct)}">
-          </div>
-          <div class="mpc-field">
-            <div class="mpc-field-label-row">
-              <label>Markup on true cost (%)</label>
-              <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="markup">reset</button>
-            </div>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" data-role="${r.key}" data-field="markup" value="${editablePct(state.markup)}">
-            ${result.hasWage && !result.error ? `<div class="mpc-helper-text">≈ ${(result.marginPct * 100).toFixed(1)}% gross margin (before any gasfitting premium)</div>` : ""}
-          </div>
-          <div class="mpc-field">
-            <label>True full cost ($/hr, excl. GST)</label>
-            <div class="mpc-readout">${result.hasWage && !result.error ? fmtMoney(result.trueFullCost) : "—"}</div>
-          </div>
-        </div>
+                        <div class="mpc-cell" data-label="KiwiSaver member?" role="cell">
+                            <select aria-label="${displayName} KiwiSaver member" data-role="${r.key}" data-field="kiwiSaver">
+                                <option value="yes" ${state.kiwiSaver ? 'selected' : ''}>Yes</option>
+                                <option value="no" ${!state.kiwiSaver ? 'selected' : ''}>No</option>
+                            </select>
+                        </div>
 
-        <div class="mpc-section-label">Compare to your current rate</div>
-        <div class="mpc-field-grid">
-          <div class="mpc-field">
-            <label>Your current charge out rate ($/hr, excl. GST)</label>
-            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : state.currentRate}" placeholder="optional">
-          </div>
-        </div>
-        ${result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate) ? `
-        <div class="mpc-compare-grid">
-          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per hour</span><span class="mpc-compare-value ${result.gapPerHour < 0 ? 'mpc-negative' : ''}">${fmtMoney(result.gapPerHour)}</span></div>
-          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per month (this grade)</span><span class="mpc-compare-value ${result.gapPerMonth < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerMonth)}</span></div>
-          <div class="mpc-compare-readout"><span class="mpc-compare-label">Gap per year (this grade)</span><span class="mpc-compare-value ${result.gapPerYear < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerYear)}</span></div>
-        </div>` : ""}
+                        <div class="mpc-cell mpc-has-mobile-label" data-label="Vehicle & tools ($/year)" role="cell">
+                            <div class="mpc-mobile-cell-label">Vehicle &amp; tools ($/year)
+                                <span class="mpc-help">
+                                    <button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button>
+                                    <span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span>
+                                </span>
+                            </div>
+                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} vehicle and tools annual cost" data-role="${r.key}" data-field="vehicle" value="${editableGroupedNumber(state.vehicle, 4)}">
+                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="vehicle">reset estimate</button>
+                        </div>
 
-        <button type="button" class="mpc-toggle-breakdown" data-role="${r.key}">${state.breakdownOpen ? "Hide full breakdown ▲" : "Show full breakdown ▼"}</button>
-        <div class="mpc-breakdown ${state.breakdownOpen ? "open" : ""}" data-breakdown="${r.key}">
-          ${result.hasWage && !result.error ? renderBreakdown(result) : '<p style="font-size:.85rem;color:var(--text-muted);">Enter an hourly wage above to see the full breakdown.</p>'}
-        </div>
-      `;
-                    rolesEl.appendChild(card);
+                        <div class="mpc-cell mpc-has-mobile-label" data-label="Share of overheads ($/year)" role="cell">
+                            <div class="mpc-mobile-cell-label">Share of overheads ($/year)
+                                <span class="mpc-help">
+                                    <button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button>
+                                    <span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span>
+                                </span>
+                            </div>
+                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} annual overhead share" data-role="${r.key}" data-field="overheads" value="${editableGroupedNumber(state.overheads, 4)}">
+                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="overheads">reset estimate</button>
+                        </div>
+
+                        <div class="mpc-cell" data-label="Non-billable time (%)" role="cell">
+                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} non-billable time percentage" data-role="${r.key}" data-field="nonBillablePct" value="${editablePct(state.nonBillablePct)}">
+                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="nonBillablePct">reset</button>
+                        </div>
+
+                        <div class="mpc-cell" data-label="Markup on true cost (%)" role="cell">
+                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} markup percentage" data-role="${r.key}" data-field="markup" value="${editablePct(state.markup)}">
+                            ${result.hasWage && !result.error ? `<div class="mpc-helper-text">≈ ${(result.marginPct * 100).toFixed(1)}% margin</div>` : ''}
+                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="markup">reset</button>
+                        </div>
+
+                        <div class="mpc-cell" data-label="True full cost ($/hr)" role="cell">
+                            <div class="mpc-readout">${result.hasWage && !result.error ? fmtMoney(result.trueFullCost) : '—'}</div>
+                        </div>
+
+                        <div class="mpc-cell" data-label="Suggested rate ($/hr)" role="cell">
+                            ${rateHtml}
+                        </div>
+                    `;
+
+                    const details = document.createElement("div");
+                    details.className = `mpc-row-details ${state.detailsOpen ? 'open' : ''}`;
+                    details.setAttribute("data-details", r.key);
+                    details.innerHTML = `
+                        <div class="mpc-details-grid">
+                            <div class="mpc-details-section-title">Business comparison</div>
+                            <div class="mpc-field">
+                                <label for="hc-${r.key}">Staff at this grade</label>
+                                <input type="text" inputmode="numeric" autocomplete="off" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}">
+                            </div>
+                            <div class="mpc-field">
+                                <label>Your current charge out rate ($/hr, excl. GST)</label>
+                                <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : editableGroupedNumber(state.currentRate, 4)}" placeholder="optional">
+                            </div>
+                            ${result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate) ? `
+                                <div class="mpc-detail-kpi"><span class="label">Gap per month · this grade</span><span class="value ${result.gapPerMonth < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerMonth)}</span></div>
+                                <div class="mpc-detail-kpi"><span class="label">Gap per year · this grade</span><span class="value ${result.gapPerYear < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerYear)}</span></div>
+                                <div class="mpc-detail-kpi"><span class="label">Gap per hour</span><span class="value ${result.gapPerHour < 0 ? 'mpc-negative' : ''}">${fmtMoney(result.gapPerHour)}</span></div>
+                            ` : `<div class="mpc-detail-kpi"><span class="label">Rate comparison</span><span class="value" style="font-size:.8rem;font-weight:650;">Enter your current rate to see the gap.</span></div>`}
+
+                            <div class="mpc-details-section-title">Cost helpers</div>
+                            <div class="mpc-field">
+                                <label>Vehicle &amp; tools helper</label>
+                                <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="${r.key}">${state.vehicleCalcOpen ? 'Hide vehicle calculator' : 'Calculate from motor expenses ▸'}</button>
+                            </div>
+                            <div class="mpc-field">
+                                <label>Overheads helper</label>
+                                <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="${r.key}">${state.overheadCalcOpen ? 'Hide overhead calculator' : 'Calculate from total overheads ▸'}</button>
+                            </div>
+
+                            <div class="mpc-minicalc ${state.vehicleCalcOpen ? 'open' : ''}" data-minicalc="vehicle" data-role="${r.key}">
+                                <div class="mpc-minicalc-row">
+                                    <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : editableGroupedNumber(state.vehicleCalcInputs.motorExpenses, 4)}"></div>
+                                    <div class="mpc-field"><label>Number of vehicles</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
+                                </div>
+                                <div class="mpc-minicalc-result">${vehicleCalcResultHtml(state)}</div>
+                            </div>
+
+                            <div class="mpc-minicalc ${state.overheadCalcOpen ? 'open' : ''}" data-minicalc="overhead" data-role="${r.key}">
+                                <div class="mpc-minicalc-row">
+                                    <div class="mpc-field"><label>Total annual overheads ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : editableGroupedNumber(state.overheadCalcInputs.totalOverheads, 4)}"></div>
+                                    <div class="mpc-field"><label>Number of billable staff</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
+                                </div>
+                                <div class="mpc-minicalc-result">${overheadCalcResultHtml(state)}</div>
+                            </div>
+
+                            <div class="mpc-details-section-title">Full workings</div>
+                            <div style="grid-column:1/-1;">
+                                <button type="button" class="mpc-toggle-breakdown" data-role="${r.key}">${state.breakdownOpen ? 'Hide full breakdown ▲' : 'Show full breakdown ▼'}</button>
+                                <div class="mpc-breakdown ${state.breakdownOpen ? 'open' : ''}" data-breakdown="${r.key}">
+                                    ${result.hasWage && !result.error ? renderBreakdown(result) : '<p style="font-size:.82rem;color:var(--text-muted);margin:0;">Enter an hourly wage above to see the full breakdown.</p>'}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    group.appendChild(row);
+                    group.appendChild(details);
+                    table.appendChild(group);
                 });
 
+                rolesEl.appendChild(table);
                 attachRoleListeners();
                 renderSummary(anyGapKnown, totalGapMonth, totalGapYear, totalHeadcount);
             }
@@ -1194,9 +1543,23 @@
             function attachRoleListeners() {
                 rolesEl.querySelectorAll("input[data-role][data-field]").forEach(el => {
                     el.addEventListener("input", onFieldChange);
+                    el.addEventListener("blur", (e) => {
+                        const role = e.target.getAttribute("data-role");
+                        const field = e.target.getAttribute("data-field");
+                        if (!["wage", "vehicle", "overheads", "currentRate"].includes(field)) return;
+                        const value = roleState[role][field];
+                        e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
+                    });
                 });
                 rolesEl.querySelectorAll("select[data-role][data-field]").forEach(el => {
                     el.addEventListener("change", onFieldChange);
+                });
+                rolesEl.querySelectorAll(".mpc-details-toggle").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const key = btn.getAttribute("data-details-role");
+                        roleState[key].detailsOpen = !roleState[key].detailsOpen;
+                        renderRoles();
+                    });
                 });
                 rolesEl.querySelectorAll(".mpc-toggle-breakdown").forEach(btn => {
                     btn.addEventListener("click", () => {
@@ -1227,6 +1590,16 @@
                     });
                 });
                 rolesEl.querySelectorAll("[data-mc-role]").forEach(el => {
+                    el.addEventListener("blur", (e) => {
+                        const role = e.target.getAttribute("data-mc-role");
+                        const kind = e.target.getAttribute("data-mc-kind");
+                        const field = e.target.getAttribute("data-mc-field");
+                        if (!["motorExpenses", "totalOverheads"].includes(field)) return;
+                        const value = kind === "vehicle"
+                            ? roleState[role].vehicleCalcInputs[field]
+                            : roleState[role].overheadCalcInputs[field];
+                        e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
+                    });
                     el.addEventListener("input", (e) => {
                         const role = e.target.getAttribute("data-mc-role");
                         const kind = e.target.getAttribute("data-mc-kind");
@@ -1319,7 +1692,7 @@
                 assumptionListEl.innerHTML = "";
                 Object.keys(A).forEach(key => {
                     const a = A[key];
-                    const displayVal = a.isPct ? editablePct(a.value) : editableNumber(a.value, 6);
+                    const displayVal = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
                     const row = document.createElement("div");
                     row.className = "mpc-assumption-row";
                     row.innerHTML = `
@@ -1336,6 +1709,11 @@
                         const v = parsed === null ? 0 : parsed;
                         A[key].value = A[key].isPct ? v / 100 : v;
                         renderRoles();
+                    });
+                    el.addEventListener("blur", (e) => {
+                        const key = e.target.getAttribute("data-assumption");
+                        const a = A[key];
+                        e.target.value = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
                     });
                 });
             }

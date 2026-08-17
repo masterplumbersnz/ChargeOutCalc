@@ -1355,45 +1355,258 @@
                 grid-template-columns: 1fr;
             }
         }
+    
+
+        /* ---------- V2 business-pricing controls ---------- */
+        .mpc-table-head > div { flex-direction: column; align-items: flex-start; justify-content: flex-end; }
+
+        .mpc-control-panel {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 0 0 16px;
+        }
+
+        .mpc-control-card {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            background: var(--grey-bg);
+            padding: 12px 14px;
+        }
+
+        .mpc-control-card .mpc-control-label {
+            display: block;
+            color: var(--dark-blue);
+            font-size: .78rem;
+            font-weight: 750;
+            margin-bottom: 7px;
+        }
+
+        .mpc-control-card .mpc-control-help {
+            margin: 7px 0 0;
+            color: var(--text-muted);
+            font-size: .72rem;
+            line-height: 1.35;
+        }
+
+        .mpc-choice-group {
+            display: inline-flex;
+            max-width: 100%;
+            border: 1px solid var(--dark-blue);
+            border-radius: 7px;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .mpc-choice-group button {
+            border: 0;
+            border-right: 1px solid var(--dark-blue);
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 7px 11px;
+            font-family: inherit;
+            font-size: .78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mpc-choice-group button:last-child { border-right: 0; }
+        .mpc-choice-group button.active { background: var(--dark-blue); color: var(--white); }
+        .mpc-choice-group button:focus-visible { outline: 2px solid var(--aqua); outline-offset: -3px; }
+
+        .mpc-summary { margin: 0 0 18px; }
+        .mpc-summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .mpc-summary-stat .value.mpc-positive { color: #75E0B8; }
+        .mpc-summary-stat .value.mpc-negative { color: #FFD0C4; }
+        .mpc-summary-stat .value.mpc-neutral-value { color: var(--aqua); }
+
+        .mpc-positive { color: #087F5B !important; }
+        .mpc-negative { color: #9A3B1F !important; }
+
+        .mpc-cost-pair {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        .mpc-subinput {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr);
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mpc-subinput > span {
+            color: var(--text-muted);
+            font-size: .63rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .mpc-separate-vehicle-note {
+            color: #73510D;
+            font-size: .66rem;
+            line-height: 1.25;
+            background: #FFF8E7;
+            border-radius: 5px;
+            padding: 4px 5px;
+        }
+
+        .mpc-role-choice {
+            display: grid;
+            gap: 5px;
+        }
+
+        .mpc-role-choice select {
+            font-size: .78rem;
+            padding: 6px 7px;
+        }
+
+        .mpc-remove-apprentice {
+            align-self: start;
+            border: 0;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 0;
+            font-size: .68rem;
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .mpc-apprentice-tools {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 9px;
+        }
+
+        .mpc-add-apprentice {
+            border: 1px solid var(--dark-blue);
+            border-radius: 7px;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 7px 11px;
+            font-family: inherit;
+            font-size: .76rem;
+            font-weight: 750;
+            cursor: pointer;
+        }
+
+        .mpc-add-apprentice:hover { background: #E8F5F6; }
+
+        .mpc-survey-reference {
+            grid-column: 1 / -1;
+            border-left: 3px solid var(--aqua);
+            background: #F4FBFC;
+            padding: 7px 9px;
+            color: var(--text-muted);
+            font-size: .72rem;
+            line-height: 1.4;
+        }
+
+        .mpc-survey-reference strong { color: var(--dark-blue); }
+
+        .mpc-detail-kpi .value.mpc-positive { color: #087F5B; }
+        .mpc-detail-kpi .value.mpc-negative { color: #9A3B1F; }
+
+        .mpc-target-word {
+            display: block;
+            margin-top: 2px;
+            color: var(--text-muted);
+            font-size: .66rem;
+            font-weight: 650;
+        }
+
+        .mpc-rate-context {
+            margin-top: 3px;
+            color: var(--text-muted);
+            font-size: .65rem;
+            line-height: 1.2;
+        }
+
+        .mpc-disclaimer .mpc-survey-disclaimer {
+            display: block;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 900px) {
+            .mpc-control-panel { grid-template-columns: 1fr; }
+            .mpc-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .mpc-role-choice { width: 100%; }
+            .mpc-role-cell { align-items: flex-start; gap: 10px; }
+        }
+
+        @media (max-width: 520px) {
+            .mpc-choice-group { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+            .mpc-choice-group button { border-right: 1px solid var(--dark-blue); }
+            .mpc-control-card { padding: 11px 12px; }
+            .mpc-summary-grid { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            .mpc-control-panel,
+            .mpc-add-apprentice,
+            .mpc-remove-apprentice,
+            .mpc-apprentice-tools,
+            .mpc-separate-vehicle-note { display: none !important; }
+
+            .mpc-summary { margin-top: 0; }
+            .mpc-summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+            .mpc-cost-pair { gap: 1px; }
+            .mpc-subinput { grid-template-columns: 34px 1fr; gap: 2px; }
+            .mpc-subinput > span { font-size: 5.8pt; }
+            .mpc-role-choice select { border: 0 !important; padding: 0 !important; }
+            .mpc-survey-reference { font-size: 6.2pt; padding: 4px 6px; }
+        }
+
     </style>
 </head>
 
 <body>
     <div class="mpc-wrap">
-
         <div class="mpc-header">
             <h1>Charge Out Rate Calculator</h1>
-            <p>For Plumbing, Gasfitting &amp; Drainlaying businesses — prepared for Master Plumbers, Gasfitters &amp;
-                Drainlayers NZ Inc members.</p>
+            <p>For Plumbing, Gasfitting &amp; Drainlaying businesses - prepared for Master Plumbers, Gasfitters &amp; Drainlayers NZ Inc members.</p>
         </div>
 
         <div class="mpc-intro">
-            <strong>What this calculator does:</strong> Punch in what you pay an apprentice, labourer, tradesperson or
-            certifier, and this tool works out every hidden cost of employing them (ACC levies, KiwiSaver, annual leave,
-            public holidays, sick leave, and your own vehicle and overhead costs), then suggests a charge out rate that
-            covers the lot and builds in your margin.
-            Enter the hourly wage in the highlighted field for each role — that's all you need for a suggested rate. All
-            cost inputs and outputs below are <strong>excl. GST</strong> unless marked otherwise; use the "incl. GST"
-            figure when quoting a customer. Add how many staff you have at each grade and your own current charge-out
-            rate to see the gap across your whole business.
+            <strong>What this calculator does:</strong> Enter what you pay each role and the calculator works out the true cost of employing them, then shows a suggested labour charge-out rate using the pricing approach you choose. Add your current rates and staff numbers to see your business-wide position.
         </div>
         <div class="mpc-scope-note">
-            This gives a <strong>labour charge-out rate only</strong>. It excludes materials and material markup,
-            subcontractors, job-specific plant hire, permits/certification fees and call-out charges — add those
-            separately when pricing a job. This is a planning tool, not financial or tax advice.
+            This gives a <strong>labour charge-out rate only</strong>. It excludes materials and material markup, subcontractors, job-specific plant hire, permits/certification fees and call-out charges. If you recover vehicle or travel costs separately, select that option below so those costs are not also built into the labour rate. This is a planning tool, not financial or tax advice.
         </div>
 
         <div class="mpc-trade-row">
-            <label for="mpc-trade">Trade:</label>
+            <label>Trade:</label>
             <div class="mpc-segmented" id="mpc-trade-toggle" role="group" aria-label="Select trade">
                 <button type="button" data-trade="Plumbing" class="active">Plumbing</button>
                 <button type="button" data-trade="Gasfitting">Gasfitting</button>
                 <button type="button" data-trade="Drainlaying">Drainlaying</button>
             </div>
-            <div class="mpc-gasfitting-note">Gasfitting adds a certification &amp; risk premium <em>on top of</em> the
-                suggested rate for every role (not stacked into the markup). Plumbing and Drainlaying use the same base
-                rate.</div>
+            <div class="mpc-gasfitting-note">Gasfitting adds a certification &amp; risk premium on top of the suggested rate for every role. Plumbing and Drainlaying use the same base rate.</div>
         </div>
+
+        <div class="mpc-control-panel">
+            <div class="mpc-control-card">
+                <span class="mpc-control-label">Price using</span>
+                <div class="mpc-choice-group" id="mpc-pricing-mode" role="group" aria-label="Choose pricing method">
+                    <button type="button" data-pricing-mode="markup" class="active">Markup</button>
+                    <button type="button" data-pricing-mode="margin">Gross margin</button>
+                </div>
+                <p class="mpc-control-help">Choose the method you normally use. The calculator converts between markup and gross margin automatically.</p>
+            </div>
+            <div class="mpc-control-card">
+                <span class="mpc-control-label">Recover vehicle costs</span>
+                <div class="mpc-choice-group" id="mpc-vehicle-mode" role="group" aria-label="Choose vehicle recovery method">
+                    <button type="button" data-vehicle-mode="included" class="active">In labour rate</button>
+                    <button type="button" data-vehicle-mode="separate">Separately</button>
+                </div>
+                <p class="mpc-control-help">If you charge travel or vehicle recovery separately, choose Separately. Vehicle and tools are split in the table: vehicle can be excluded from the labour rate while tools stay included. If billed travel time is in your non-billable percentage, adjust that percentage too.</p>
+            </div>
+        </div>
+
+        <div class="mpc-summary" id="mpc-summary"></div>
 
         <div class="mpc-print-row">
             <span class="mpc-print-note">Prints the current inputs, business summary, full role breakdowns and assumptions.</span>
@@ -1410,772 +1623,724 @@
 
         <div class="mpc-print-meta" id="mpc-print-meta" aria-hidden="true">
             <span>Trade: <strong id="mpc-print-trade">Plumbing</strong></span>
+            <span>Pricing: <strong id="mpc-print-pricing">Markup</strong></span>
+            <span>Vehicle recovery: <strong id="mpc-print-vehicle">In labour rate</strong></span>
             <span id="mpc-print-date"></span>
         </div>
 
         <div class="mpc-roles" id="mpc-roles"></div>
 
-        <div class="mpc-summary" id="mpc-summary"></div>
-
         <details class="mpc-assumptions" id="mpc-assumptions">
-            <summary>Assumptions &amp; sources — every rate feeding this calculator</summary>
+            <summary>Assumptions &amp; sources - every rate feeding this calculator</summary>
             <div class="mpc-assumptions-body">
-                <p>Change any value below and the whole calculator recalculates. These default to published 2026/27
-                    statutory rates and industry estimates — see the notes for sources, and always confirm your own ACC
-                    rate against your latest invoice or MyACC for Business, since it depends on your BIC code and
-                    experience rating.</p>
+                <p>Change any value below and the whole calculator recalculates. These default to published 2026/27 statutory rates and industry estimates. Always confirm your own ACC rate against your latest invoice or MyACC for Business.</p>
                 <div id="mpc-assumption-list"></div>
                 <button type="button" class="mpc-reset" id="mpc-reset-btn">Reset all to defaults</button>
             </div>
         </details>
 
         <div class="mpc-disclaimer">
-            Data sources: ACC Levy Guidebook 2026/27; Employment New Zealand; Inland Revenue; MBIE. Figures are shown
-            excl. GST unless marked otherwise. This is a planning tool, not financial or tax advice — please check
-            figures against your own accounts and ACC invoice before relying on them.
+            Data sources for statutory assumptions: ACC Levy Guidebook 2026/27; Employment New Zealand; Inland Revenue; MBIE. Figures are shown excl. GST unless marked otherwise. This is a planning tool, not financial or tax advice - check figures against your own accounts and ACC invoice before relying on them.
+            <span class="mpc-survey-disclaimer">Any 2026 member survey figures shown for apprentices are historical sense-check information only. They are not a recommendation, target or pricing benchmark. Each business must determine its own prices independently from its own costs and commercial circumstances.</span>
         </div>
-
     </div>
 
     <script>
-        (function () {
+    (function () {
+        const defaultAssumptions = {
+            hoursPerWeek: { value: 40, label: "Ordinary hours per week", source: "Standard full time working week. Adjust if your team works different hours." },
+            weeksPaidPerYear: { value: 52, label: "Weeks paid per year", source: "Fixed: number of weeks in a year." },
+            annualLeaveWeeks: { value: 4, label: "Annual leave entitlement (weeks/year)", source: "Holidays Act 2003 statutory minimum after 12 months' continuous employment. Source: Employment New Zealand." },
+            publicHolidayDays: { value: 12, label: "Public holidays (days/year)", source: "11 national public holidays plus 1 regional anniversary day. Source: Employment New Zealand." },
+            sickLeaveDays: { value: 10, label: "Sick leave entitlement (days/year)", source: "Statutory minimum. Source: Employment New Zealand." },
+            nonBillablePct: { value: 0.2, label: "Default non-billable time at work (%)", source: "Starting estimate for travel, training, admin, quoting and downtime - not a statutory figure. If you bill travel time separately, remove that billed time from this percentage.", isPct: true },
+            accWorkLevy: { value: 0.014, label: "ACC Work Levy (%)", source: "Approximate rate for Classification Unit 42310 'Plumbing services', 2026/27 levy year. Confirm the exact rate on your latest ACC invoice or in MyACC for Business.", isPct: true },
+            accSaferLevy: { value: 0.0008, label: "ACC Working Safer Levy (%)", source: "Flat employer levy. Source: ACC Levy Guidebook 2026/27.", isPct: true },
+            accMaxLiableEarnings: { value: 156641, label: "ACC maximum liable earnings ($/year)", source: "ACC Work Levy and Working Safer Levy are charged only up to this amount of earnings per employee per year. Source: ACC/Inland Revenue, 2026/27 levy year." },
+            kiwiSaverPct: { value: 0.035, label: "KiwiSaver employer contribution (%)", source: "Minimum compulsory employer contribution effective 1 April 2026 for applicable KiwiSaver employees. Source: Inland Revenue.", isPct: true },
+            defaultMarkup: { value: 0.4, label: "Default markup on true cost (%)", source: "Business decision, not a statutory figure. A 40% markup is equivalent to a 28.6% gross margin. The calculator can display either pricing method.", isPct: true },
+            gstRate: { value: 0.15, label: "GST rate (%)", source: "New Zealand standard GST rate, used only to show the incl.-GST charge-out figure.", isPct: true },
+            vehicleAppLab: { value: 1500, label: "Default vehicle amount, Apprentice/Labourer ($/year, excl. GST)", source: "Carried forward from the calculator's previous combined vehicle & tools estimate to preserve existing results. Replace with your own vehicle-only figure when separating vehicle and tools." },
+            vehicleTradeCert: { value: 13000, label: "Default vehicle amount, Tradesperson/Certifier ($/year, excl. GST)", source: "Carried forward from the calculator's previous combined vehicle & tools estimate to preserve existing results. Replace with your own vehicle-only figure when separating vehicle and tools." },
+            defaultTools: { value: 0, label: "Default tools & equipment ($/year, excl. GST)", source: "No separate default has been assumed. Enter the annual tools/equipment portion that should remain in the labour rate, especially if vehicle costs are recovered separately." },
+            defaultOverheads: { value: 8000, label: "Default share of overheads, all roles ($/year, excl. GST)", source: "Starting estimate only. Use total annual overheads excluding vehicle/tools already counted, divided by billable staff." },
+            gasfittingLoading: { value: 0.1, label: "Gasfitting certification & risk premium (%)", source: "Editable estimate applied on top of the full suggested rate when Gasfitting is selected.", isPct: true }
+        };
 
-            // ---------------------------------------------------------------
-            // Assumptions
-            // ---------------------------------------------------------------
-            const defaultAssumptions = {
-                hoursPerWeek: { value: 40, label: "Ordinary hours per week", source: "Standard full time working week. Adjust if your team works different hours." },
-                weeksPaidPerYear: { value: 52, label: "Weeks paid per year", source: "Fixed: number of weeks in a year." },
-                annualLeaveWeeks: { value: 4, label: "Annual leave entitlement (weeks/year)", source: "Holidays Act 2003 statutory minimum after 12 months' continuous employment. Source: Employment New Zealand." },
-                publicHolidayDays: { value: 12, label: "Public holidays (days/year)", source: "11 national public holidays plus 1 regional anniversary day. Source: Employment New Zealand." },
-                sickLeaveDays: { value: 10, label: "Sick leave entitlement (days/year)", source: "Statutory minimum. Source: Employment New Zealand. Reduce if your team typically takes less than full entitlement." },
-                nonBillablePct: { value: 0.2, label: "Default non-billable time at work (%)", source: "Starting estimate for travel, training, admin, quoting and downtime — not a statutory figure. Editable per role on the Calculator; many trade businesses run 75-85% billable utilisation.", isPct: true },
-                accWorkLevy: { value: 0.014, label: "ACC Work Levy (%)", source: "Approximate rate for Classification Unit 42310 'Plumbing services', 2026/27 levy year (has sat close to $1.40 per $100 in recent years). Your own rate depends on your registered BIC code and experience rating, so confirm the exact figure on your latest ACC invoice or in MyACC for Business. Source: ACC Levy Guidebook 2026/27, acc.co.nz", isPct: true },
-                accSaferLevy: { value: 0.0008, label: "ACC Working Safer Levy (%)", source: "A flat rate charged to all employers, funding WorkSafe New Zealand. Source: ACC Levy Guidebook 2026/27, acc.co.nz", isPct: true },
-                accMaxLiableEarnings: { value: 156641, label: "ACC maximum liable earnings ($/year)", source: "ACC Work Levy and Working Safer Levy are only charged up to this amount of earnings per employee per year. Source: ACC/Inland Revenue, 2026/27 levy year." },
-                kiwiSaverPct: { value: 0.035, label: "KiwiSaver employer contribution (%)", source: "Minimum compulsory employer contribution on gross pay for employees who are KiwiSaver members, effective 1 April 2026 (scheduled to rise to 4% from 1 April 2028). Not subject to the ACC earnings cap. Source: Inland Revenue, ird.govt.nz/kiwisaver-changes", isPct: true },
-                defaultMarkup: { value: 0.4, label: "Default markup on true cost (%)", source: "A business decision, not a statutory figure — the starting markup applied on top of true cost. Note: a 40% markup is equivalent to a 28.6% gross margin, not 40% margin. Adjust per role to hit your own profitability target.", isPct: true },
-                gstRate: { value: 0.15, label: "GST rate (%)", source: "New Zealand's standard GST rate, used only to show the incl.-GST charge out figure alongside the excl.-GST figure.", isPct: true },
-                vehicleAppLab: { value: 1500, label: "Default vehicle & tools, Apprentice/Labourer ($/year, excl. GST)", source: "Starting estimate for a basic tool allowance, since apprentices and labourers typically travel with a senior tradesperson. This is NOT a statutory figure — replace with your own number, or use the mini-calculator on the Calculator tab (annual motor expenses ÷ number of vehicles). If you own a vehicle outright, remember to include depreciation as part of its true annual cost, not just running expenses." },
-                vehicleTradeCert: { value: 13000, label: "Default vehicle & tools, Tradesperson/Certifier ($/year, excl. GST)", source: "Roughly $9,000-$11,000/year in running costs (fuel, insurance, rego/WOF, servicing, tyres) for a dedicated work vehicle, plus tools/equipment. Excludes finance/lease repayments — add your own on top if that applies. If the vehicle is owned outright, include depreciation as part of its true annual cost. Replace with your own figure, or use the mini-calculator (annual motor expenses ÷ number of vehicles)." },
-                defaultOverheads: { value: 8000, label: "Default share of overheads, all roles ($/year, excl. GST)", source: "A rough starting point only — work out your own by taking total annual overheads (excl. vehicles/tools already counted above) and dividing by your number of billable staff, or use the mini-calculator on the Calculator tab." },
-                gasfittingLoading: { value: 0.1, label: "Gasfitting certification & risk premium (%)", source: "Editable estimate reflecting gas certification, higher public liability/insurance exposure, and scarcity of registered gasfitters. Applied as a true premium on top of the full suggested rate (rate × (1 + premium)) when Gasfitting is selected — it is not folded into the markup. Review against your own insurance and compliance costs." }
-            };
+        const apprenticeSurvey = {
+            1: { average: 64, median: 60, responses: 71 },
+            2: { average: 71, median: 65, responses: 70 },
+            3: { average: 80, median: 75, responses: 69 },
+            4: { average: 91, median: 95, responses: 68 }
+        };
 
-            // Select the full value on focus/tap so typing a new number replaces it
-            // instantly, instead of needing the up/down arrows or manual clearing.
-            // (Suppressed once after a programmatic re-focus post-render, so it
-            // doesn't re-select and swallow the digit the person just typed.)
-            let suppressNextAutoSelect = false;
-            document.addEventListener("focusin", function (e) {
-                if (e.target && e.target.tagName === "INPUT" && e.target.hasAttribute("inputmode")) {
-                    if (suppressNextAutoSelect) {
-                        suppressNextAutoSelect = false;
-                        return;
-                    }
-                    e.target.select();
-                }
-            });
+        let A = JSON.parse(JSON.stringify(defaultAssumptions));
+        let trade = "Plumbing";
+        let pricingMode = "markup";
+        let vehicleRecoveryMode = "included";
+        let apprenticeSeq = 1;
+        let roleDefs = [];
+        let roleState = {};
+        let suppressNextAutoSelect = false;
 
-            // Parse editable numbers without losing common formatting while someone types.
-            // Inputs remain type="text" so values such as "32." can exist temporarily;
-            // this is important because type="number" and immediate re-rendering can make
-            // decimal entry unreliable on some browsers/mobile keyboards.
-            function parseUserNumber(raw) {
-                if (raw === null || raw === undefined) return null;
-                const cleaned = String(raw)
-                    .trim()
-                    .replace(/[$\s]/g, "")
-                    .replace(/,/g, "");
-                if (cleaned === "" || cleaned === "." || cleaned === "-" || cleaned === "-.") return null;
-                const n = Number(cleaned);
-                return Number.isFinite(n) ? n : null;
+        const rolesEl = document.getElementById("mpc-roles");
+        const summaryEl = document.getElementById("mpc-summary");
+        const assumptionListEl = document.getElementById("mpc-assumption-list");
+
+        document.addEventListener("focusin", function (e) {
+            if (e.target && e.target.tagName === "INPUT" && e.target.hasAttribute("inputmode")) {
+                if (suppressNextAutoSelect) { suppressNextAutoSelect = false; return; }
+                e.target.select();
             }
+        });
 
-            function editableNumber(n, maxDecimals = 4) {
-                if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
-                return Number(n).toLocaleString("en-NZ", {
-                    useGrouping: false,
-                    maximumFractionDigits: maxDecimals
-                });
-            }
+        function parseUserNumber(raw) {
+            if (raw === null || raw === undefined) return null;
+            const cleaned = String(raw).trim().replace(/[$\s]/g, "").replace(/,/g, "");
+            if (cleaned === "" || cleaned === "." || cleaned === "-" || cleaned === "-.") return null;
+            const n = Number(cleaned);
+            return Number.isFinite(n) ? n : null;
+        }
 
-            // Display larger editable numbers with NZ thousands separators while keeping
-            // decimals intact. Parsing already strips commas, so formatting is display-only.
-            function editableGroupedNumber(n, maxDecimals = 4) {
-                if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
-                return Number(n).toLocaleString("en-NZ", {
-                    useGrouping: true,
-                    maximumFractionDigits: maxDecimals
-                });
-            }
+        function editableNumber(n, maxDecimals) {
+            maxDecimals = maxDecimals === undefined ? 4 : maxDecimals;
+            if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
+            return Number(n).toLocaleString("en-NZ", { useGrouping: false, maximumFractionDigits: maxDecimals });
+        }
 
-            function editablePct(fraction) {
-                return editableNumber(Number(fraction) * 100, 4);
-            }
+        function editableGroupedNumber(n, maxDecimals) {
+            maxDecimals = maxDecimals === undefined ? 4 : maxDecimals;
+            if (n === null || n === undefined || !Number.isFinite(Number(n))) return "";
+            return Number(n).toLocaleString("en-NZ", { useGrouping: true, maximumFractionDigits: maxDecimals });
+        }
 
-            // renderRoles() rebuilds the cards. Preserve the exact text and caret position
-            // in the field being edited so entering 32.50, 17.5%, etc. feels natural.
-            function renderRolesPreservingInput(selector, rawValue, selectionStart, selectionEnd) {
-                renderRoles();
-                const newEl = rolesEl.querySelector(selector);
-                if (!newEl) return;
+        function editablePct(fraction) { return editableNumber(Number(fraction) * 100, 4); }
+        function fmtMoney(n) { return n === null || n === undefined || isNaN(n) ? "-" : "$" + Number(n).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function fmtMoneyWhole(n) { return n === null || n === undefined || isNaN(n) ? "-" : "$" + Math.round(Number(n)).toLocaleString("en-NZ"); }
+        function fmtHours(n) { return Number(n).toLocaleString("en-NZ", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
+        function fmtSignedMoney(n) {
+            if (n === null || n === undefined || isNaN(n)) return "-";
+            const sign = n > 0 ? "+" : n < 0 ? "-" : "";
+            return sign + "$" + Math.abs(Number(n)).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        function fmtSignedMoneyWhole(n) {
+            if (n === null || n === undefined || isNaN(n)) return "-";
+            const sign = n > 0 ? "+" : n < 0 ? "-" : "";
+            return sign + "$" + Math.round(Math.abs(Number(n))).toLocaleString("en-NZ");
+        }
+        function signClass(n) { return n > 0 ? "mpc-positive" : n < 0 ? "mpc-negative" : ""; }
 
-                newEl.value = rawValue;
-                suppressNextAutoSelect = true;
-                try { newEl.focus({ preventScroll: true }); }
-                catch (err) { newEl.focus(); }
+        function makeApprenticeDef(removable) {
+            apprenticeSeq += 1;
+            return { key: "apprentice-" + apprenticeSeq, name: "Apprentice", type: "apprentice", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true, removable: !!removable };
+        }
 
-                if (document.activeElement === newEl) {
-                    const len = newEl.value.length;
-                    const start = Math.min(selectionStart === null || selectionStart === undefined ? len : selectionStart, len);
-                    const end = Math.min(selectionEnd === null || selectionEnd === undefined ? start : selectionEnd, len);
-                    try { newEl.setSelectionRange(start, end); } catch (err) { }
-                }
-            }
-
-            let A = JSON.parse(JSON.stringify(defaultAssumptions));
-
-            const roleDefs = [
-                { key: "apprentice", name: "Apprentice", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true },
-                { key: "labourer", name: "Labourer", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true },
-                { key: "tradesperson", name: "Tradesperson", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true },
-                { key: "certifier", name: "Certifier", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true }
+        function baseRoleDefs() {
+            apprenticeSeq = 0;
+            return [
+                makeApprenticeDef(false),
+                { key: "labourer", name: "Labourer / Trades Assistant", type: "standard", vehicleKey: "vehicleAppLab", kiwiSaverDefault: true },
+                { key: "tradesperson", name: "Tradesperson", type: "standard", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true },
+                { key: "certifier", name: "Certifier", type: "standard", vehicleKey: "vehicleTradeCert", kiwiSaverDefault: true }
             ];
+        }
 
-            let trade = "Plumbing";
-            let roleState = {};
+        function defaultStateForRole(r) {
+            return {
+                apprenticeYear: r.type === "apprentice" ? 1 : null,
+                wage: null,
+                kiwiSaver: r.kiwiSaverDefault,
+                vehicle: A[r.vehicleKey].value,
+                tools: A.defaultTools.value,
+                overheads: A.defaultOverheads.value,
+                nonBillablePct: A.nonBillablePct.value,
+                markup: A.defaultMarkup.value,
+                headcount: 1,
+                currentRate: null,
+                detailsOpen: false,
+                breakdownOpen: false,
+                vehicleCalcOpen: false,
+                overheadCalcOpen: false,
+                vehicleCalcInputs: { motorExpenses: null, vehicleCount: 1 },
+                overheadCalcInputs: { totalOverheads: null, staffCount: 1 }
+            };
+        }
 
-            function defaultStateForRole(r) {
-                return {
-                    wage: null,
-                    kiwiSaver: r.kiwiSaverDefault,
-                    vehicle: A[r.vehicleKey].value,
-                    overheads: A.defaultOverheads.value,
-                    nonBillablePct: A.nonBillablePct.value,
-                    markup: A.defaultMarkup.value,
-                    headcount: 1,
-                    currentRate: null,
-                    detailsOpen: false,
-                    breakdownOpen: false,
-                    vehicleCalcOpen: false,
-                    overheadCalcOpen: false,
-                    vehicleCalcInputs: { motorExpenses: null, vehicleCount: 1 },
-                    overheadCalcInputs: { totalOverheads: null, staffCount: 1 }
-                };
+        function initRoleState() {
+            roleDefs = baseRoleDefs();
+            roleState = {};
+            roleDefs.forEach(function (r) { roleState[r.key] = defaultStateForRole(r); });
+        }
+        initRoleState();
+
+        function certifierTitle() {
+            if (trade === "Plumbing") return "Certifying Plumber";
+            if (trade === "Gasfitting") return "Certifying Gasfitter";
+            return "Certifying Drainlayer";
+        }
+
+        function standardRoleName(r) {
+            if (r.key === "certifier") return certifierTitle();
+            if (r.key === "tradesperson") {
+                if (trade === "Gasfitting") return "Gasfitter";
+                if (trade === "Drainlaying") return "Drainlayer";
+                return "Plumber / Tradesperson";
             }
-            function initRoleState() {
-                roleDefs.forEach(r => { roleState[r.key] = defaultStateForRole(r); });
+            return r.name;
+        }
+
+        function pricingFractionForDisplay(state) {
+            if (pricingMode === "markup") return state.markup;
+            return state.markup / (1 + state.markup);
+        }
+
+        function pricingLabel() { return pricingMode === "markup" ? "Markup on true cost (%)" : "Gross margin target (%)"; }
+        function pricingShortLabel() { return pricingMode === "markup" ? "Markup (%)" : "Margin (%)"; }
+
+        function computeRole(state) {
+            const wage = state.wage;
+            if (wage === null || wage === "") return { hasWage: false };
+            if (isNaN(wage) || wage < 0) return { hasWage: true, error: "Hourly wage can't be negative." };
+
+            const hoursPerWeek = A.hoursPerWeek.value;
+            const weeksPaid = A.weeksPaidPerYear.value;
+            const annualWage = wage * hoursPerWeek * weeksPaid;
+            const cappedWage = Math.min(annualWage, A.accMaxLiableEarnings.value);
+            const accWork = cappedWage * A.accWorkLevy.value;
+            const accSafer = cappedWage * A.accSaferLevy.value;
+            const kiwiSaver = state.kiwiSaver ? annualWage * A.kiwiSaverPct.value : 0;
+            const totalEmploymentCost = annualWage + accWork + accSafer + kiwiSaver;
+
+            const paidHours = hoursPerWeek * weeksPaid;
+            const annualLeaveHours = hoursPerWeek * A.annualLeaveWeeks.value;
+            const publicHolidayHours = (A.publicHolidayDays.value / 5) * hoursPerWeek;
+            const sickLeaveHours = (A.sickLeaveDays.value / 5) * hoursPerWeek;
+            const hoursWorked = paidHours - annualLeaveHours - publicHolidayHours - sickLeaveHours;
+            if (hoursWorked <= 0) return { hasWage: true, error: "Paid leave assumptions add up to more than paid hours." };
+
+            let nonBillable = Number(state.nonBillablePct);
+            if (isNaN(nonBillable)) nonBillable = 0;
+            if (nonBillable < 0) nonBillable = 0;
+            if (nonBillable > 0.99) return { hasWage: true, error: "Non-billable time must be below 100%." };
+            const billableHours = hoursWorked * (1 - nonBillable);
+            if (billableHours <= 0) return { hasWage: true, error: "Billable hours came out at zero or below." };
+
+            const trueLabourCostPerHour = totalEmploymentCost / billableHours;
+            const vehicle = Number(state.vehicle) || 0;
+            const tools = Number(state.tools) || 0;
+            const includedVehicle = vehicleRecoveryMode === "included" ? vehicle : 0;
+            const separatelyRecoveredVehicle = vehicleRecoveryMode === "separate" ? vehicle : 0;
+            const overheads = Number(state.overheads) || 0;
+            const totalOverhead = includedVehicle + tools + overheads;
+            const overheadPerHour = totalOverhead / billableHours;
+            const trueFullCost = trueLabourCostPerHour + overheadPerHour;
+
+            let markup = Number(state.markup);
+            if (!Number.isFinite(markup)) return { hasWage: true, error: "Gross margin must be below 100%." };
+            if (markup < 0) markup = 0;
+            const marginPct = markup / (1 + markup);
+
+            const gasLoading = trade === "Gasfitting" ? A.gasfittingLoading.value : 0;
+            const suggestedExGST = trueFullCost * (1 + markup) * (1 + gasLoading);
+            const suggestedIncGST = suggestedExGST * (1 + A.gstRate.value);
+
+            const headcount = Math.max(1, Math.round(Number(state.headcount) || 1));
+            let currentRate = state.currentRate;
+            if (currentRate === "" || currentRate === undefined) currentRate = null;
+            if (currentRate !== null) currentRate = Number(currentRate);
+
+            let profitPerHour = null, profitPerMonth = null, profitPerYear = null;
+            let targetPositionPerHour = null, targetPositionPerMonth = null, targetPositionPerYear = null;
+            if (currentRate !== null && !isNaN(currentRate)) {
+                profitPerHour = currentRate - trueFullCost;
+                profitPerYear = profitPerHour * billableHours * headcount;
+                profitPerMonth = profitPerYear / 12;
+                targetPositionPerHour = currentRate - suggestedExGST;
+                targetPositionPerYear = targetPositionPerHour * billableHours * headcount;
+                targetPositionPerMonth = targetPositionPerYear / 12;
             }
-            initRoleState();
 
-            function certifierTitle() {
-                if (trade === "Plumbing") return "Certifying Plumber";
-                if (trade === "Gasfitting") return "Certifying Gasfitter";
-                return "Certifying Drainlayer";
+            return {
+                hasWage: true, error: null,
+                annualWage, accWork, accSafer, kiwiSaver, totalEmploymentCost, cappedWage,
+                paidHours, annualLeaveHours, publicHolidayHours, sickLeaveHours, hoursWorked,
+                nonBillable, billableHours, trueLabourCostPerHour,
+                vehicle, tools, includedVehicle, separatelyRecoveredVehicle, overheads, totalOverhead, overheadPerHour,
+                trueFullCost, markup, marginPct, gasLoading, suggestedExGST, suggestedIncGST,
+                headcount, currentRate,
+                profitPerHour, profitPerMonth, profitPerYear,
+                targetPositionPerHour, targetPositionPerMonth, targetPositionPerYear
+            };
+        }
+
+        function renderRolesPreservingInput(selector, rawValue, selectionStart, selectionEnd) {
+            renderRoles();
+            const newEl = rolesEl.querySelector(selector);
+            if (!newEl) return;
+            newEl.value = rawValue;
+            suppressNextAutoSelect = true;
+            try { newEl.focus({ preventScroll: true }); } catch (err) { newEl.focus(); }
+            if (document.activeElement === newEl) {
+                const len = newEl.value.length;
+                const start = Math.min(selectionStart === null || selectionStart === undefined ? len : selectionStart, len);
+                const end = Math.min(selectionEnd === null || selectionEnd === undefined ? start : selectionEnd, len);
+                try { newEl.setSelectionRange(start, end); } catch (err) { }
             }
+        }
 
-            function fmtMoney(n) {
-                if (n === null || n === undefined || isNaN(n)) return "—";
-                return "$" + n.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        function roleCellHtml(r, state) {
+            if (r.type !== "apprentice") {
+                return '<span class="mpc-role-name">' + standardRoleName(r) + '</span>';
             }
-            function fmtMoneyWhole(n) {
-                if (n === null || n === undefined || isNaN(n)) return "—";
-                return "$" + Math.round(n).toLocaleString("en-NZ");
-            }
-            function fmtHours(n) { return n.toLocaleString("en-NZ", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
-            function fmtPct2(n) { return (n * 100).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%"; }
+            const options = [1,2,3,4].map(function (year) {
+                return '<option value="' + year + '" ' + (Number(state.apprenticeYear) === year ? 'selected' : '') + '>Year ' + year + '</option>';
+            }).join('');
+            return '<div class="mpc-role-choice"><span class="mpc-role-name">Apprentice</span><select aria-label="Apprentice year" data-role="' + r.key + '" data-field="apprenticeYear">' + options + '</select>' + (r.removable ? '<button type="button" class="mpc-remove-apprentice" data-remove-apprentice="' + r.key + '">remove this wage band</button>' : '') + '</div>';
+        }
 
-            // ---------------------------------------------------------------
-            // Core calculation
-            // ---------------------------------------------------------------
-            function computeRole(state) {
-                const wage = state.wage;
-                if (wage === null || wage === "") { return { hasWage: false }; }
-                if (isNaN(wage) || wage < 0) { return { hasWage: true, error: "Hourly wage can't be negative." }; }
+        function surveyReferenceHtml(r, state) {
+            if (r.type !== "apprentice") return "";
+            const s = apprenticeSurvey[Number(state.apprenticeYear) || 1];
+            return '<div class="mpc-survey-reference"><strong>2026 member survey sense-check:</strong> Year ' + state.apprenticeYear + ' apprentices were reported at a national average of $' + s.average + '/hr and median of $' + s.median + '/hr (n=' + s.responses + '). Historical survey information only - not a target or recommendation.</div>';
+        }
 
-                const hoursPerWeek = A.hoursPerWeek.value;
-                const weeksPaid = A.weeksPaidPerYear.value;
+        function vehicleToolsCellHtml(r, state, displayName) {
+            const warning = "";
+            return '<div class="mpc-mobile-cell-label">Vehicle &amp; tools ($/year)<span class="mpc-help"><button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button><span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span></span></div>' +
+                '<div class="mpc-cost-pair">' +
+                    '<label class="mpc-subinput"><span>Vehicle</span><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="' + displayName + ' annual vehicle cost" data-role="' + r.key + '" data-field="vehicle" value="' + editableGroupedNumber(state.vehicle, 4) + '"></label>' +
+                    '<label class="mpc-subinput"><span>Tools</span><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="' + displayName + ' annual tools cost" data-role="' + r.key + '" data-field="tools" value="' + editableGroupedNumber(state.tools, 4) + '"></label>' +
+                '</div>' + warning;
+        }
 
-                const annualWage = wage * hoursPerWeek * weeksPaid;
-                const cappedWage = Math.min(annualWage, A.accMaxLiableEarnings.value);
-                const accWork = cappedWage * A.accWorkLevy.value;
-                const accSafer = cappedWage * A.accSaferLevy.value;
-                const kiwiSaver = state.kiwiSaver ? annualWage * A.kiwiSaverPct.value : 0;
-                const totalEmploymentCost = annualWage + accWork + accSafer + kiwiSaver;
+        function renderRoles() {
+            rolesEl.innerHTML = "";
+            let anyComparisonKnown = false;
+            let totalProfitMonth = 0, totalProfitYear = 0, totalTargetMonth = 0, totalTargetYear = 0, totalHeadcount = 0;
 
-                const paidHours = hoursPerWeek * weeksPaid;
-                const annualLeaveHours = hoursPerWeek * A.annualLeaveWeeks.value;
-                const publicHolidayHours = (A.publicHolidayDays.value / 5) * hoursPerWeek;
-                const sickLeaveHours = (A.sickLeaveDays.value / 5) * hoursPerWeek;
-                const hoursWorked = paidHours - annualLeaveHours - publicHolidayHours - sickLeaveHours;
+            const intro = document.createElement("div");
+            intro.className = "mpc-table-intro";
+            intro.innerHTML = '<h2>Enter your wages &amp; costs</h2><p>Add another apprentice row if you have different apprentice years or wage bands.</p>';
+            rolesEl.appendChild(intro);
 
-                if (hoursWorked <= 0) {
-                    return { hasWage: true, error: "Paid leave assumptions add up to more than paid hours — check the Assumptions & Sources panel." };
+            const table = document.createElement("div");
+            table.className = "mpc-input-table";
+            table.setAttribute("role", "table");
+            table.setAttribute("aria-label", "Charge out rate inputs by role");
+            table.innerHTML = '<div class="mpc-table-head" role="row">' +
+                '<div role="columnheader">Role</div>' +
+                '<div role="columnheader">Hourly wage<br>paid ($)</div>' +
+                '<div role="columnheader">KiwiSaver<br>member?</div>' +
+                '<div role="columnheader"><span class="mpc-heading-with-help">Vehicle &amp; tools<span class="mpc-help"><button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button><span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span></span></span><br>($/year)</div>' +
+                '<div role="columnheader"><span class="mpc-heading-with-help">Share of overheads<span class="mpc-help"><button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button><span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span></span></span><br>($/year)</div>' +
+                '<div role="columnheader">Non-billable<br>time (%)</div>' +
+                '<div role="columnheader">' + pricingShortLabel() + '</div>' +
+                '<div role="columnheader">True full<br>cost ($/hr)</div>' +
+                '<div role="columnheader">Suggested<br>rate ($/hr)</div>' +
+            '</div>';
+
+            roleDefs.forEach(function (r) {
+                const state = roleState[r.key];
+                const result = computeRole(state);
+                const displayName = r.type === "apprentice" ? "Apprentice Year " + state.apprenticeYear : standardRoleName(r);
+
+                if (result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate)) {
+                    anyComparisonKnown = true;
+                    totalHeadcount += result.headcount;
+                    totalProfitMonth += result.profitPerMonth;
+                    totalProfitYear += result.profitPerYear;
+                    totalTargetMonth += result.targetPositionPerMonth;
+                    totalTargetYear += result.targetPositionPerYear;
                 }
 
-                let nonBillable = Number(state.nonBillablePct);
-                if (isNaN(nonBillable)) nonBillable = 0;
-                if (nonBillable < 0) nonBillable = 0;
-                if (nonBillable > 0.99) {
-                    return { hasWage: true, error: "Non-billable time must be below 100%." };
-                }
-                const billableHours = hoursWorked * (1 - nonBillable);
-                if (billableHours <= 0) {
-                    return { hasWage: true, error: "Billable hours came out at zero or below — check non-billable time and leave assumptions." };
-                }
-
-                const trueLabourCostPerHour = totalEmploymentCost / billableHours;
-                const vehicle = Number(state.vehicle) || 0;
-                const overheads = Number(state.overheads) || 0;
-                const totalOverhead = vehicle + overheads;
-                const overheadPerHour = totalOverhead / billableHours;
-                const trueFullCost = trueLabourCostPerHour + overheadPerHour;
-
-                let markup = Number(state.markup);
-                if (isNaN(markup) || markup < 0) markup = 0;
-                const marginPct = markup / (1 + markup);
-
-                const gasLoading = trade === "Gasfitting" ? A.gasfittingLoading.value : 0;
-                const suggestedExGST = trueFullCost * (1 + markup) * (1 + gasLoading);
-                const suggestedIncGST = suggestedExGST * (1 + A.gstRate.value);
-
-                const headcount = Math.max(1, Math.round(Number(state.headcount) || 1));
-                let currentRate = state.currentRate;
-                if (currentRate === "" || currentRate === undefined) currentRate = null;
-                if (currentRate !== null) currentRate = Number(currentRate);
-
-                let gapPerHour = null, gapPerMonth = null, gapPerYear = null;
-                if (currentRate !== null && !isNaN(currentRate)) {
-                    gapPerHour = suggestedExGST - currentRate;
-                    gapPerYear = gapPerHour * billableHours * headcount;
-                    gapPerMonth = gapPerYear / 12;
-                }
-
-                return {
-                    hasWage: true, error: null,
-                    annualWage, accWork, accSafer, kiwiSaver, totalEmploymentCost, cappedWage,
-                    paidHours, annualLeaveHours, publicHolidayHours, sickLeaveHours, hoursWorked,
-                    nonBillable, billableHours,
-                    trueLabourCostPerHour, vehicle, overheads, totalOverhead, overheadPerHour,
-                    trueFullCost, markup, marginPct, gasLoading, suggestedExGST, suggestedIncGST,
-                    headcount, currentRate, gapPerHour, gapPerMonth, gapPerYear
-                };
-            }
-
-            // ---------------------------------------------------------------
-            // Rendering
-            // ---------------------------------------------------------------
-            const rolesEl = document.getElementById("mpc-roles");
-            const summaryEl = document.getElementById("mpc-summary");
-
-            function renderRoles() {
-                rolesEl.innerHTML = "";
-                let anyGapKnown = false;
-                let totalGapMonth = 0, totalGapYear = 0, totalHeadcount = 0;
-
-                const intro = document.createElement("div");
-                intro.className = "mpc-table-intro";
-                intro.innerHTML = `
-                    <h2>Enter your wages &amp; costs</h2>
-                `;
-                rolesEl.appendChild(intro);
-
-                const table = document.createElement("div");
-                table.className = "mpc-input-table";
-                table.setAttribute("role", "table");
-                table.setAttribute("aria-label", "Charge out rate inputs by role");
-                table.innerHTML = `
-                    <div class="mpc-table-head" role="row">
-                        <div role="columnheader">Role</div>
-                        <div role="columnheader">Hourly wage<br>paid ($)</div>
-                        <div role="columnheader">KiwiSaver<br>member?</div>
-                        <div role="columnheader">
-                            <span class="mpc-heading-with-help">Vehicle &amp; tools
-                                <span class="mpc-help">
-                                    <button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button>
-                                    <span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span>
-                                </span>
-                            </span><br>($/year)
-                        </div>
-                        <div role="columnheader">
-                            <span class="mpc-heading-with-help">Share of overheads
-                                <span class="mpc-help">
-                                    <button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button>
-                                    <span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span>
-                                </span>
-                            </span><br>($/year)
-                        </div>
-                        <div role="columnheader">Non-billable<br>time (%)</div>
-                        <div role="columnheader">Markup on<br>true cost (%)</div>
-                        <div role="columnheader">True full<br>cost ($/hr)</div>
-                        <div role="columnheader">Suggested<br>rate ($/hr)</div>
-                    </div>
-                `;
-
-                roleDefs.forEach(r => {
-                    const state = roleState[r.key];
-                    const result = computeRole(state);
-                    const displayName = r.key === "certifier" ? certifierTitle() : r.name;
-
-                    if (result.hasWage && !result.error) {
-                        totalHeadcount += result.headcount;
-                        if (result.gapPerYear !== null && !isNaN(result.gapPerYear)) {
-                            anyGapKnown = true;
-                            totalGapMonth += result.gapPerMonth;
-                            totalGapYear += result.gapPerYear;
-                        }
-                    }
-
-                    const group = document.createElement("div");
-                    group.className = "mpc-role-group";
-                    group.setAttribute("role", "rowgroup");
-
-                    let rateHtml;
-                    if (result.hasWage && result.error) {
-                        rateHtml = `<div class="mpc-rate-cell-box mpc-rate-empty"><strong>Check inputs</strong><span>See warning in Details</span></div>`;
-                    } else if (result.hasWage) {
-                        rateHtml = `<div class="mpc-rate-cell-box"><strong>${fmtMoney(result.suggestedExGST)}</strong><span>ex GST · ${fmtMoney(result.suggestedIncGST)} incl. GST</span></div>`;
-                    } else {
-                        rateHtml = `<div class="mpc-rate-cell-box mpc-rate-empty"><strong>—</strong><span>Enter a wage</span></div>`;
-                    }
-
-                    const row = document.createElement("div");
-                    row.className = "mpc-role-row";
-                    row.setAttribute("role", "row");
-                    row.innerHTML = `
-                        <div class="mpc-cell mpc-role-cell" data-label="Role" role="rowheader">
-                            <span class="mpc-role-name">${displayName}</span>
-                            <button type="button" class="mpc-details-toggle" data-details-role="${r.key}" aria-expanded="${state.detailsOpen ? 'true' : 'false'}">${state.detailsOpen ? 'Hide details' : 'Details & comparison'}</button>
-                        </div>
-
-                        <div class="mpc-cell" data-label="Hourly wage paid ($)" role="cell">
-                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-required" aria-label="${displayName} hourly wage paid" data-role="${r.key}" data-field="wage" value="${state.wage === null ? '' : editableGroupedNumber(state.wage, 4)}" placeholder="0.00">
-                            ${result.hasWage && result.error ? `<div class="mpc-warning">${result.error}</div>` : ''}
-                        </div>
-
-                        <div class="mpc-cell" data-label="KiwiSaver member?" role="cell">
-                            <select aria-label="${displayName} KiwiSaver member" data-role="${r.key}" data-field="kiwiSaver">
-                                <option value="yes" ${state.kiwiSaver ? 'selected' : ''}>Yes</option>
-                                <option value="no" ${!state.kiwiSaver ? 'selected' : ''}>No</option>
-                            </select>
-                        </div>
-
-                        <div class="mpc-cell mpc-has-mobile-label" data-label="Vehicle & tools ($/year)" role="cell">
-                            <div class="mpc-mobile-cell-label">Vehicle &amp; tools ($/year)
-                                <span class="mpc-help">
-                                    <button type="button" class="mpc-help-button" aria-label="About Vehicle and tools">?</button>
-                                    <span class="mpc-help-bubble" role="tooltip">&quot;Vehicle &amp; tools&quot; is the annual running cost of the vehicle, tools and equipment dedicated to that role (lease/finance, fuel, rego, insurance, tool depreciation).</span>
-                                </span>
-                            </div>
-                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} vehicle and tools annual cost" data-role="${r.key}" data-field="vehicle" value="${editableGroupedNumber(state.vehicle, 4)}">
-                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="vehicle">reset estimate</button>
-                        </div>
-
-                        <div class="mpc-cell mpc-has-mobile-label" data-label="Share of overheads ($/year)" role="cell">
-                            <div class="mpc-mobile-cell-label">Share of overheads ($/year)
-                                <span class="mpc-help">
-                                    <button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button>
-                                    <span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span>
-                                </span>
-                            </div>
-                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} annual overhead share" data-role="${r.key}" data-field="overheads" value="${editableGroupedNumber(state.overheads, 4)}">
-                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="overheads">reset estimate</button>
-                        </div>
-
-                        <div class="mpc-cell" data-label="Non-billable time (%)" role="cell">
-                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} non-billable time percentage" data-role="${r.key}" data-field="nonBillablePct" value="${editablePct(state.nonBillablePct)}">
-                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="nonBillablePct">reset</button>
-                        </div>
-
-                        <div class="mpc-cell" data-label="Markup on true cost (%)" role="cell">
-                            <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="${displayName} markup percentage" data-role="${r.key}" data-field="markup" value="${editablePct(state.markup)}">
-                            ${result.hasWage && !result.error ? `<div class="mpc-helper-text">≈ ${(result.marginPct * 100).toFixed(1)}% margin</div>` : ''}
-                            <button type="button" class="mpc-reset-icon" data-reset-role="${r.key}" data-reset-field="markup">reset</button>
-                        </div>
-
-                        <div class="mpc-cell" data-label="True full cost ($/hr)" role="cell">
-                            <div class="mpc-readout">${result.hasWage && !result.error ? fmtMoney(result.trueFullCost) : '—'}</div>
-                        </div>
-
-                        <div class="mpc-cell" data-label="Suggested rate ($/hr)" role="cell">
-                            ${rateHtml}
-                        </div>
-                    `;
-
-                    const details = document.createElement("div");
-                    details.className = `mpc-row-details ${state.detailsOpen ? 'open' : ''}`;
-                    details.setAttribute("data-details", r.key);
-                    details.innerHTML = `
-                        <div class="mpc-details-grid">
-                            <div class="mpc-details-section-title">Business comparison</div>
-                            <div class="mpc-field">
-                                <label for="hc-${r.key}">Staff at this grade</label>
-                                <input type="text" inputmode="numeric" autocomplete="off" id="hc-${r.key}" data-role="${r.key}" data-field="headcount" value="${state.headcount}">
-                            </div>
-                            <div class="mpc-field">
-                                <label>Your current charge out rate ($/hr, excl. GST)</label>
-                                <input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-neutral" data-role="${r.key}" data-field="currentRate" value="${state.currentRate === null ? '' : editableGroupedNumber(state.currentRate, 4)}" placeholder="optional">
-                            </div>
-                            ${result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate) ? `
-                                <div class="mpc-detail-kpi"><span class="label">Gap per month · this grade</span><span class="value ${result.gapPerMonth < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerMonth)}</span></div>
-                                <div class="mpc-detail-kpi"><span class="label">Gap per year · this grade</span><span class="value ${result.gapPerYear < 0 ? 'mpc-negative' : ''}">${fmtMoneyWhole(result.gapPerYear)}</span></div>
-                                <div class="mpc-detail-kpi"><span class="label">Gap per hour</span><span class="value ${result.gapPerHour < 0 ? 'mpc-negative' : ''}">${fmtMoney(result.gapPerHour)}</span></div>
-                            ` : `<div class="mpc-detail-kpi"><span class="label">Rate comparison</span><span class="value" style="font-size:.8rem;font-weight:650;">Enter your current rate to see the gap.</span></div>`}
-
-                            <div class="mpc-details-section-title">Cost helpers</div>
-                            <div class="mpc-field">
-                                <label>Vehicle &amp; tools helper</label>
-                                <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="${r.key}">${state.vehicleCalcOpen ? 'Hide vehicle calculator' : 'Calculate from motor expenses ▸'}</button>
-                            </div>
-                            <div class="mpc-field">
-                                <label>Overheads helper</label>
-                                <button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="${r.key}">${state.overheadCalcOpen ? 'Hide overhead calculator' : 'Calculate from total overheads ▸'}</button>
-                            </div>
-
-                            <div class="mpc-minicalc ${state.vehicleCalcOpen ? 'open' : ''}" data-minicalc="vehicle" data-role="${r.key}">
-                                <div class="mpc-minicalc-row">
-                                    <div class="mpc-field"><label>Annual motor expenses ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="${state.vehicleCalcInputs.motorExpenses === null ? '' : editableGroupedNumber(state.vehicleCalcInputs.motorExpenses, 4)}"></div>
-                                    <div class="mpc-field"><label>Number of vehicles</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="${state.vehicleCalcInputs.vehicleCount}"></div>
-                                </div>
-                                <div class="mpc-minicalc-result">${vehicleCalcResultHtml(state)}</div>
-                            </div>
-
-                            <div class="mpc-minicalc ${state.overheadCalcOpen ? 'open' : ''}" data-minicalc="overhead" data-role="${r.key}">
-                                <div class="mpc-minicalc-row">
-                                    <div class="mpc-field"><label>Total annual overheads ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="totalOverheads" value="${state.overheadCalcInputs.totalOverheads === null ? '' : editableGroupedNumber(state.overheadCalcInputs.totalOverheads, 4)}"></div>
-                                    <div class="mpc-field"><label>Number of billable staff</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="${r.key}" data-mc-kind="overhead" data-mc-field="staffCount" value="${state.overheadCalcInputs.staffCount}"></div>
-                                </div>
-                                <div class="mpc-minicalc-result">${overheadCalcResultHtml(state)}</div>
-                            </div>
-
-                            <div class="mpc-details-section-title">Full workings</div>
-                            <div style="grid-column:1/-1;">
-                                <button type="button" class="mpc-toggle-breakdown" data-role="${r.key}">${state.breakdownOpen ? 'Hide full breakdown ▲' : 'Show full breakdown ▼'}</button>
-                                <div class="mpc-breakdown ${state.breakdownOpen ? 'open' : ''}" data-breakdown="${r.key}">
-                                    ${result.hasWage && !result.error ? renderBreakdown(result) : '<p style="font-size:.82rem;color:var(--text-muted);margin:0;">Enter an hourly wage above to see the full breakdown.</p>'}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                    group.appendChild(row);
-                    group.appendChild(details);
-                    table.appendChild(group);
-                });
-
-                rolesEl.appendChild(table);
-                attachRoleListeners();
-                renderSummary(anyGapKnown, totalGapMonth, totalGapYear, totalHeadcount);
-            }
-
-            function vehicleCalcResultHtml(state) {
-                const me = Number(state.vehicleCalcInputs.motorExpenses);
-                const vc = Number(state.vehicleCalcInputs.vehicleCount) || 1;
-                if (!me || me <= 0) {
-                    return `<span style="color:var(--text-muted);">Enter your motor expenses and vehicle count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>`;
-                }
-                const perVehicle = me / vc;
-                return `Per vehicle: <span class="mpc-minicalc-result">${fmtMoneyWhole(perVehicle)}/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="vehicle">Use this value</button>`;
-            }
-            function overheadCalcResultHtml(state) {
-                const to = Number(state.overheadCalcInputs.totalOverheads);
-                const sc = Number(state.overheadCalcInputs.staffCount) || 1;
-                if (!to || to <= 0) {
-                    return `<span style="color:var(--text-muted);">Enter your total overheads and billable staff count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>`;
-                }
-                const perStaff = to / sc;
-                return `Per billable staff member: <span class="mpc-minicalc-result">${fmtMoneyWhole(perStaff)}/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="overhead">Use this value</button>`;
-            }
-
-            function renderBreakdown(res) {
-                return `
-      <div class="mpc-breakdown-section-title">Wages &amp; statutory on-costs</div>
-      <div class="mpc-breakdown-grid">
-        <div><span>Annual wage cost</span><b>${fmtMoney(res.annualWage)}</b></div>
-        <div><span>ACC-liable earnings (capped)</span><b>${fmtMoney(res.cappedWage)}</b></div>
-        <div><span>ACC Work Levy</span><b>${fmtMoney(res.accWork)}</b></div>
-        <div><span>ACC Working Safer Levy</span><b>${fmtMoney(res.accSafer)}</b></div>
-        <div><span>KiwiSaver employer</span><b>${fmtMoney(res.kiwiSaver)}</b></div>
-        <div><span>Total annual employment cost</span><b>${fmtMoney(res.totalEmploymentCost)}</b></div>
-      </div>
-      <div class="mpc-breakdown-section-title">Paid leave &amp; capacity</div>
-      <div class="mpc-breakdown-grid">
-        <div><span>Paid hours per year</span><b>${fmtHours(res.paidHours)}</b></div>
-        <div><span>Annual leave hours</span><b>${fmtHours(res.annualLeaveHours)}</b></div>
-        <div><span>Public holiday hours</span><b>${fmtHours(res.publicHolidayHours)}</b></div>
-        <div><span>Sick leave hours</span><b>${fmtHours(res.sickLeaveHours)}</b></div>
-        <div><span>Hours worked (at business)</span><b>${fmtHours(res.hoursWorked)}</b></div>
-        <div><span>Non-billable time</span><b>${editablePct(res.nonBillable)}%</b></div>
-        <div><span>Billable hours per year</span><b>${fmtHours(res.billableHours)}</b></div>
-      </div>
-      <div class="mpc-breakdown-section-title">True labour cost &amp; overheads</div>
-      <div class="mpc-breakdown-grid">
-        <div><span>True labour cost / billable hr</span><b>${fmtMoney(res.trueLabourCostPerHour)}</b></div>
-        <div><span>Vehicle &amp; tools</span><b>${fmtMoney(res.vehicle)}</b></div>
-        <div><span>Share of overheads</span><b>${fmtMoney(res.overheads)}</b></div>
-        <div><span>Total annual overhead</span><b>${fmtMoney(res.totalOverhead)}</b></div>
-        <div><span>Overhead cost / billable hr</span><b>${fmtMoney(res.overheadPerHour)}</b></div>
-        <div><span>True full cost / hr (excl. GST)</span><b>${fmtMoney(res.trueFullCost)}</b></div>
-      </div>
-      <div class="mpc-breakdown-section-title">Suggested charge out rate</div>
-      <div class="mpc-breakdown-grid">
-        <div><span>Markup applied</span><b>${editablePct(res.markup)}% (≈${(res.marginPct * 100).toFixed(1)}% margin)</b></div>
-        <div><span>Gasfitting premium</span><b>${editablePct(res.gasLoading)}% on top of rate</b></div>
-        <div><span>Suggested rate, excl. GST</span><b>${fmtMoney(res.suggestedExGST)}/hr</b></div>
-        <div><span>Suggested rate, incl. GST</span><b>${fmtMoney(res.suggestedIncGST)}/hr</b></div>
-      </div>
-    `;
-            }
-
-            function renderSummary(anyGapKnown, totalGapMonth, totalGapYear, totalHeadcount) {
-                if (!anyGapKnown) {
-                    summaryEl.innerHTML = `
-        <h3>Business-wide potential</h3>
-        <p class="mpc-summary-empty">Enter "your current charge out rate" on at least one role above (and how many staff you have at that grade) to see the potential gain across your whole business.</p>
-      `;
-                    return;
-                }
-                const posNeg = totalGapYear >= 0 ? "gain" : "shortfall";
-                summaryEl.innerHTML = `
-      <h3>Business-wide potential</h3>
-      <p>Based on the current rates you've entered, across ${totalHeadcount} billable staff.</p>
-      <div class="mpc-summary-grid">
-        <div class="mpc-summary-stat"><span class="label">Monthly ${posNeg}</span><span class="value">${fmtMoneyWhole(Math.abs(totalGapMonth))}</span></div>
-        <div class="mpc-summary-stat"><span class="label">Annual ${posNeg}</span><span class="value">${fmtMoneyWhole(Math.abs(totalGapYear))}</span></div>
-      </div>
-    `;
-            }
-
-            // ---------------------------------------------------------------
-            // Event handling
-            // ---------------------------------------------------------------
-            function attachRoleListeners() {
-                rolesEl.querySelectorAll("input[data-role][data-field]").forEach(el => {
-                    el.addEventListener("input", onFieldChange);
-                    el.addEventListener("blur", (e) => {
-                        const role = e.target.getAttribute("data-role");
-                        const field = e.target.getAttribute("data-field");
-                        if (!["wage", "vehicle", "overheads", "currentRate"].includes(field)) return;
-                        const value = roleState[role][field];
-                        e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
-                    });
-                });
-                rolesEl.querySelectorAll("select[data-role][data-field]").forEach(el => {
-                    el.addEventListener("change", onFieldChange);
-                });
-                rolesEl.querySelectorAll(".mpc-details-toggle").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const key = btn.getAttribute("data-details-role");
-                        roleState[key].detailsOpen = !roleState[key].detailsOpen;
-                        renderRoles();
-                    });
-                });
-                rolesEl.querySelectorAll(".mpc-toggle-breakdown").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const key = btn.getAttribute("data-role");
-                        roleState[key].breakdownOpen = !roleState[key].breakdownOpen;
-                        renderRoles();
-                    });
-                });
-                rolesEl.querySelectorAll(".mpc-reset-icon").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const role = btn.getAttribute("data-reset-role");
-                        const field = btn.getAttribute("data-reset-field");
-                        const rDef = roleDefs.find(r => r.key === role);
-                        if (field === "vehicle") roleState[role].vehicle = A[rDef.vehicleKey].value;
-                        else if (field === "overheads") roleState[role].overheads = A.defaultOverheads.value;
-                        else if (field === "nonBillablePct") roleState[role].nonBillablePct = A.nonBillablePct.value;
-                        else if (field === "markup") roleState[role].markup = A.defaultMarkup.value;
-                        renderRoles();
-                    });
-                });
-                rolesEl.querySelectorAll("[data-minicalc-toggle]").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const role = btn.getAttribute("data-role");
-                        const kind = btn.getAttribute("data-minicalc-toggle");
-                        if (kind === "vehicle") roleState[role].vehicleCalcOpen = !roleState[role].vehicleCalcOpen;
-                        else roleState[role].overheadCalcOpen = !roleState[role].overheadCalcOpen;
-                        renderRoles();
-                    });
-                });
-                rolesEl.querySelectorAll("[data-mc-role]").forEach(el => {
-                    el.addEventListener("blur", (e) => {
-                        const role = e.target.getAttribute("data-mc-role");
-                        const kind = e.target.getAttribute("data-mc-kind");
-                        const field = e.target.getAttribute("data-mc-field");
-                        if (!["motorExpenses", "totalOverheads"].includes(field)) return;
-                        const value = kind === "vehicle"
-                            ? roleState[role].vehicleCalcInputs[field]
-                            : roleState[role].overheadCalcInputs[field];
-                        e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
-                    });
-                    el.addEventListener("input", (e) => {
-                        const role = e.target.getAttribute("data-mc-role");
-                        const kind = e.target.getAttribute("data-mc-kind");
-                        const field = e.target.getAttribute("data-mc-field");
-                        const raw = e.target.value;
-                        const start = e.target.selectionStart;
-                        const end = e.target.selectionEnd;
-                        const parsed = parseUserNumber(raw);
-
-                        let v = parsed;
-                        if (field === "vehicleCount" || field === "staffCount") {
-                            v = parsed === null ? 1 : Math.max(1, Math.round(parsed));
-                        }
-
-                        if (kind === "vehicle") roleState[role].vehicleCalcInputs[field] = v;
-                        else roleState[role].overheadCalcInputs[field] = v;
-
-                        const selector = `[data-mc-role="${role}"][data-mc-kind="${kind}"][data-mc-field="${field}"]`;
-                        renderRolesPreservingInput(selector, raw, start, end);
-                    });
-                });
-                rolesEl.querySelectorAll("[data-mc-use]").forEach(btn => {
-                    btn.addEventListener("click", (e) => {
-                        const container = e.target.closest(".mpc-minicalc");
-                        const role = container.getAttribute("data-role");
-                        const kind = btn.getAttribute("data-mc-use");
-                        if (kind === "vehicle") {
-                            const me = Number(roleState[role].vehicleCalcInputs.motorExpenses);
-                            const vc = Number(roleState[role].vehicleCalcInputs.vehicleCount) || 1;
-                            if (me > 0) roleState[role].vehicle = Math.round(me / vc);
-                        } else {
-                            const to = Number(roleState[role].overheadCalcInputs.totalOverheads);
-                            const sc = Number(roleState[role].overheadCalcInputs.staffCount) || 1;
-                            if (to > 0) roleState[role].overheads = Math.round(to / sc);
-                        }
-                        renderRoles();
-                    });
-                });
-            }
-
-            function onFieldChange(e) {
-                const role = e.target.getAttribute("data-role");
-                const field = e.target.getAttribute("data-field");
-                const raw = e.target.value;
-                const start = e.target.selectionStart;
-                const end = e.target.selectionEnd;
-
-                if (field === "kiwiSaver") {
-                    roleState[role].kiwiSaver = (raw === "yes");
-                    renderRoles();
-                    return;
-                }
-
-                const parsed = parseUserNumber(raw);
-
-                if (field === "wage") {
-                    roleState[role].wage = parsed;
-                } else if (field === "currentRate") {
-                    roleState[role].currentRate = parsed;
-                } else if (field === "markup" || field === "nonBillablePct") {
-                    roleState[role][field] = parsed === null ? 0 : parsed / 100;
-                } else if (field === "headcount") {
-                    roleState[role].headcount = parsed === null ? 1 : Math.max(1, Math.round(parsed));
+                let rateHtml;
+                if (result.hasWage && result.error) {
+                    rateHtml = '<div class="mpc-rate-cell-box mpc-rate-empty"><strong>Check inputs</strong><span>See warning</span></div>';
+                } else if (result.hasWage) {
+                    rateHtml = '<div class="mpc-rate-cell-box"><strong>' + fmtMoney(result.suggestedExGST) + '</strong><span>ex GST - ' + fmtMoney(result.suggestedIncGST) + ' incl. GST</span></div>';
                 } else {
-                    roleState[role][field] = parsed === null ? 0 : parsed;
+                    rateHtml = '<div class="mpc-rate-cell-box mpc-rate-empty"><strong>-</strong><span>Enter a wage</span></div>';
                 }
 
-                const selector = `[data-role="${role}"][data-field="${field}"]`;
-                renderRolesPreservingInput(selector, raw, start, end);
-            }
+                const pricingValue = editableNumber(pricingFractionForDisplay(state) * 100, 2);
+                const pricingHelper = result.hasWage && !result.error
+                    ? (pricingMode === "markup" ? 'about ' + (result.marginPct * 100).toFixed(1) + '% margin' : 'about ' + (result.markup * 100).toFixed(1) + '% markup')
+                    : '';
 
-            // ---------------------------------------------------------------
-            // Trade toggle
-            // ---------------------------------------------------------------
-            document.getElementById("mpc-trade-toggle").addEventListener("click", (e) => {
-                const btn = e.target.closest("button[data-trade]");
-                if (!btn) return;
-                trade = btn.getAttribute("data-trade");
-                document.querySelectorAll("#mpc-trade-toggle button").forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                renderRoles();
+                const group = document.createElement("div");
+                group.className = "mpc-role-group";
+                group.setAttribute("role", "rowgroup");
+
+                const row = document.createElement("div");
+                row.className = "mpc-role-row";
+                row.setAttribute("role", "row");
+                row.innerHTML =
+                    '<div class="mpc-cell mpc-role-cell" data-label="Role" role="rowheader">' + roleCellHtml(r, state) + '<button type="button" class="mpc-details-toggle" data-details-role="' + r.key + '" aria-expanded="' + (state.detailsOpen ? 'true' : 'false') + '">' + (state.detailsOpen ? 'Hide details' : 'Details & comparison') + '</button></div>' +
+                    '<div class="mpc-cell" data-label="Hourly wage paid ($)" role="cell"><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-required" aria-label="' + displayName + ' hourly wage paid" data-role="' + r.key + '" data-field="wage" value="' + (state.wage === null ? '' : editableGroupedNumber(state.wage, 4)) + '" placeholder="0.00">' + (result.hasWage && result.error ? '<div class="mpc-warning">' + result.error + '</div>' : '') + '</div>' +
+                    '<div class="mpc-cell" data-label="KiwiSaver member?" role="cell"><select aria-label="' + displayName + ' KiwiSaver member" data-role="' + r.key + '" data-field="kiwiSaver"><option value="yes" ' + (state.kiwiSaver ? 'selected' : '') + '>Yes</option><option value="no" ' + (!state.kiwiSaver ? 'selected' : '') + '>No</option></select></div>' +
+                    '<div class="mpc-cell mpc-has-mobile-label" data-label="Vehicle & tools ($/year)" role="cell">' + vehicleToolsCellHtml(r, state, displayName) + '</div>' +
+                    '<div class="mpc-cell mpc-has-mobile-label" data-label="Share of overheads ($/year)" role="cell"><div class="mpc-mobile-cell-label">Share of overheads ($/year)<span class="mpc-help"><button type="button" class="mpc-help-button" aria-label="About Share of overheads">?</button><span class="mpc-help-bubble" role="tooltip">&quot;Share of overheads&quot; is your other annual business overheads (rent, admin wages, software, phone, general insurance etc.) divided by your number of billable staff.</span></span></div><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="' + displayName + ' annual overhead share" data-role="' + r.key + '" data-field="overheads" value="' + editableGroupedNumber(state.overheads, 4) + '"><button type="button" class="mpc-reset-icon" data-reset-role="' + r.key + '" data-reset-field="overheads">reset estimate</button></div>' +
+                    '<div class="mpc-cell" data-label="Non-billable time (%)" role="cell"><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="' + displayName + ' non-billable time percentage" data-role="' + r.key + '" data-field="nonBillablePct" value="' + editablePct(state.nonBillablePct) + '"><button type="button" class="mpc-reset-icon" data-reset-role="' + r.key + '" data-reset-field="nonBillablePct">reset</button></div>' +
+                    '<div class="mpc-cell" data-label="' + pricingLabel() + '" role="cell"><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate" aria-label="' + displayName + ' ' + pricingLabel() + '" data-role="' + r.key + '" data-field="pricingPct" value="' + pricingValue + '">' + (pricingHelper ? '<div class="mpc-helper-text">' + pricingHelper + '</div>' : '') + '<button type="button" class="mpc-reset-icon" data-reset-role="' + r.key + '" data-reset-field="pricingPct">reset</button></div>' +
+                    '<div class="mpc-cell" data-label="True full cost ($/hr)" role="cell"><div class="mpc-readout">' + (result.hasWage && !result.error ? fmtMoney(result.trueFullCost) : '-') + '</div></div>' +
+                    '<div class="mpc-cell" data-label="Suggested rate ($/hr)" role="cell">' + rateHtml + '</div>';
+
+                const details = document.createElement("div");
+                details.className = 'mpc-row-details ' + (state.detailsOpen ? 'open' : '');
+                details.setAttribute("data-details", r.key);
+
+                let comparisonHtml = '<div class="mpc-detail-kpi"><span class="label">Rate comparison</span><span class="value" style="font-size:.8rem;font-weight:650;">Enter your current rate to see your position.</span></div>';
+                if (result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate)) {
+                    const targetWord = result.targetPositionPerHour > 0 ? 'above target' : result.targetPositionPerHour < 0 ? 'below target' : 'on target';
+                    comparisonHtml =
+                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) per hour</span><span class="value ' + signClass(result.profitPerHour) + '">' + fmtSignedMoney(result.profitPerHour) + '</span></div>' +
+                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) per year</span><span class="value ' + signClass(result.profitPerYear) + '">' + fmtSignedMoneyWhole(result.profitPerYear) + '</span></div>' +
+                        '<div class="mpc-detail-kpi"><span class="label">Position vs target per hour</span><span class="value ' + signClass(result.targetPositionPerHour) + '">' + fmtSignedMoney(result.targetPositionPerHour) + '</span><span class="mpc-target-word">' + targetWord + '</span></div>';
+                }
+
+                details.innerHTML =
+                    '<div class="mpc-details-grid">' +
+                        '<div class="mpc-details-section-title">Business comparison</div>' +
+                        '<div class="mpc-field"><label for="hc-' + r.key + '">' + (r.type === 'apprentice' ? 'Staff at this wage' : 'Staff at this grade') + '</label><input type="text" inputmode="numeric" autocomplete="off" id="hc-' + r.key + '" data-role="' + r.key + '" data-field="headcount" value="' + state.headcount + '"></div>' +
+                        '<div class="mpc-field"><label>Your current charge out rate ($/hr, excl. GST)</label><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-neutral" data-role="' + r.key + '" data-field="currentRate" value="' + (state.currentRate === null ? '' : editableGroupedNumber(state.currentRate, 4)) + '" placeholder="optional"></div>' +
+                        comparisonHtml +
+                        surveyReferenceHtml(r, state) +
+                        '<div class="mpc-details-section-title">Cost helpers</div>' +
+                        '<div class="mpc-field"><label>Vehicle helper</label><button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="vehicle" data-role="' + r.key + '">' + (state.vehicleCalcOpen ? 'Hide vehicle calculator' : 'Calculate from motor expenses >') + '</button><div class="mpc-minicalc ' + (state.vehicleCalcOpen ? 'open' : '') + '" data-minicalc="vehicle" data-role="' + r.key + '"><div class="mpc-minicalc-row"><div class="mpc-field"><label>Annual motor expenses ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="' + r.key + '" data-mc-kind="vehicle" data-mc-field="motorExpenses" value="' + (state.vehicleCalcInputs.motorExpenses === null ? '' : editableGroupedNumber(state.vehicleCalcInputs.motorExpenses, 4)) + '"></div><div class="mpc-field"><label>Number of vehicles</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="' + r.key + '" data-mc-kind="vehicle" data-mc-field="vehicleCount" value="' + state.vehicleCalcInputs.vehicleCount + '"></div></div><div class="mpc-minicalc-result">' + vehicleCalcResultHtml(state) + '</div></div></div>' +
+                        '<div class="mpc-field"><label>Overhead helper</label><button type="button" class="mpc-minicalc-toggle" data-minicalc-toggle="overhead" data-role="' + r.key + '">' + (state.overheadCalcOpen ? 'Hide overhead calculator' : 'Calculate from total overheads >') + '</button><div class="mpc-minicalc ' + (state.overheadCalcOpen ? 'open' : '') + '" data-minicalc="overhead" data-role="' + r.key + '"><div class="mpc-minicalc-row"><div class="mpc-field"><label>Total annual overheads ($)</label><input type="text" inputmode="decimal" autocomplete="off" data-mc-role="' + r.key + '" data-mc-kind="overhead" data-mc-field="totalOverheads" value="' + (state.overheadCalcInputs.totalOverheads === null ? '' : editableGroupedNumber(state.overheadCalcInputs.totalOverheads, 4)) + '"></div><div class="mpc-field"><label>Number of billable staff</label><input type="text" inputmode="numeric" autocomplete="off" data-mc-role="' + r.key + '" data-mc-kind="overhead" data-mc-field="staffCount" value="' + state.overheadCalcInputs.staffCount + '"></div></div><div class="mpc-minicalc-result">' + overheadCalcResultHtml(state) + '</div></div></div>' +
+                        '<div class="mpc-details-section-title">Full workings</div>' +
+                        '<div style="grid-column:1/-1;"><button type="button" class="mpc-toggle-breakdown" data-role="' + r.key + '">' + (state.breakdownOpen ? 'Hide full breakdown' : 'Show full breakdown') + '</button><div class="mpc-breakdown ' + (state.breakdownOpen ? 'open' : '') + '" data-breakdown="' + r.key + '">' + (result.hasWage && !result.error ? renderBreakdown(result) : '<p style="font-size:.82rem;color:var(--text-muted);margin:0;">Enter an hourly wage above to see the full breakdown.</p>') + '</div></div>' +
+                    '</div>';
+
+                group.appendChild(row);
+                group.appendChild(details);
+                table.appendChild(group);
             });
 
-            // ---------------------------------------------------------------
-            // Assumptions panel
-            // ---------------------------------------------------------------
-            const assumptionListEl = document.getElementById("mpc-assumption-list");
+            rolesEl.appendChild(table);
+            const apprenticeTools = document.createElement("div");
+            apprenticeTools.className = "mpc-apprentice-tools";
+            apprenticeTools.innerHTML = '<button type="button" class="mpc-add-apprentice" id="mpc-add-apprentice">+ Add another apprentice wage</button>';
+            rolesEl.appendChild(apprenticeTools);
 
-            function renderAssumptions() {
-                assumptionListEl.innerHTML = "";
-                Object.keys(A).forEach(key => {
+            attachRoleListeners();
+            renderSummary(anyComparisonKnown, totalProfitMonth, totalProfitYear, totalTargetMonth, totalTargetYear, totalHeadcount);
+        }
+
+        function vehicleCalcResultHtml(state) {
+            const me = Number(state.vehicleCalcInputs.motorExpenses);
+            const vc = Number(state.vehicleCalcInputs.vehicleCount) || 1;
+            if (!me || me <= 0) return '<span style="color:var(--text-muted);">Enter your motor expenses and vehicle count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>';
+            const perVehicle = me / vc;
+            return 'Per vehicle: <span class="mpc-minicalc-result">' + fmtMoneyWhole(perVehicle) + '/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="vehicle">Use this value</button>';
+        }
+
+        function overheadCalcResultHtml(state) {
+            const to = Number(state.overheadCalcInputs.totalOverheads);
+            const sc = Number(state.overheadCalcInputs.staffCount) || 1;
+            if (!to || to <= 0) return '<span style="color:var(--text-muted);">Enter your total overheads and billable staff count.</span> <button type="button" class="mpc-minicalc-use" disabled style="opacity:.5;">Use this value</button>';
+            const perStaff = to / sc;
+            return 'Per billable staff member: <span class="mpc-minicalc-result">' + fmtMoneyWhole(perStaff) + '/yr</span> &nbsp; <button type="button" class="mpc-minicalc-use" data-mc-use="overhead">Use this value</button>';
+        }
+
+        function renderBreakdown(res) {
+            const vehicleLine = vehicleRecoveryMode === "included"
+                ? '<div><span>Vehicle cost included in labour rate</span><b>' + fmtMoney(res.vehicle) + '</b></div>'
+                : '<div><span>Vehicle cost recovered separately</span><b>' + fmtMoney(res.separatelyRecoveredVehicle) + '</b></div>';
+            const pricingLine = pricingMode === "markup"
+                ? '<div><span>Markup applied</span><b>' + editablePct(res.markup) + '% (about ' + (res.marginPct * 100).toFixed(1) + '% margin)</b></div>'
+                : '<div><span>Gross margin target</span><b>' + editablePct(res.marginPct) + '% (about ' + (res.markup * 100).toFixed(1) + '% markup)</b></div>';
+            return '<div class="mpc-breakdown-section-title">Wages &amp; statutory on-costs</div><div class="mpc-breakdown-grid">' +
+                '<div><span>Annual wage cost</span><b>' + fmtMoney(res.annualWage) + '</b></div>' +
+                '<div><span>ACC-liable earnings (capped)</span><b>' + fmtMoney(res.cappedWage) + '</b></div>' +
+                '<div><span>ACC Work Levy</span><b>' + fmtMoney(res.accWork) + '</b></div>' +
+                '<div><span>ACC Working Safer Levy</span><b>' + fmtMoney(res.accSafer) + '</b></div>' +
+                '<div><span>KiwiSaver employer</span><b>' + fmtMoney(res.kiwiSaver) + '</b></div>' +
+                '<div><span>Total annual employment cost</span><b>' + fmtMoney(res.totalEmploymentCost) + '</b></div></div>' +
+                '<div class="mpc-breakdown-section-title">Paid leave &amp; capacity</div><div class="mpc-breakdown-grid">' +
+                '<div><span>Paid hours per year</span><b>' + fmtHours(res.paidHours) + '</b></div>' +
+                '<div><span>Annual leave hours</span><b>' + fmtHours(res.annualLeaveHours) + '</b></div>' +
+                '<div><span>Public holiday hours</span><b>' + fmtHours(res.publicHolidayHours) + '</b></div>' +
+                '<div><span>Sick leave hours</span><b>' + fmtHours(res.sickLeaveHours) + '</b></div>' +
+                '<div><span>Hours worked (at business)</span><b>' + fmtHours(res.hoursWorked) + '</b></div>' +
+                '<div><span>Non-billable time</span><b>' + editablePct(res.nonBillable) + '%</b></div>' +
+                '<div><span>Billable hours per year</span><b>' + fmtHours(res.billableHours) + '</b></div></div>' +
+                '<div class="mpc-breakdown-section-title">True labour cost &amp; overheads</div><div class="mpc-breakdown-grid">' +
+                '<div><span>True labour cost / billable hr</span><b>' + fmtMoney(res.trueLabourCostPerHour) + '</b></div>' + vehicleLine +
+                '<div><span>Tools &amp; equipment</span><b>' + fmtMoney(res.tools) + '</b></div>' +
+                '<div><span>Share of overheads</span><b>' + fmtMoney(res.overheads) + '</b></div>' +
+                '<div><span>Annual costs included in labour rate</span><b>' + fmtMoney(res.totalOverhead) + '</b></div>' +
+                '<div><span>Overhead cost / billable hr</span><b>' + fmtMoney(res.overheadPerHour) + '</b></div>' +
+                '<div><span>True full cost / hr (excl. GST)</span><b>' + fmtMoney(res.trueFullCost) + '</b></div></div>' +
+                '<div class="mpc-breakdown-section-title">Suggested charge out rate</div><div class="mpc-breakdown-grid">' + pricingLine +
+                '<div><span>Gasfitting premium</span><b>' + editablePct(res.gasLoading) + '% on top of rate</b></div>' +
+                '<div><span>Suggested rate, excl. GST</span><b>' + fmtMoney(res.suggestedExGST) + '/hr</b></div>' +
+                '<div><span>Suggested rate, incl. GST</span><b>' + fmtMoney(res.suggestedIncGST) + '/hr</b></div></div>';
+        }
+
+        function renderSummary(anyKnown, profitMonth, profitYear, targetMonth, targetYear, headcount) {
+            if (!anyKnown) {
+                summaryEl.innerHTML = '<h3>Business-wide position</h3><p class="mpc-summary-empty">Enter an hourly wage, then open Details & comparison for that role and add your current charge-out rate to see estimated labour profit/(loss) and your position against your own calculated target.</p>';
+                return;
+            }
+            const targetWord = targetYear > 0 ? 'above target' : targetYear < 0 ? 'below target' : 'on target';
+            summaryEl.innerHTML = '<h3>Business-wide position</h3>' +
+                '<p>Based on the current rates entered across ' + headcount + ' billable staff. Labour pricing only; separately billed vehicle/travel and job-specific revenue are not included.</p>' +
+                '<div class="mpc-summary-grid">' +
+                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) per month</span><span class="value ' + signClass(profitMonth) + '">' + fmtSignedMoneyWhole(profitMonth) + '</span></div>' +
+                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) per year</span><span class="value ' + signClass(profitYear) + '">' + fmtSignedMoneyWhole(profitYear) + '</span></div>' +
+                    '<div class="mpc-summary-stat"><span class="label">Position vs target per year</span><span class="value ' + signClass(targetYear) + '">' + fmtSignedMoneyWhole(targetYear) + '</span><span class="mpc-target-word">' + targetWord + '</span></div>' +
+                    '<div class="mpc-summary-stat"><span class="label">Staff modelled</span><span class="value mpc-neutral-value">' + headcount + '</span></div>' +
+                '</div>';
+        }
+
+        function attachRoleListeners() {
+            rolesEl.querySelectorAll("input[data-role][data-field]").forEach(function (el) {
+                el.addEventListener("input", onFieldChange);
+                el.addEventListener("blur", function (e) {
+                    const role = e.target.getAttribute("data-role");
+                    const field = e.target.getAttribute("data-field");
+                    if (!["wage", "vehicle", "tools", "overheads", "currentRate"].includes(field)) return;
+                    const value = roleState[role][field];
+                    e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
+                });
+            });
+            rolesEl.querySelectorAll("select[data-role][data-field]").forEach(function (el) { el.addEventListener("change", onFieldChange); });
+
+            rolesEl.querySelectorAll(".mpc-details-toggle").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const key = btn.getAttribute("data-details-role");
+                    roleState[key].detailsOpen = !roleState[key].detailsOpen;
+                    renderRoles();
+                });
+            });
+
+            rolesEl.querySelectorAll(".mpc-toggle-breakdown").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const key = btn.getAttribute("data-role");
+                    roleState[key].breakdownOpen = !roleState[key].breakdownOpen;
+                    renderRoles();
+                });
+            });
+
+            rolesEl.querySelectorAll(".mpc-reset-icon").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const role = btn.getAttribute("data-reset-role");
+                    const field = btn.getAttribute("data-reset-field");
+                    const rDef = roleDefs.find(function (r) { return r.key === role; });
+                    if (field === "vehicle") roleState[role].vehicle = A[rDef.vehicleKey].value;
+                    else if (field === "tools") roleState[role].tools = A.defaultTools.value;
+                    else if (field === "overheads") roleState[role].overheads = A.defaultOverheads.value;
+                    else if (field === "nonBillablePct") roleState[role].nonBillablePct = A.nonBillablePct.value;
+                    else if (field === "pricingPct") roleState[role].markup = A.defaultMarkup.value;
+                    renderRoles();
+                });
+            });
+
+            rolesEl.querySelectorAll("[data-minicalc-toggle]").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const role = btn.getAttribute("data-role");
+                    const kind = btn.getAttribute("data-minicalc-toggle");
+                    if (kind === "vehicle") roleState[role].vehicleCalcOpen = !roleState[role].vehicleCalcOpen;
+                    else roleState[role].overheadCalcOpen = !roleState[role].overheadCalcOpen;
+                    renderRoles();
+                });
+            });
+
+            rolesEl.querySelectorAll("[data-mc-role]").forEach(function (el) {
+                el.addEventListener("input", function (e) {
+                    const role = e.target.getAttribute("data-mc-role");
+                    const kind = e.target.getAttribute("data-mc-kind");
+                    const field = e.target.getAttribute("data-mc-field");
+                    const raw = e.target.value;
+                    const start = e.target.selectionStart;
+                    const end = e.target.selectionEnd;
+                    const parsed = parseUserNumber(raw);
+                    let v = parsed;
+                    if (field === "vehicleCount" || field === "staffCount") v = parsed === null ? 1 : Math.max(1, Math.round(parsed));
+                    if (kind === "vehicle") roleState[role].vehicleCalcInputs[field] = v;
+                    else roleState[role].overheadCalcInputs[field] = v;
+                    const selector = '[data-mc-role="' + role + '"][data-mc-kind="' + kind + '"][data-mc-field="' + field + '"]';
+                    renderRolesPreservingInput(selector, raw, start, end);
+                });
+                el.addEventListener("blur", function (e) {
+                    const role = e.target.getAttribute("data-mc-role");
+                    const kind = e.target.getAttribute("data-mc-kind");
+                    const field = e.target.getAttribute("data-mc-field");
+                    if (!["motorExpenses", "totalOverheads"].includes(field)) return;
+                    const value = kind === "vehicle" ? roleState[role].vehicleCalcInputs[field] : roleState[role].overheadCalcInputs[field];
+                    e.target.value = value === null ? "" : editableGroupedNumber(value, 4);
+                });
+            });
+
+            rolesEl.querySelectorAll("[data-mc-use]").forEach(function (btn) {
+                btn.addEventListener("click", function (e) {
+                    const container = e.target.closest(".mpc-minicalc");
+                    const role = container.getAttribute("data-role");
+                    const kind = btn.getAttribute("data-mc-use");
+                    if (kind === "vehicle") {
+                        const me = Number(roleState[role].vehicleCalcInputs.motorExpenses);
+                        const vc = Number(roleState[role].vehicleCalcInputs.vehicleCount) || 1;
+                        if (me > 0) roleState[role].vehicle = Math.round(me / vc);
+                    } else {
+                        const to = Number(roleState[role].overheadCalcInputs.totalOverheads);
+                        const sc = Number(roleState[role].overheadCalcInputs.staffCount) || 1;
+                        if (to > 0) roleState[role].overheads = Math.round(to / sc);
+                    }
+                    renderRoles();
+                });
+            });
+
+            const addBtn = document.getElementById("mpc-add-apprentice");
+            if (addBtn) addBtn.addEventListener("click", addApprentice);
+
+            rolesEl.querySelectorAll("[data-remove-apprentice]").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    const key = btn.getAttribute("data-remove-apprentice");
+                    roleDefs = roleDefs.filter(function (r) { return r.key !== key; });
+                    delete roleState[key];
+                    renderRoles();
+                });
+            });
+        }
+
+        function onFieldChange(e) {
+            const role = e.target.getAttribute("data-role");
+            const field = e.target.getAttribute("data-field");
+            const raw = e.target.value;
+
+            if (field === "kiwiSaver") {
+                roleState[role].kiwiSaver = raw === "yes";
+                renderRoles();
+                return;
+            }
+            if (field === "apprenticeYear") {
+                roleState[role].apprenticeYear = Math.min(4, Math.max(1, Number(raw) || 1));
+                renderRoles();
+                return;
+            }
+
+            const start = e.target.selectionStart;
+            const end = e.target.selectionEnd;
+            const parsed = parseUserNumber(raw);
+
+            if (field === "wage") roleState[role].wage = parsed;
+            else if (field === "currentRate") roleState[role].currentRate = parsed;
+            else if (field === "pricingPct") {
+                if (parsed === null) roleState[role].markup = 0;
+                else if (pricingMode === "markup") roleState[role].markup = Math.max(0, parsed / 100);
+                else {
+                    const margin = parsed / 100;
+                    roleState[role].markup = margin >= 1 ? Infinity : Math.max(0, margin) / (1 - Math.max(0, margin));
+                }
+            } else if (field === "nonBillablePct") roleState[role].nonBillablePct = parsed === null ? 0 : parsed / 100;
+            else if (field === "headcount") roleState[role].headcount = parsed === null ? 1 : Math.max(1, Math.round(parsed));
+            else roleState[role][field] = parsed === null ? 0 : parsed;
+
+            const selector = '[data-role="' + role + '"][data-field="' + field + '"]';
+            renderRolesPreservingInput(selector, raw, start, end);
+        }
+
+        function addApprentice() {
+            const def = makeApprenticeDef(true);
+            const firstNonApprentice = roleDefs.findIndex(function (r) { return r.type !== "apprentice"; });
+            const index = firstNonApprentice === -1 ? roleDefs.length : firstNonApprentice;
+            roleDefs.splice(index, 0, def);
+            roleState[def.key] = defaultStateForRole(def);
+            roleState[def.key].detailsOpen = true;
+            renderRoles();
+        }
+
+        document.getElementById("mpc-trade-toggle").addEventListener("click", function (e) {
+            const btn = e.target.closest("button[data-trade]");
+            if (!btn) return;
+            trade = btn.getAttribute("data-trade");
+            document.querySelectorAll("#mpc-trade-toggle button").forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            renderRoles();
+        });
+
+        document.getElementById("mpc-pricing-mode").addEventListener("click", function (e) {
+            const btn = e.target.closest("button[data-pricing-mode]");
+            if (!btn) return;
+            pricingMode = btn.getAttribute("data-pricing-mode");
+            document.querySelectorAll("#mpc-pricing-mode button").forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            renderRoles();
+        });
+
+        document.getElementById("mpc-vehicle-mode").addEventListener("click", function (e) {
+            const btn = e.target.closest("button[data-vehicle-mode]");
+            if (!btn) return;
+            vehicleRecoveryMode = btn.getAttribute("data-vehicle-mode");
+            document.querySelectorAll("#mpc-vehicle-mode button").forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+            renderRoles();
+        });
+
+        function renderAssumptions() {
+            assumptionListEl.innerHTML = "";
+            Object.keys(A).forEach(function (key) {
+                const a = A[key];
+                const displayVal = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
+                const row = document.createElement("div");
+                row.className = "mpc-assumption-row";
+                row.innerHTML = '<label>' + a.label + '</label><input type="text" inputmode="decimal" data-assumption="' + key + '" value="' + displayVal + '"><div class="mpc-source">' + a.source + '</div>';
+                assumptionListEl.appendChild(row);
+            });
+            assumptionListEl.querySelectorAll("input[data-assumption]").forEach(function (el) {
+                el.addEventListener("input", function (e) {
+                    const key = e.target.getAttribute("data-assumption");
+                    const parsed = parseUserNumber(e.target.value);
+                    const v = parsed === null ? 0 : parsed;
+                    A[key].value = A[key].isPct ? v / 100 : v;
+                    renderRoles();
+                });
+                el.addEventListener("blur", function (e) {
+                    const key = e.target.getAttribute("data-assumption");
                     const a = A[key];
-                    const displayVal = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
-                    const row = document.createElement("div");
-                    row.className = "mpc-assumption-row";
-                    row.innerHTML = `
-        <label>${a.label}</label>
-        <input type="text" inputmode="decimal" data-assumption="${key}" value="${displayVal}">
-        <div class="mpc-source">${a.source}</div>
-      `;
-                    assumptionListEl.appendChild(row);
+                    e.target.value = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
                 });
-                assumptionListEl.querySelectorAll("input[data-assumption]").forEach(el => {
-                    el.addEventListener("input", (e) => {
-                        const key = e.target.getAttribute("data-assumption");
-                        const parsed = parseUserNumber(e.target.value);
-                        const v = parsed === null ? 0 : parsed;
-                        A[key].value = A[key].isPct ? v / 100 : v;
-                        renderRoles();
-                    });
-                    el.addEventListener("blur", (e) => {
-                        const key = e.target.getAttribute("data-assumption");
-                        const a = A[key];
-                        e.target.value = a.isPct ? editablePct(a.value) : editableGroupedNumber(a.value, 6);
-                    });
-                });
-            }
-
-            document.getElementById("mpc-reset-btn").addEventListener("click", () => {
-                A = JSON.parse(JSON.stringify(defaultAssumptions));
-                initRoleState();
-                renderAssumptions();
-                renderRoles();
             });
+        }
 
-            // ---------------------------------------------------------------
-            // Print summary
-            // ---------------------------------------------------------------
-            const printBtn = document.getElementById("mpc-print-btn");
-            const assumptionsEl = document.getElementById("mpc-assumptions");
-            const printTradeEl = document.getElementById("mpc-print-trade");
-            const printDateEl = document.getElementById("mpc-print-date");
-            let assumptionsWasOpenBeforePrint = false;
-
-            function preparePrintSummary() {
-                assumptionsWasOpenBeforePrint = assumptionsEl.open;
-                assumptionsEl.open = true;
-                printTradeEl.textContent = trade;
-                printDateEl.textContent = "Printed " + new Date().toLocaleDateString("en-NZ", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                });
-            }
-
-            function restoreAfterPrint() {
-                assumptionsEl.open = assumptionsWasOpenBeforePrint;
-            }
-
-            printBtn.addEventListener("click", () => {
-                preparePrintSummary();
-                // Let the browser apply the open assumptions state before opening print preview.
-                requestAnimationFrame(() => window.print());
-            });
-
-            window.addEventListener("beforeprint", preparePrintSummary);
-            window.addEventListener("afterprint", restoreAfterPrint);
-
-            // ---------------------------------------------------------------
-            // Init
-            // ---------------------------------------------------------------
+        document.getElementById("mpc-reset-btn").addEventListener("click", function () {
+            A = JSON.parse(JSON.stringify(defaultAssumptions));
+            pricingMode = "markup";
+            vehicleRecoveryMode = "included";
+            trade = "Plumbing";
+            document.querySelectorAll("#mpc-trade-toggle button").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-trade") === "Plumbing"); });
+            document.querySelectorAll("#mpc-pricing-mode button").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-pricing-mode") === "markup"); });
+            document.querySelectorAll("#mpc-vehicle-mode button").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-vehicle-mode") === "included"); });
+            initRoleState();
             renderAssumptions();
             renderRoles();
+        });
 
-        })();
+        const printBtn = document.getElementById("mpc-print-btn");
+        const assumptionsEl = document.getElementById("mpc-assumptions");
+        const printTradeEl = document.getElementById("mpc-print-trade");
+        const printPricingEl = document.getElementById("mpc-print-pricing");
+        const printVehicleEl = document.getElementById("mpc-print-vehicle");
+        const printDateEl = document.getElementById("mpc-print-date");
+        let assumptionsWasOpenBeforePrint = false;
+
+        function preparePrintSummary() {
+            assumptionsWasOpenBeforePrint = assumptionsEl.open;
+            assumptionsEl.open = true;
+            printTradeEl.textContent = trade;
+            printPricingEl.textContent = pricingMode === "markup" ? "Markup" : "Gross margin";
+            printVehicleEl.textContent = vehicleRecoveryMode === "included" ? "In labour rate" : "Recovered separately";
+            printDateEl.textContent = "Printed " + new Date().toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" });
+        }
+        function restoreAfterPrint() { assumptionsEl.open = assumptionsWasOpenBeforePrint; }
+        printBtn.addEventListener("click", function () { preparePrintSummary(); requestAnimationFrame(function () { window.print(); }); });
+        window.addEventListener("beforeprint", preparePrintSummary);
+        window.addEventListener("afterprint", restoreAfterPrint);
+
+        renderAssumptions();
+        renderRoles();
+    })();
     </script>
 </body>
-
 </html>

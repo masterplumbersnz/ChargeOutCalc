@@ -207,8 +207,15 @@
         }
 
         .mpc-print-icon {
-            font-size: 1rem;
-            line-height: 1;
+            width: 16px;
+            height: 16px;
+            flex: 0 0 16px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .mpc-print-meta {
@@ -1391,7 +1398,12 @@
         <div class="mpc-print-row">
             <span class="mpc-print-note">Prints the current inputs, business summary, full role breakdowns and assumptions.</span>
             <button type="button" class="mpc-print-button" id="mpc-print-btn">
-                <span class="mpc-print-icon" aria-hidden="true">&#128438;</span>
+                <svg class="mpc-print-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M7 8V3h10v5"></path>
+                    <rect x="5" y="14" width="14" height="7" rx="1"></rect>
+                    <path d="M5 17H3V10a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7h-2"></path>
+                    <path d="M17 12h.01"></path>
+                </svg>
                 Print summary
             </button>
         </div>
@@ -1666,6 +1678,7 @@
                 intro.className = "mpc-table-intro";
                 intro.innerHTML = `
                     <h2>Enter your wages &amp; costs</h2>
+                    <p>Spreadsheet-style on larger screens; automatically switches to cards on mobile.</p>
                 `;
                 rolesEl.appendChild(intro);
 

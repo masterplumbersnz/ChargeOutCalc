@@ -259,7 +259,7 @@
         .mpc-table-head,
         .mpc-role-row {
             display: grid;
-            grid-template-columns: minmax(135px, 1.35fr) minmax(100px, 1fr) minmax(88px, .85fr) minmax(112px, 1.05fr) minmax(112px, 1.05fr) minmax(92px, .9fr) minmax(132px, 1.2fr) minmax(105px, 1fr) minmax(145px, 1.25fr);
+            grid-template-columns: minmax(135px, 1.35fr) minmax(100px, 1fr) minmax(88px, .85fr) minmax(150px, 1.25fr) minmax(120px, 1.05fr) minmax(92px, .9fr) minmax(132px, 1.2fr) minmax(105px, 1fr) minmax(145px, 1.25fr);
         }
 
         .mpc-table-head {
@@ -519,6 +519,24 @@
         .mpc-rate-empty {
             background: var(--grey-bg);
             color: var(--text-muted);
+        }
+
+        /* Empty target messages must wrap inside narrow desktop/Safari table cells. */
+        .mpc-rate-empty strong {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.15;
+        }
+
+        .mpc-rate-needs-margin {
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            border: 1px solid #E9B4A5;
+        }
+
+        .mpc-rate-needs-margin strong {
+            font-size: .82rem;
         }
 
         .mpc-warning {
@@ -868,12 +886,32 @@
             cursor: pointer;
             margin: 1px 0 0;
         }
-        .mpc-target-range.unset::-webkit-slider-thumb { opacity: 0; }
-        .mpc-target-range.unset::-moz-range-thumb { opacity: 0; }
-        .mpc-target-range.unset { opacity: .55; }
         .mpc-target-scale { display: flex; justify-content: space-between; color: var(--text-muted); font-size: .58rem; line-height: 1; }
         .mpc-target-status { color: var(--text-muted); font-size: .64rem; line-height: 1.2; min-height: 1.2em; }
-        .mpc-target-unset .mpc-target-number { background: var(--white); border-style: dashed; }
+
+        /* Make the required profitability decision obvious without supplying a target. */
+        .mpc-target-unset {
+            background: var(--warn-bg);
+            border: 1px solid #E9B4A5;
+            border-radius: 7px;
+            padding: 6px;
+        }
+
+        .mpc-target-unset .mpc-target-number {
+            background: var(--white) !important;
+            border: 2px solid var(--warn-text) !important;
+            color: var(--warn-text);
+            font-weight: 800;
+        }
+
+        .mpc-target-unset .mpc-target-range {
+            accent-color: var(--warn-text);
+        }
+
+        .mpc-target-unset .mpc-target-status {
+            color: var(--warn-text);
+            font-weight: 750;
+        }
         .mpc-use-current-margin {
             margin-top: 6px;
             border: 1px solid var(--dark-blue);
@@ -1478,9 +1516,31 @@
 
         .mpc-subinput {
             display: grid;
-            grid-template-columns: 48px minmax(0, 1fr);
+            grid-template-columns: 44px minmax(78px, 1fr);
             align-items: center;
             gap: 5px;
+        }
+
+        /* Safari can make nested grid inputs narrower than their formatted value.
+           Keep annual money fields wide enough for values such as 13,000. */
+        .mpc-subinput input[data-field="vehicle"],
+        .mpc-subinput input[data-field="tools"] {
+            min-width: 78px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        .mpc-cell input[data-field="wage"],
+        .mpc-cell input[data-field="overheads"],
+        .mpc-field input[data-field="currentRate"],
+        .mpc-field input[data-mc-field="motorExpenses"],
+        .mpc-field input[data-mc-field="totalOverheads"] {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
         }
 
         .mpc-subinput > span {
@@ -1605,6 +1665,8 @@
             .mpc-summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
             .mpc-cost-pair { gap: 1px; }
             .mpc-subinput { grid-template-columns: 34px 1fr; gap: 2px; }
+            .mpc-subinput input[data-field="vehicle"],
+            .mpc-subinput input[data-field="tools"] { min-width: 0; }
             .mpc-subinput > span { font-size: 5.8pt; }
             .mpc-role-choice select { border: 0 !important; padding: 0 !important; }
             .mpc-survey-reference { font-size: 6.2pt; padding: 4px 6px; }
@@ -1621,7 +1683,7 @@
         </div>
 
         <div class="mpc-intro">
-            <strong>What this calculator does:</strong> Enter what you pay each role and the calculator works out the true cost of employing them, then shows your true labour cost and calculated target labour charge-out rate. The gross-margin field starts at 20% for calculator usability, but you should change it to the target independently chosen for your own business. Add your current rates and staff numbers to see your business-wide position.
+            <strong>What this calculator does:</strong> Enter what you pay each role and the calculator works out the true cost of employing them. The target gross-margin field starts at 0%, and no calculated target rate is shown until you enter a margin greater than 0% that you independently choose for your own business. Add your current rates and staff numbers to see your business-wide position.
         </div>
         <div class="mpc-scope-note">
             This gives a <strong>labour charge-out rate only</strong>. It excludes materials and material markup, subcontractors, job-specific plant hire, permits/certification fees and call-out charges. If you recover vehicle or travel costs separately, select that option below so those costs are not also built into the labour rate. This is a planning tool, not financial or tax advice.
@@ -1640,8 +1702,8 @@
         <div class="mpc-control-panel">
             <div class="mpc-control-card mpc-profitability-guidance">
                 <span class="mpc-control-label">Your profitability target</span>
-                <div class="mpc-no-default-badge">No default applied</div>
-                <p class="mpc-control-help"><strong>Your business, your target.</strong> Each role starts at 20% gross margin so the calculator produces an initial result. This starting value is not a Master Plumbers recommendation, benchmark or suggested industry margin - change it to the target independently chosen for your own business. The equivalent markup is shown automatically.</p>
+                <div class="mpc-no-default-badge">No target preselected</div>
+                <p class="mpc-control-help"><strong>Your business, your target.</strong> Each role starts at 0% and will not calculate a target charge-out rate until you enter a gross margin greater than 0%. Choose the target independently for your own business. Master Plumbers does not recommend a particular margin, markup or charge-out rate. The equivalent markup is shown automatically once a target is entered.</p>
             </div>
             <div class="mpc-control-card">
                 <span class="mpc-control-label">Recover vehicle costs</span>
@@ -1688,7 +1750,7 @@
 
         <div class="mpc-disclaimer">
             Data sources for statutory assumptions: ACC Levy Guidebook 2026/27; Employment New Zealand; Inland Revenue; MBIE. Figures are shown excl. GST unless marked otherwise. This is a planning tool, not financial or tax advice - check figures against your own accounts and ACC invoice before relying on them.
-            <span class="mpc-survey-disclaimer">Any 2026 member survey figures shown for apprentices are historical sense-check information only. They are not a recommendation, target or pricing benchmark. The calculator initially displays a 20% gross-margin input for usability only; this is not a recommended margin or industry benchmark. Each business must determine its own prices, margins and commercial strategies independently from its own costs and circumstances.</span>
+            <span class="mpc-survey-disclaimer">Any 2026 member survey figures shown for apprentices are historical sense-check information only. They are not a recommendation, target or pricing benchmark. The target gross-margin input starts at 0% and no target rate is calculated until the member enters a value greater than 0%. Each business must determine its own prices, margins and commercial strategies independently from its own costs and circumstances.</span>
         </div>
     </div>
 
@@ -1720,7 +1782,7 @@
             4: { average: 91, median: 95, responses: 68 }
         };
 
-        const DEFAULT_TARGET_MARGIN = 0.20; // Starting calculator value only; not a recommendation or benchmark.
+        const DEFAULT_TARGET_MARGIN = 0; // No profitability target is preselected. A value above 0% is required before a target rate is calculated.
 
         let A = JSON.parse(JSON.stringify(defaultAssumptions));
         let trade = "Plumbing";
@@ -1801,7 +1863,7 @@
                 tools: A.defaultTools.value,
                 overheads: A.defaultOverheads.value,
                 nonBillablePct: A.nonBillablePct.value,
-                markup: DEFAULT_TARGET_MARGIN / (1 - DEFAULT_TARGET_MARGIN),
+                markup: 0,
                 headcount: 1,
                 currentRate: null,
                 detailsOpen: false,
@@ -1882,7 +1944,7 @@
             const overheadPerHour = totalOverhead / billableHours;
             const trueFullCost = trueLabourCostPerHour + overheadPerHour;
 
-            const hasTarget = state.markup !== null && state.markup !== undefined && state.markup !== "";
+            const hasTarget = state.markup !== null && state.markup !== undefined && state.markup !== "" && Number(state.markup) > 0;
             let markup = null;
             let marginPct = null;
             if (hasTarget) {
@@ -1971,18 +2033,20 @@
 
         function targetMarginControlHtml(r, state, displayName, result) {
             const marginFraction = pricingFractionForDisplay(state);
-            const isSet = marginFraction !== null && Number.isFinite(marginFraction);
-            const pct = isSet ? marginFraction * 100 : null;
-            const rangeValue = isSet ? Math.min(99, Math.max(0, pct)) : 0;
+            const hasValue = marginFraction !== null && Number.isFinite(marginFraction);
+            const pct = hasValue ? marginFraction * 100 : 0;
+            const isSet = hasValue && pct > 0;
+            const rangeValue = Math.min(99, Math.max(0, pct));
             const equivalentMarkup = isSet && result && result.hasWage && !result.error
                 ? 'Equivalent markup: ' + (result.markup * 100).toFixed(1) + '%'
-                : (isSet ? 'Equivalent markup: ' + (Number(state.markup) * 100).toFixed(1) + '%' : 'No target selected yet');
+                : (isSet ? 'Equivalent markup: ' + (Number(state.markup) * 100).toFixed(1) + '%' : 'Required: enter a gross margin above 0%');
+            const statusId = 'margin-status-' + r.key;
             return '<div class="mpc-target-control ' + (isSet ? '' : 'mpc-target-unset') + '">' +
-                '<div class="mpc-target-entry"><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate mpc-target-number" aria-label="' + displayName + ' target gross margin percentage" data-role="' + r.key + '" data-field="pricingPct" value="' + (isSet ? editableNumber(pct, 2) : '') + '" placeholder="Set"><span class="mpc-percent-suffix">%</span></div>' +
-                '<input type="range" class="mpc-target-range ' + (isSet ? '' : 'unset') + '" min="0" max="99" step="0.5" value="' + rangeValue + '" data-target-range="' + r.key + '" aria-label="' + displayName + ' target gross margin slider" aria-valuetext="' + (isSet ? editableNumber(pct, 1) + ' percent' : 'No target selected') + '">' +
+                '<div class="mpc-target-entry"><input type="text" inputmode="decimal" autocomplete="off" spellcheck="false" class="mpc-estimate mpc-target-number" aria-label="' + displayName + ' target gross margin percentage" aria-invalid="' + (isSet ? 'false' : 'true') + '" aria-describedby="' + statusId + '" data-role="' + r.key + '" data-field="pricingPct" value="' + editableNumber(pct, 2) + '" placeholder="0"><span class="mpc-percent-suffix">%</span></div>' +
+                '<input type="range" class="mpc-target-range" min="0" max="99" step="0.5" value="' + rangeValue + '" data-target-range="' + r.key + '" aria-label="' + displayName + ' target gross margin slider" aria-valuetext="' + (isSet ? editableNumber(pct, 1) + ' percent' : '0 percent - enter a value above 0 percent to calculate a target rate') + '">' +
                 '<div class="mpc-target-scale"><span>0%</span><span>&lt;100%</span></div>' +
-                '<div class="mpc-target-status">' + equivalentMarkup + '</div>' +
-                (isSet ? '<button type="button" class="mpc-reset-icon" data-reset-role="' + r.key + '" data-reset-field="pricingPct">clear target</button>' : '') +
+                '<div class="mpc-target-status" id="' + statusId + '">' + equivalentMarkup + '</div>' +
+                (isSet ? '<button type="button" class="mpc-reset-icon" data-reset-role="' + r.key + '" data-reset-field="pricingPct">reset to 0%</button>' : '') +
             '</div>';
         }
 
@@ -1990,7 +2054,7 @@
             rolesEl.innerHTML = "";
             let anyComparisonKnown = false;
             let comparisonRoleCount = 0, targetComparisonCount = 0;
-            let totalProfitMonth = 0, totalProfitYear = 0, totalTargetMonth = 0, totalTargetYear = 0, totalHeadcount = 0;
+            let totalProfitMonth = 0, totalProfitYear = 0, totalUpliftYear = 0, totalAboveTargetYear = 0, totalHeadcount = 0;
 
             const intro = document.createElement("div");
             intro.className = "mpc-table-intro";
@@ -2026,8 +2090,11 @@
                     totalProfitYear += result.profitPerYear;
                     if (result.hasTarget) {
                         targetComparisonCount += 1;
-                        totalTargetMonth += result.targetPositionPerMonth;
-                        totalTargetYear += result.targetPositionPerYear;
+                        if (result.targetPositionPerYear < 0) {
+                            totalUpliftYear += Math.abs(result.targetPositionPerYear);
+                        } else if (result.targetPositionPerYear > 0) {
+                            totalAboveTargetYear += result.targetPositionPerYear;
+                        }
                     }
                 }
 
@@ -2037,7 +2104,7 @@
                 } else if (result.hasWage && result.hasTarget) {
                     rateHtml = '<div class="mpc-rate-cell-box"><strong>' + fmtMoney(result.suggestedExGST) + '</strong><span>ex GST - ' + fmtMoney(result.suggestedIncGST) + ' incl. GST</span></div>';
                 } else if (result.hasWage) {
-                    rateHtml = '<div class="mpc-rate-cell-box mpc-rate-empty"><strong>Set target</strong><span>Choose your gross margin</span></div>';
+                    rateHtml = '<div class="mpc-rate-cell-box mpc-rate-empty mpc-rate-needs-margin"><strong>Enter margin &gt; 0%</strong><span>to calculate target rate</span></div>';
                 } else {
                     rateHtml = '<div class="mpc-rate-cell-box mpc-rate-empty"><strong>-</strong><span>Enter a wage</span></div>';
                 }
@@ -2067,17 +2134,17 @@
                 let comparisonHtml = '<div class="mpc-detail-kpi"><span class="label">Rate comparison</span><span class="value" style="font-size:.8rem;font-weight:650;">Enter your current rate to see your position.</span></div>';
                 if (result.hasWage && !result.error && result.currentRate !== null && !isNaN(result.currentRate)) {
                     const impliedMarginText = result.currentImpliedMargin === null ? '-' : (result.currentImpliedMargin * 100).toFixed(1) + '%';
-                    const useCurrentButton = result.currentImpliedMargin !== null && result.currentImpliedMargin >= 0 && result.currentImpliedMargin < 0.99
+                    const useCurrentButton = result.currentImpliedMargin !== null && result.currentImpliedMargin > 0 && result.currentImpliedMargin < 0.99
                         ? '<button type="button" class="mpc-use-current-margin" data-use-current-margin="' + r.key + '">Use my current margin as my target</button>'
                         : '';
-                    let targetComparison = '<div class="mpc-detail-kpi"><span class="label">Position vs target per hour</span><span class="value mpc-neutral-value">Not set</span><span class="mpc-target-word">Choose a gross margin target above</span></div>';
+                    let targetComparison = '<div class="mpc-detail-kpi"><span class="label">Current rate vs target - per hour</span><span class="value mpc-neutral-value">Not set</span><span class="mpc-target-word">Enter a gross margin above 0%</span></div>';
                     if (result.hasTarget) {
                         const targetWord = result.targetPositionPerHour > 0 ? 'above target' : result.targetPositionPerHour < 0 ? 'below target' : 'on target';
-                        targetComparison = '<div class="mpc-detail-kpi"><span class="label">Position vs target per hour</span><span class="value ' + signClass(result.targetPositionPerHour) + '">' + fmtSignedMoney(result.targetPositionPerHour) + '</span><span class="mpc-target-word">' + targetWord + '</span></div>';
+                        targetComparison = '<div class="mpc-detail-kpi"><span class="label">Current rate vs target - per hour</span><span class="value ' + signClass(result.targetPositionPerHour) + '">' + fmtSignedMoney(result.targetPositionPerHour) + '</span><span class="mpc-target-word">' + targetWord + '</span></div>';
                     }
                     comparisonHtml =
-                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) per hour</span><span class="value ' + signClass(result.profitPerHour) + '">' + fmtSignedMoney(result.profitPerHour) + '</span></div>' +
-                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) per year</span><span class="value ' + signClass(result.profitPerYear) + '">' + fmtSignedMoneyWhole(result.profitPerYear) + '</span></div>' +
+                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) at current rate - per hour</span><span class="value ' + signClass(result.profitPerHour) + '">' + fmtSignedMoney(result.profitPerHour) + '</span></div>' +
+                        '<div class="mpc-detail-kpi"><span class="label">Estimated labour profit/(loss) at current rate - per year</span><span class="value ' + signClass(result.profitPerYear) + '">' + fmtSignedMoneyWhole(result.profitPerYear) + '</span></div>' +
                         '<div class="mpc-detail-kpi"><span class="label">Your current implied gross margin</span><span class="value ' + signClass(result.currentImpliedMargin) + '">' + impliedMarginText + '</span>' + useCurrentButton + '</div>' +
                         targetComparison;
                 }
@@ -2108,7 +2175,7 @@
             rolesEl.appendChild(apprenticeTools);
 
             attachRoleListeners();
-            renderSummary(anyComparisonKnown, totalProfitMonth, totalProfitYear, totalTargetMonth, totalTargetYear, totalHeadcount, comparisonRoleCount, targetComparisonCount);
+            renderSummary(anyComparisonKnown, totalProfitMonth, totalProfitYear, totalUpliftYear, totalAboveTargetYear, totalHeadcount, comparisonRoleCount, targetComparisonCount);
         }
 
         function vehicleCalcResultHtml(state) {
@@ -2164,24 +2231,37 @@
                 '<div><span>Calculated target rate, incl. GST</span><b>' + targetInc + '</b></div></div>';
         }
 
-        function renderSummary(anyKnown, profitMonth, profitYear, targetMonth, targetYear, headcount, comparisonRoleCount, targetComparisonCount) {
+        function renderSummary(anyKnown, profitMonth, profitYear, upliftYear, aboveTargetYear, headcount, comparisonRoleCount, targetComparisonCount) {
             if (!anyKnown) {
-                summaryEl.innerHTML = '<h3>Business-wide position</h3><p class="mpc-summary-empty">Enter an hourly wage, then open Details &amp; comparison for that role and add your current charge-out rate to see estimated labour profit/(loss). Choose your own gross margin target when you also want to compare your current rate with a calculated target.</p>';
+                summaryEl.innerHTML = '<h3>Business-wide position</h3><p class="mpc-summary-empty">Enter an hourly wage, then open Details &amp; comparison for that role and add your current charge-out rate to see estimated labour profit/(loss) at the rate you are already charging. Your selected gross-margin targets are used separately to show any uplift opportunity.</p>';
                 return;
             }
+
             let targetStat;
             if (comparisonRoleCount > 0 && targetComparisonCount === comparisonRoleCount) {
-                const targetWord = targetYear > 0 ? 'above target' : targetYear < 0 ? 'below target' : 'on target';
-                targetStat = '<div class="mpc-summary-stat"><span class="label">Position vs target per year</span><span class="value ' + signClass(targetYear) + '">' + fmtSignedMoneyWhole(targetYear) + '</span><span class="mpc-target-word">' + targetWord + '</span></div>';
+                let targetNote;
+                if (upliftYear > 0) {
+                    targetNote = 'Additional annual revenue if below-target roles are lifted to their selected targets.';
+                    if (aboveTargetYear > 0) {
+                        targetNote += ' Other modelled roles are already ' + fmtSignedMoneyWhole(aboveTargetYear) + '/yr above target.';
+                    }
+                } else if (aboveTargetYear > 0) {
+                    targetNote = 'No uplift needed. Current rates are already at or above target; modelled roles are ' + fmtSignedMoneyWhole(aboveTargetYear) + '/yr above target in total.';
+                } else {
+                    targetNote = 'No uplift needed. Current rates are on the selected targets.';
+                }
+
+                targetStat = '<div class="mpc-summary-stat"><span class="label">Opportunity to reach target - per year</span><span class="value mpc-neutral-value">' + (upliftYear > 0 ? fmtSignedMoneyWhole(upliftYear) : '$0') + '</span><span class="mpc-target-word">' + targetNote + '</span></div>';
             } else {
                 const missing = Math.max(0, comparisonRoleCount - targetComparisonCount);
-                targetStat = '<div class="mpc-summary-stat"><span class="label">Position vs target per year</span><span class="value mpc-neutral-value">Not set</span><span class="mpc-target-word">Choose a target for ' + missing + ' compared role' + (missing === 1 ? '' : 's') + '</span></div>';
+                targetStat = '<div class="mpc-summary-stat"><span class="label">Opportunity to reach target - per year</span><span class="value mpc-neutral-value">Not set</span><span class="mpc-target-word">Enter a margin above 0% for ' + missing + ' compared role' + (missing === 1 ? '' : 's') + '</span></div>';
             }
+
             summaryEl.innerHTML = '<h3>Business-wide position</h3>' +
-                '<p>Based on the current rates entered across ' + headcount + ' billable staff. Labour pricing only; separately billed vehicle/travel and job-specific revenue are not included.</p>' +
+                '<p>Based on the current rates entered across ' + headcount + ' billable staff. The profit/(loss) figures below describe the position at the rates you are already charging - they are not extra profit from changing rates. The target opportunity only counts roles currently below their selected target; roles already above target are not treated as additional opportunity. Labour pricing only; separately billed vehicle/travel and job-specific revenue are not included.</p>' +
                 '<div class="mpc-summary-grid">' +
-                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) per month</span><span class="value ' + signClass(profitMonth) + '">' + fmtSignedMoneyWhole(profitMonth) + '</span></div>' +
-                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) per year</span><span class="value ' + signClass(profitYear) + '">' + fmtSignedMoneyWhole(profitYear) + '</span></div>' +
+                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) at current rates - per month</span><span class="value ' + signClass(profitMonth) + '">' + fmtSignedMoneyWhole(profitMonth) + '</span></div>' +
+                    '<div class="mpc-summary-stat"><span class="label">Est. labour profit/(loss) at current rates - per year</span><span class="value ' + signClass(profitYear) + '">' + fmtSignedMoneyWhole(profitYear) + '</span></div>' +
                     targetStat +
                     '<div class="mpc-summary-stat"><span class="label">Staff modelled</span><span class="value mpc-neutral-value">' + headcount + '</span></div>' +
                 '</div>';
@@ -2225,7 +2305,7 @@
                     else if (field === "tools") roleState[role].tools = A.defaultTools.value;
                     else if (field === "overheads") roleState[role].overheads = A.defaultOverheads.value;
                     else if (field === "nonBillablePct") roleState[role].nonBillablePct = A.nonBillablePct.value;
-                    else if (field === "pricingPct") roleState[role].markup = null;
+                    else if (field === "pricingPct") roleState[role].markup = 0;
                     renderRoles();
                 });
             });
@@ -2260,7 +2340,7 @@
                 btn.addEventListener("click", function () {
                     const role = btn.getAttribute("data-use-current-margin");
                     const result = computeRole(roleState[role]);
-                    if (result.currentImpliedMargin === null || result.currentImpliedMargin < 0 || result.currentImpliedMargin >= 0.99) return;
+                    if (result.currentImpliedMargin === null || result.currentImpliedMargin <= 0 || result.currentImpliedMargin >= 0.99) return;
                     roleState[role].markup = result.currentImpliedMargin / (1 - result.currentImpliedMargin);
                     renderRoles();
                 });
@@ -2356,7 +2436,7 @@
             if (field === "wage") roleState[role].wage = parsed;
             else if (field === "currentRate") roleState[role].currentRate = parsed;
             else if (field === "pricingPct") {
-                if (parsed === null) roleState[role].markup = null;
+                if (parsed === null) roleState[role].markup = 0;
                 else {
                     const margin = Math.max(0, parsed) / 100;
                     roleState[role].markup = margin >= 1 ? Infinity : margin / (1 - margin);

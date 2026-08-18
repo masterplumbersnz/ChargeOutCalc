@@ -61,11 +61,39 @@
             font-weight: 700;
         }
 
+        .mpc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mpc-header-copy {
+            flex: 1 1 480px;
+            min-width: 0;
+        }
+
         .mpc-header p {
             margin: 0;
             color: #CFE9EC;
             font-size: .95rem;
             max-width: 680px;
+        }
+
+        .mpc-header-logo {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .mpc-header-logo img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 240px;
+            max-height: 72px;
         }
 
         .mpc-intro {
@@ -1505,6 +1533,10 @@
         .mpc-summary-stat .value.mpc-negative { color: #FFD0C4; }
         .mpc-summary-stat .value.mpc-neutral-value { color: var(--aqua); }
 
+        /* Supporting commentary sits on the dark summary banner, so keep it
+           at the same high-contrast light blue used by the other summary text. */
+        .mpc-summary .mpc-target-word { color: #CFE9EC; }
+
         .mpc-positive { color: #087F5B !important; }
         .mpc-negative { color: #9A3B1F !important; }
 
@@ -1534,9 +1566,26 @@
 
         .mpc-cell input[data-field="wage"],
         .mpc-cell input[data-field="overheads"],
+        .mpc-cell input[data-field="nonBillablePct"],
         .mpc-field input[data-field="currentRate"],
         .mpc-field input[data-mc-field="motorExpenses"],
         .mpc-field input[data-mc-field="totalOverheads"] {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        /* Keep calculated numeric columns aligned with the editable money fields. */
+        .mpc-input-table .mpc-readout {
+            justify-content: flex-end;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        .mpc-input-table .mpc-rate-cell-box {
             text-align: right;
             font-variant-numeric: tabular-nums;
             -webkit-font-feature-settings: "tnum";
@@ -1678,8 +1727,13 @@
 <body>
     <div class="mpc-wrap">
         <div class="mpc-header">
-            <h1>Charge Out Rate Calculator</h1>
-            <p>For Plumbing, Gasfitting &amp; Drainlaying businesses - prepared for Master Plumbers, Gasfitters &amp; Drainlayers NZ Inc members.</p>
+            <div class="mpc-header-copy">
+                <h1>Charge Out Rate Calculator</h1>
+                <p>For Plumbing, Gasfitting &amp; Drainlaying businesses - prepared for Master Plumbers, Gasfitters &amp; Drainlayers NZ Inc members.</p>
+            </div>
+            <div class="mpc-header-logo">
+                <img src="https://raw.githubusercontent.com/masterplumbersnz/ChargeOutCalc/refs/heads/main/MP%20logo.png" alt="Master Plumbers logo">
+            </div>
         </div>
 
         <div class="mpc-intro">
@@ -1696,7 +1750,7 @@
                 <button type="button" data-trade="Gasfitting">Gasfitting</button>
                 <button type="button" data-trade="Drainlaying">Drainlaying</button>
             </div>
-            <div class="mpc-gasfitting-note">No gasfitting premium is applied by default. If your own business uses a gasfitting-specific loading, you can enter it under Assumptions &amp; sources.</div>
+            <div class="mpc-gasfitting-note"><strong>Trade selection does not automatically change the calculated rate.</strong> It updates the role labels, while the rate continues to come from your own wages, costs and chosen margin. No industry gasfitting premium is applied by default; if your own business independently uses a gasfitting-specific loading, you can enter it under Assumptions &amp; sources.</div>
         </div>
 
         <div class="mpc-control-panel">

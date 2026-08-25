@@ -1493,8 +1493,3 @@
     renderGlobalControls();
 })();
 
-(function () {
-    var pinned = false;
-    var placeholder = null;
-
-})();

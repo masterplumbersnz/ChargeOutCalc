@@ -1,0 +1,2505 @@
+
+        :root {
+            --dark-blue: #00395D;
+            --aqua: #5AC5CC;
+            --black: #000000;
+            --white: #FFFFFF;
+            --required-bg: #E0F2F3;
+            --required-border: #00395D;
+            --estimate-bg: #EEF3F5;
+            --estimate-border: #5AC5CC;
+            --grey-bg: #F4F7F8;
+            --grey-line: #DCE4E6;
+            --text-muted: #4A5A62;
+            --warn-bg: #FFF0EC;
+            --warn-text: #9A3B1F;
+            --good-bg: #EAF8F5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.5;
+        }
+
+        .mpc-wrap {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 16px 48px;
+        }
+
+        /* ---------- Header ---------- */
+        .mpc-header {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 28px 24px;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 24px;
+        }
+
+        .mpc-header h1 {
+            margin: 0 0 6px;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .mpc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mpc-header-copy {
+            flex: 1 1 480px;
+            min-width: 0;
+        }
+
+        .mpc-header p {
+            margin: 0;
+            color: #CFE9EC;
+            font-size: .95rem;
+            max-width: 680px;
+        }
+
+        .mpc-header-logo {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .mpc-header-logo img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 240px;
+            max-height: 72px;
+        }
+
+        .mpc-intro {
+            background: var(--grey-bg);
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 22px;
+            font-size: .92rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-intro strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-intro-more {
+            margin-top: 4px;
+        }
+
+        .mpc-intro-more summary {
+            cursor: pointer;
+            display: inline-block;
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: .82rem;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            list-style: none;
+        }
+
+        .mpc-intro-more summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .mpc-intro-more summary::before {
+            content: "▸ ";
+            color: var(--dark-blue);
+        }
+
+        .mpc-intro-more[open] summary::before {
+            content: "▾ ";
+        }
+
+        .mpc-intro-more p {
+            margin: 8px 0 0;
+            font-size: .84rem;
+        }
+
+        .mpc-scope-note {
+            font-size: .82rem;
+            color: var(--text-muted);
+            background: var(--white);
+            border-left: 3px solid var(--aqua);
+            padding: 8px 12px;
+            margin-bottom: 22px;
+        }
+
+        /* ---------- Trade selector ---------- */
+        .mpc-trade-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .mpc-trade-row label {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+        }
+
+        .mpc-segmented {
+            display: inline-flex;
+            border: 2px solid var(--dark-blue);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mpc-segmented button {
+            border: none;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 9px 18px;
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .mpc-segmented button+button {
+            border-left: 2px solid var(--dark-blue);
+        }
+
+        .mpc-segmented button.active {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-segmented button:hover:not(.active) {
+            background: #E8F5F6;
+        }
+
+        .mpc-gasfitting-note {
+            font-size: .82rem;
+            color: var(--text-muted);
+            flex-basis: 100%;
+        }
+
+        /* ---------- Print summary control ---------- */
+        .mpc-print-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin: -8px 0 18px;
+        }
+
+        .mpc-print-note {
+            color: var(--text-muted);
+            font-size: .75rem;
+        }
+
+        .mpc-print-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 2px solid var(--dark-blue);
+            border-radius: 7px;
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 8px 13px;
+            font: inherit;
+            font-size: .82rem;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .mpc-print-button:hover {
+            background: #00253d;
+            border-color: #00253d;
+        }
+
+        .mpc-print-button:focus-visible {
+            outline: 3px solid var(--aqua);
+            outline-offset: 2px;
+        }
+
+        .mpc-print-icon {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 16px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .mpc-print-meta {
+            display: none;
+        }
+
+        /* ---------- Responsive spreadsheet-style input table ---------- */
+        .mpc-roles {
+            margin-bottom: 28px;
+        }
+
+        .mpc-table-intro {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 0 10px;
+        }
+
+        .mpc-table-intro h2 {
+            margin: 0;
+            color: var(--dark-blue);
+            font-size: 1.08rem;
+        }
+
+        .mpc-table-intro p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: .8rem;
+            text-align: right;
+        }
+
+        .mpc-input-table {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            overflow: visible;
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 57, 93, .06);
+        }
+
+        .mpc-input-table>*:last-child {
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px;
+        }
+
+        .mpc-table-head,
+        .mpc-role-row {
+            display: grid;
+            grid-template-columns: minmax(128px, 1.25fr) minmax(62px, .55fr) minmax(78px, .72fr) minmax(62px, .58fr) minmax(78px, .72fr) minmax(150px, 1.25fr) minmax(104px, .9fr) minmax(82px, .76fr) minmax(90px, .82fr) minmax(112px, .98fr) minmax(108px, .96fr);
+        }
+
+        .mpc-table-head {
+            background: var(--dark-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            color: var(--white);
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+        }
+
+        .mpc-table-head>div {
+            position: relative;
+            padding: 10px 8px;
+            font-size: .7rem;
+            line-height: 1.2;
+            font-weight: 700;
+            display: flex;
+            align-items: end;
+            border-right: 1px solid rgba(255, 255, 255, .14);
+        }
+
+        /* Keep desktop help icons tucked into the top-right of the header cell. */
+        .mpc-table-head .mpc-heading-with-help {
+            padding-right: 18px;
+        }
+
+        .mpc-table-head .mpc-help {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .mpc-table-head>div:last-child {
+            border-right: 0;
+        }
+
+        /* ---------- Accessible help tooltips ---------- */
+        .mpc-heading-with-help,
+        .mpc-mobile-cell-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mpc-help {
+            position: relative;
+            display: inline-flex;
+            flex: 0 0 auto;
+        }
+
+        .mpc-help-button {
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-size: .68rem;
+            font-weight: 800;
+            line-height: 16px;
+            text-align: center;
+            cursor: help;
+            opacity: .9;
+        }
+
+        .mpc-help-button:focus {
+            outline: 2px solid var(--aqua);
+            outline-offset: 2px;
+        }
+
+        .mpc-help-bubble {
+            position: absolute;
+            z-index: 50;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(310px, 78vw);
+            padding: 9px 10px;
+            border-radius: 7px;
+            background: #001F33;
+            color: var(--white);
+            box-shadow: 0 5px 18px rgba(0, 32, 51, .22);
+            font-size: .75rem;
+            font-weight: 500;
+            line-height: 1.35;
+            text-align: left;
+            white-space: normal;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .12s ease, visibility .12s ease;
+        }
+
+        .mpc-help-bubble::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -5px;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #001F33;
+        }
+
+        .mpc-help:hover .mpc-help-bubble,
+        .mpc-help:focus-within .mpc-help-bubble {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mpc-help-bubble-wide {
+            width: min(360px, 84vw);
+        }
+
+        .mpc-help-bubble strong {
+            color: var(--aqua);
+            letter-spacing: .3px;
+        }
+
+        .mpc-inline-field-label {
+            margin-bottom: 4px;
+            color: var(--text-muted);
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        .mpc-mobile-cell-label {
+            display: none;
+        }
+
+        .mpc-role-group+.mpc-role-group {
+            border-top: 1px solid var(--grey-line);
+        }
+
+        .mpc-role-row {
+            min-width: 0;
+        }
+
+        .mpc-cell {
+            min-width: 0;
+            padding: 9px 8px;
+            border-right: 1px solid #EDF1F2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .mpc-cell:last-child {
+            border-right: 0;
+        }
+
+        .mpc-cell input[type="text"],
+        .mpc-cell select,
+        .mpc-field input[type="text"],
+        .mpc-field select {
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 8px 8px;
+            font-size: .9rem;
+            font-family: inherit;
+            width: 100%;
+            min-width: 0;
+            color: var(--dark-blue);
+            font-weight: 650;
+            background: var(--white);
+        }
+
+        .mpc-cell input.mpc-required,
+        .mpc-field input.mpc-required {
+            background: var(--required-bg);
+            border-color: var(--required-border);
+            border-left-width: 4px;
+        }
+
+        .mpc-cell input.mpc-estimate,
+        .mpc-field input.mpc-estimate {
+            background: var(--estimate-bg);
+            border: 2px dashed var(--estimate-border);
+        }
+
+        .mpc-cell input.mpc-neutral,
+        .mpc-field input.mpc-neutral {
+            background: var(--white);
+        }
+
+        .mpc-cell input:focus,
+        .mpc-cell select:focus,
+        .mpc-field input:focus,
+        .mpc-field select:focus {
+            outline: 2px solid var(--dark-blue);
+            outline-offset: 1px;
+        }
+
+        .mpc-role-cell {
+            justify-content: center;
+            background: #FAFCFC;
+        }
+
+        .mpc-details-toggle {
+            background: none;
+            border: 0;
+            padding: 2px 0;
+            color: var(--dark-blue);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font: inherit;
+            font-size: .7rem;
+            font-weight: 650;
+            cursor: pointer;
+            text-align: left;
+            width: fit-content;
+        }
+
+        .mpc-reset-icon {
+            background: none;
+            border: none;
+            color: var(--dark-blue);
+            cursor: pointer;
+            font-size: .66rem;
+            font-weight: 650;
+            padding: 0;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            width: fit-content;
+            opacity: .72;
+        }
+
+        .mpc-reset-icon:hover,
+        .mpc-details-toggle:hover {
+            opacity: 1;
+        }
+
+        .mpc-readout {
+            background: var(--grey-bg);
+            border-radius: 6px;
+            padding: 8px;
+            font-weight: 750;
+            color: var(--dark-blue);
+            font-size: .9rem;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mpc-rate-cell-box {
+            background: var(--aqua);
+            border-radius: 7px;
+            padding: 7px 8px;
+            color: var(--dark-blue);
+            line-height: 1.15;
+        }
+
+        .mpc-rate-cell-box strong {
+            display: block;
+            font-size: .92rem;
+            white-space: nowrap;
+        }
+
+        .mpc-rate-cell-box span {
+            display: block;
+            font-size: .68rem;
+            margin-top: 3px;
+            font-weight: 650;
+        }
+
+        .mpc-rate-empty {
+            background: var(--grey-bg);
+            color: var(--text-muted);
+        }
+
+        /* Empty target messages must wrap inside narrow desktop/Safari table cells. */
+        .mpc-rate-empty strong {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.15;
+        }
+
+        .mpc-rate-needs-margin {
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            border: 1px solid #E9B4A5;
+        }
+
+        .mpc-rate-needs-margin strong {
+            font-size: .82rem;
+        }
+
+        .mpc-warning {
+            font-size: .72rem;
+            color: var(--warn-text);
+            background: var(--warn-bg);
+            border-radius: 5px;
+            padding: 5px 7px;
+        }
+
+        .mpc-helper-text {
+            font-size: .66rem;
+            color: var(--text-muted);
+            line-height: 1.25;
+        }
+
+        .mpc-row-details {
+            display: none;
+            background: #FBFCFC;
+            border-top: 1px dashed var(--grey-line);
+            padding: 14px;
+        }
+
+        .mpc-row-details.open {
+            display: block;
+        }
+
+        .mpc-details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            align-items: start;
+        }
+
+        .mpc-comparison-table-wrap {
+            grid-column: 1 / -1;
+            overflow-x: auto;
+        }
+
+        .mpc-comparison-flex-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .mpc-comparison-table {
+            width: auto;
+            border-collapse: collapse;
+            background: var(--good-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            flex: 0 1 auto;
+        }
+
+        .mpc-comparison-table th {
+            text-align: right;
+            font-size: .68rem;
+            font-weight: 750;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            padding: 8px 12px 4px;
+        }
+
+        .mpc-comparison-table th:first-child {
+            text-align: left;
+        }
+
+        .mpc-comparison-table td {
+            padding: 7px 12px;
+            border-top: 1px solid rgba(0, 57, 93, .08);
+            font-size: .8rem;
+            white-space: nowrap;
+        }
+
+        .mpc-comparison-table td.mpc-comparison-row-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            white-space: normal;
+            max-width: 300px;
+        }
+
+        .mpc-comparison-row-label strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-comparison-opportunity-title {
+            display: block;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            color: var(--dark-blue);
+        }
+
+        .mpc-comparison-row-note {
+            display: block;
+            font-weight: 500;
+            font-size: .68rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-comparison-row-value {
+            text-align: right;
+            font-weight: 800;
+            color: var(--dark-blue);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .mpc-comparison-row-value.mpc-positive {
+            color: #087F5B;
+        }
+
+        .mpc-comparison-row-value.mpc-negative {
+            color: #9A3B1F;
+        }
+
+        .mpc-comparison-row-opportunity {
+            background: #F4FBFC;
+        }
+
+        .mpc-comparison-row-opportunity td:first-child {
+            border-left: 3px solid var(--aqua);
+        }
+
+        .mpc-comparison-table-empty {
+            color: var(--text-muted);
+            font-size: .8rem;
+            font-style: italic;
+            white-space: normal !important;
+        }
+
+        .mpc-comparison-submeta {
+            flex: 1 1 220px;
+            max-width: 320px;
+            padding-top: 4px;
+            font-size: .74rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-comparison-submeta strong {
+            color: var(--dark-blue);
+        }
+
+        @media (max-width: 520px) {
+
+            .mpc-comparison-table th,
+            .mpc-comparison-table td {
+                padding: 6px 8px;
+                font-size: .72rem;
+            }
+        }
+
+        .mpc-field {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mpc-field label {
+            color: var(--text-muted);
+            font-size: .72rem;
+            line-height: 1.25;
+            font-weight: 650;
+        }
+
+        .mpc-detail-kpi {
+            background: var(--good-bg);
+            border-radius: 7px;
+            padding: 9px 10px;
+            min-height: 64px;
+        }
+
+        .mpc-detail-kpi .label {
+            display: block;
+            color: var(--text-muted);
+            font-size: .68rem;
+            line-height: 1.2;
+        }
+
+        .mpc-detail-kpi .value {
+            display: block;
+            margin-top: 4px;
+            color: var(--dark-blue);
+            font-size: .95rem;
+            font-weight: 750;
+        }
+
+        .mpc-detail-kpi .value.mpc-negative {
+            color: var(--warn-text);
+        }
+
+        .mpc-details-section-title {
+            grid-column: 1 / -1;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-size: .69rem;
+            font-weight: 750;
+            margin-top: 2px;
+        }
+
+        .mpc-minicalc-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .mpc-minicalc-use {
+            background: var(--dark-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: .76rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mpc-minicalc-result {
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .mpc-overhead-items-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-bottom: 10px;
+        }
+
+        .mpc-overhead-calc-note {
+            margin: 0 0 10px;
+            font-size: .74rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .mpc-overhead-calc-note strong {
+            font-style: normal;
+            color: var(--dark-blue);
+        }
+
+        .mpc-minicalc-result-row {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--grey-line);
+            font-size: .82rem;
+        }
+
+        @media (max-width: 520px) {
+            .mpc-overhead-items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mpc-oh-custom-row {
+            grid-column: span 1;
+            background: var(--estimate-bg);
+            border: 2px dashed var(--estimate-border);
+            border-radius: 7px;
+            padding: 7px 8px;
+        }
+
+        .mpc-oh-custom-row label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .mpc-oh-remove-custom {
+            border: 0;
+            background: none;
+            color: var(--warn-text);
+            font-size: .66rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .mpc-oh-add-custom {
+            display: block;
+            margin: 0 0 10px;
+            border: 1px dashed var(--dark-blue);
+            border-radius: 6px;
+            background: var(--white);
+            color: var(--dark-blue);
+            font: inherit;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 6px 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .mpc-oh-add-custom:hover {
+            background: #E8F5F6;
+        }
+
+        .mpc-overhead-popup-anchor,
+        .mpc-vehicle-popup-anchor {
+            position: relative;
+        }
+
+        .mpc-vehicle-popup-anchor {
+            min-width: 0;
+        }
+
+        .mpc-oh-popup {
+            position: absolute;
+            z-index: 70;
+            top: calc(100% + 6px);
+            left: 0;
+            width: min(420px, 92vw);
+            background: var(--white);
+            border: 1px solid var(--grey-line);
+            border-radius: 9px;
+            box-shadow: 0 10px 28px rgba(0, 32, 51, .22);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .mpc-oh-popup-tabs {
+            display: flex;
+            border: 1px solid var(--dark-blue);
+            border-radius: 7px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .mpc-oh-popup-tabs button {
+            flex: 1 1 0;
+            border: 0;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 7px 8px;
+            font-family: inherit;
+            font-size: .76rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mpc-oh-popup-tabs button+button {
+            border-left: 1px solid var(--dark-blue);
+        }
+
+        .mpc-oh-popup-tabs button.active {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-oh-popup-close {
+            margin-top: 10px;
+            border: 1px solid var(--dark-blue);
+            border-radius: 6px;
+            background: var(--white);
+            color: var(--dark-blue);
+            font: inherit;
+            font-size: .76rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .mpc-oh-popup-close:hover {
+            background: #E8F5F6;
+        }
+
+        @media (max-width: 520px) {
+            .mpc-oh-popup {
+                left: 50%;
+                transform: translateX(-50%);
+                width: min(340px, 88vw);
+            }
+        }
+
+        @media print {
+            .mpc-oh-popup {
+                display: none !important;
+            }
+        }
+
+        /* ---------- Business-wide summary ---------- */
+        .mpc-summary {
+            background: var(--dark-blue);
+            color: var(--white);
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin-bottom: 28px;
+        }
+
+        .mpc-summary h3 {
+            margin: 0 0 6px;
+            font-size: 1.05rem;
+        }
+
+        .mpc-summary p {
+            margin: 0 0 14px;
+            font-size: .85rem;
+            color: #CFE9EC;
+        }
+
+        .mpc-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .mpc-summary-stat {
+            background: rgba(255, 255, 255, .08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .mpc-summary-stat .label {
+            font-size: .74rem;
+            color: #CFE9EC;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .mpc-summary-stat .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--aqua);
+        }
+
+        .mpc-summary-empty {
+            font-size: .85rem;
+            color: #CFE9EC;
+        }
+
+        /* ---------- Assumptions accordion ---------- */
+        .mpc-assumptions {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .mpc-assumptions summary {
+            cursor: pointer;
+            background: var(--grey-bg);
+            padding: 14px 18px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: .95rem;
+            list-style: none;
+        }
+
+        .mpc-assumptions summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .mpc-assumptions summary::before {
+            content: "▸ ";
+            color: var(--dark-blue);
+        }
+
+        .mpc-assumptions[open] summary::before {
+            content: "▾ ";
+        }
+
+        .mpc-assumptions-body {
+            padding: 16px 18px 6px;
+        }
+
+        .mpc-assumptions-body p {
+            font-size: .85rem;
+            color: var(--text-muted);
+            margin-top: 0;
+        }
+
+        .mpc-assumption-row {
+            display: grid;
+            grid-template-columns: 1.4fr 110px 2fr;
+            gap: 12px;
+            align-items: start;
+            padding: 10px 0;
+            border-bottom: 1px solid #F0F3F4;
+            font-size: .84rem;
+        }
+
+        .mpc-assumption-row label {
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .mpc-assumption-row input {
+            border: 2px dashed var(--estimate-border);
+            border-radius: 6px;
+            padding: 6px 8px;
+            background: var(--estimate-bg);
+            color: var(--dark-blue);
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .mpc-assumption-row .mpc-source {
+            color: var(--text-muted);
+            font-size: .8rem;
+        }
+
+        .mpc-source-link {
+            display: inline-block;
+            margin-left: 2px;
+            color: var(--dark-blue);
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            white-space: nowrap;
+        }
+
+        .mpc-source-link:hover {
+            color: #00253d;
+        }
+
+        .mpc-reset {
+            margin: 14px 0 4px;
+            background: var(--white);
+            border: 2px solid var(--dark-blue);
+            color: var(--dark-blue);
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .85rem;
+        }
+
+        .mpc-reset:hover {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .mpc-disclaimer {
+            font-size: .78rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--grey-line);
+            padding-top: 14px;
+            margin-top: 10px;
+        }
+
+        .mpc-profitability-guidance {
+            position: relative;
+        }
+
+        .mpc-no-default-badge {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            border: 1px solid var(--aqua);
+            border-radius: 999px;
+            padding: 3px 8px;
+            color: var(--dark-blue);
+            background: #F4FBFC;
+            font-size: .68rem;
+            font-weight: 750;
+            margin: 2px 0 4px;
+        }
+
+        .mpc-target-cell {
+            align-items: stretch;
+        }
+
+        .mpc-target-control {
+            display: grid;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .mpc-target-entry {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mpc-target-entry .mpc-target-number {
+            min-width: 0;
+            width: 100%;
+            text-align: right;
+        }
+
+        .mpc-percent-suffix {
+            color: var(--text-muted);
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        .mpc-target-range {
+            width: 100%;
+            min-width: 0;
+            accent-color: var(--dark-blue);
+            cursor: pointer;
+            margin: 1px 0 0;
+        }
+
+        .mpc-target-scale {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: .58rem;
+            line-height: 1;
+        }
+
+        .mpc-target-status {
+            color: var(--text-muted);
+            font-size: .64rem;
+            line-height: 1.2;
+            min-height: 1.2em;
+        }
+
+        /* Make the required profitability decision obvious without supplying a target. */
+        .mpc-target-unset {
+            background: var(--warn-bg);
+            border: 1px solid #E9B4A5;
+            border-radius: 7px;
+            padding: 6px;
+        }
+
+        .mpc-target-unset .mpc-target-number {
+            background: var(--white) !important;
+            border: 2px solid var(--warn-text) !important;
+            color: var(--warn-text);
+            font-weight: 800;
+        }
+
+        .mpc-target-unset .mpc-target-range {
+            accent-color: var(--warn-text);
+        }
+
+        .mpc-target-unset .mpc-target-status {
+            color: var(--warn-text);
+            font-weight: 750;
+        }
+
+        .mpc-use-current-margin {
+            margin-top: 6px;
+            border: 1px solid var(--dark-blue);
+            border-radius: 6px;
+            background: var(--white);
+            color: var(--dark-blue);
+            font: inherit;
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 5px 7px;
+            cursor: pointer;
+        }
+
+        .mpc-use-current-margin:hover {
+            background: #E8F5F6;
+        }
+
+        @media (max-width: 900px) {
+            .mpc-table-intro {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .mpc-table-intro p {
+                text-align: left;
+            }
+
+            .mpc-input-table {
+                border: 0;
+                box-shadow: none;
+                background: transparent;
+                overflow: visible;
+            }
+
+            .mpc-table-head {
+                display: none;
+            }
+
+            .mpc-role-group {
+                border: 1px solid var(--grey-line) !important;
+                border-radius: 10px;
+                overflow: visible;
+                background: var(--white);
+                box-shadow: 0 1px 3px rgba(0, 57, 93, .05);
+            }
+
+            .mpc-role-group+.mpc-role-group {
+                margin-top: 12px;
+            }
+
+            .mpc-role-row {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px 10px;
+                padding: 14px;
+            }
+
+            .mpc-cell {
+                border: 0;
+                padding: 0;
+                justify-content: flex-start;
+            }
+
+            .mpc-cell::before {
+                content: attr(data-label);
+                display: block;
+                color: var(--text-muted);
+                font-size: .68rem;
+                font-weight: 700;
+                line-height: 1.2;
+                min-height: 1.7em;
+            }
+
+            .mpc-cell.mpc-has-mobile-label::before {
+                display: none;
+            }
+
+            .mpc-mobile-cell-label {
+                display: inline-flex;
+                width: fit-content;
+                min-height: 1.7em;
+                color: var(--text-muted);
+                font-size: .68rem;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            .mpc-mobile-cell-label .mpc-help-button {
+                width: 17px;
+                height: 17px;
+                line-height: 15px;
+                color: var(--dark-blue);
+                font-size: .64rem;
+            }
+
+            .mpc-mobile-cell-label .mpc-help-bubble {
+                left: 0;
+                transform: none;
+                width: min(300px, calc(100vw - 56px));
+            }
+
+            .mpc-mobile-cell-label .mpc-help-bubble::before {
+                left: 8px;
+                transform: none;
+            }
+
+            .mpc-role-cell,
+            .mpc-cell:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .mpc-role-cell {
+                background: transparent;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid var(--grey-line);
+                padding-bottom: 9px;
+            }
+
+            .mpc-role-cell::before {
+                display: none;
+            }
+
+            .mpc-rate-cell-box strong {
+                font-size: 1rem;
+            }
+
+            .mpc-details-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mpc-assumption-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .mpc-print-row {
+                align-items: stretch;
+                flex-direction: column;
+                margin-top: -4px;
+            }
+
+            .mpc-print-note {
+                order: 2;
+            }
+
+            .mpc-print-button {
+                justify-content: center;
+                width: 100%;
+                min-height: 42px;
+            }
+        }
+
+        /* ---------- Print layout ---------- */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 9mm;
+            }
+
+            html,
+            body {
+                background: #fff !important;
+            }
+
+            body {
+                color: #000;
+                font-size: 9pt;
+                line-height: 1.25;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .mpc-wrap {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .mpc-header {
+                padding: 12px 14px;
+                margin-bottom: 8px;
+                border-radius: 0;
+            }
+
+            .mpc-header h1 {
+                font-size: 16pt;
+            }
+
+            .mpc-header p {
+                font-size: 8pt;
+            }
+
+            .mpc-intro,
+            .mpc-scope-note,
+            .mpc-gasfitting-note,
+            .mpc-print-row,
+            .mpc-details-toggle,
+            .mpc-reset-icon,
+            .mpc-help,
+            .mpc-reset {
+                display: none !important;
+            }
+
+            .mpc-trade-row {
+                display: none;
+            }
+
+            .mpc-print-meta {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+                margin: 0 0 10px;
+                padding: 7px 9px;
+                border: 1px solid #DCE4E6;
+                background: #F4F7F8;
+                color: #00395D;
+                font-size: 8pt;
+                font-weight: 700;
+            }
+
+            .mpc-table-intro {
+                margin-bottom: 5px;
+            }
+
+            .mpc-table-intro h2 {
+                font-size: 11pt;
+            }
+
+            .mpc-input-table {
+                border-radius: 0;
+                box-shadow: none;
+                overflow: visible;
+            }
+
+            .mpc-table-head,
+            .mpc-role-row {
+                display: grid !important;
+                grid-template-columns: minmax(105px, 1.2fr) minmax(48px, .55fr) minmax(65px, .75fr) minmax(55px, .6fr) minmax(65px, .72fr) minmax(90px, 1fr) minmax(80px, .88fr) minmax(72px, .8fr) minmax(78px, .82fr) minmax(86px, .92fr) minmax(92px, 1fr) !important;
+            }
+
+            .mpc-table-head {
+                background: #00395D !important;
+                color: #fff !important;
+            }
+
+            .mpc-table-head>div {
+                padding: 6px 5px;
+                font-size: 6.7pt;
+            }
+
+            .mpc-role-group,
+            .mpc-role-group+.mpc-role-group {
+                border: 0 !important;
+                border-top: 1px solid #DCE4E6 !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+                break-inside: auto;
+            }
+
+            .mpc-role-row {
+                padding: 0 !important;
+                gap: 0 !important;
+                break-inside: avoid;
+            }
+
+            .mpc-cell {
+                display: flex !important;
+                padding: 6px 5px !important;
+                border-right: 1px solid #EDF1F2 !important;
+                justify-content: center !important;
+                min-height: 38px;
+            }
+
+            .mpc-cell::before,
+            .mpc-mobile-cell-label {
+                display: none !important;
+            }
+
+            .mpc-role-cell,
+            .mpc-cell:last-child {
+                grid-column: auto !important;
+            }
+
+            .mpc-role-cell {
+                background: #FAFCFC !important;
+                border-bottom: 0 !important;
+            }
+
+            .mpc-cell input[type="text"],
+            .mpc-cell select,
+            .mpc-field input[type="text"],
+            .mpc-field select,
+            .mpc-assumption-row input {
+                appearance: none;
+                -webkit-appearance: none;
+                border: 0 !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                outline: 0 !important;
+                background: transparent !important;
+                color: #00395D !important;
+                font-size: 7.5pt !important;
+                font-weight: 700;
+                box-shadow: none !important;
+            }
+
+            .mpc-readout {
+                min-height: 0;
+                padding: 0;
+                background: transparent !important;
+                font-size: 7.5pt;
+            }
+
+            .mpc-rate-cell-box {
+                padding: 5px 6px;
+                border: 1px solid #5AC5CC;
+                background: #E0F2F3 !important;
+            }
+
+            .mpc-rate-cell-box strong {
+                font-size: 7.5pt;
+            }
+
+            .mpc-rate-cell-box span,
+            .mpc-helper-text {
+                font-size: 6.2pt;
+            }
+
+            .mpc-row-details,
+            .mpc-row-details.open {
+                display: block !important;
+                padding: 8px 9px 10px;
+                background: #fff !important;
+                border-top: 1px dashed #DCE4E6;
+                break-inside: auto;
+            }
+
+            .mpc-details-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                gap: 6px 10px;
+            }
+
+            .mpc-details-section-title {
+                margin-top: 3px;
+                font-size: 6.7pt;
+            }
+
+            .mpc-field label,
+            .mpc-detail-kpi .label {
+                font-size: 6.4pt;
+            }
+
+            .mpc-detail-kpi {
+                min-height: 0;
+                padding: 5px 6px;
+                background: #EAF8F5 !important;
+            }
+
+            .mpc-detail-kpi .value {
+                margin-top: 2px;
+                font-size: 7.5pt;
+            }
+
+            .mpc-summary {
+                margin: 10px 0;
+                padding: 10px 12px;
+                border-radius: 0;
+                break-inside: avoid;
+            }
+
+            .mpc-summary h3 {
+                font-size: 10pt;
+            }
+
+            .mpc-summary p,
+            .mpc-summary-empty {
+                font-size: 7pt;
+            }
+
+            .mpc-summary-stat {
+                padding: 7px 9px;
+            }
+
+            .mpc-summary-stat .label {
+                font-size: 6.5pt;
+            }
+
+            .mpc-summary-stat .value {
+                font-size: 11pt;
+            }
+
+            .mpc-assumptions {
+                margin-top: 10px;
+                border-radius: 0;
+                break-before: page;
+            }
+
+            .mpc-assumptions summary {
+                padding: 8px 10px;
+                font-size: 9pt;
+            }
+
+            .mpc-assumptions summary::before {
+                content: "";
+            }
+
+            .mpc-assumptions-body {
+                display: block !important;
+                padding: 8px 10px 3px;
+            }
+
+            .mpc-assumptions-body p {
+                font-size: 7pt;
+                margin-bottom: 5px;
+            }
+
+            .mpc-assumption-row {
+                display: grid !important;
+                grid-template-columns: 1.25fr 85px 2fr !important;
+                gap: 8px;
+                padding: 4px 0;
+                font-size: 6.5pt;
+                break-inside: avoid;
+            }
+
+            .mpc-assumption-row label,
+            .mpc-assumption-row .mpc-source {
+                font-size: 6.5pt;
+            }
+
+            .mpc-disclaimer {
+                font-size: 6.5pt;
+                padding-top: 7px;
+                margin-top: 7px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .mpc-wrap {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .mpc-header {
+                padding: 22px 18px;
+            }
+
+            .mpc-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .mpc-segmented {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+            }
+
+            .mpc-segmented button {
+                padding: 9px 6px;
+                font-size: .8rem;
+            }
+
+            .mpc-role-row {
+                gap: 11px 8px;
+                padding: 12px;
+            }
+
+            .mpc-cell input[type="text"],
+            .mpc-cell select,
+            .mpc-field input[type="text"],
+            .mpc-field select {
+                font-size: 16px;
+            }
+
+            .mpc-details-grid,
+            .mpc-minicalc-row {
+                grid-template-columns: 1fr;
+            }
+
+            .mpc-detail-kpi {
+                min-height: 0;
+            }
+
+            .mpc-summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* ---------- V2 business-pricing controls ---------- */
+        .mpc-table-head>div {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+
+        .mpc-control-panel {
+            display: grid;
+            grid-template-columns: minmax(250px, 1fr) minmax(0, 2fr);
+            gap: 12px;
+            align-items: start;
+            margin: 0 0 18px;
+        }
+
+        .mpc-control-left {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            align-content: start;
+        }
+
+        .mpc-overhead-workspace {
+            min-width: 0;
+        }
+
+        .mpc-overhead-workflow-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .mpc-overhead-controls {
+            min-width: 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--grey-line);
+            background: var(--white);
+        }
+
+        .mpc-control-card {
+            border: 1px solid var(--grey-line);
+            border-radius: 10px;
+            background: var(--grey-bg);
+            padding: 12px 14px;
+        }
+
+        .mpc-control-card .mpc-control-label {
+            display: block;
+            color: var(--dark-blue);
+            font-size: .78rem;
+            font-weight: 750;
+            margin-bottom: 7px;
+        }
+
+        .mpc-control-card .mpc-control-label.mpc-heading-with-help {
+            display: inline-flex;
+        }
+
+        .mpc-control-card .mpc-control-help {
+            margin: 7px 0 0;
+            color: var(--text-muted);
+            font-size: .72rem;
+            line-height: 1.35;
+        }
+
+        .mpc-control-insight {
+            margin-top: 10px;
+            padding: 9px 10px;
+            border-radius: 7px;
+            background: var(--white);
+            border: 1px solid var(--grey-line);
+            color: var(--text-muted);
+            font-size: .7rem;
+            line-height: 1.35;
+        }
+
+        .mpc-control-insight strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-control-insight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 7px;
+            margin-top: 7px;
+        }
+
+        .mpc-control-insight-item {
+            padding: 7px 8px;
+            border-radius: 6px;
+            background: var(--grey-bg);
+            border: 1px solid #E3EAEC;
+        }
+
+        .mpc-control-insight-item .label {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--text-muted);
+            font-size: .64rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .25px;
+        }
+
+        .mpc-control-insight-item .value {
+            display: block;
+            color: var(--dark-blue);
+            font-size: .72rem;
+            font-weight: 750;
+        }
+
+        .mpc-overhead-warning {
+            margin: 10px 0 10px;
+            padding: 9px 10px;
+            border-left: 4px solid var(--warn-text);
+            border-radius: 6px;
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            font-size: .72rem;
+            line-height: 1.4;
+        }
+
+        .mpc-overhead-warning strong {
+            color: var(--warn-text);
+        }
+
+        .mpc-global-entry {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            align-items: end;
+        }
+
+        .mpc-global-entry label {
+            display: grid;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: .69rem;
+            font-weight: 700;
+        }
+
+        .mpc-global-entry input {
+            width: 100%;
+            min-width: 0;
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 8px;
+            background: var(--white);
+            color: var(--dark-blue);
+            font: inherit;
+            font-size: .88rem;
+            font-weight: 750;
+            text-align: right;
+        }
+
+        .mpc-global-entry-one {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .mpc-global-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 8px;
+        }
+
+        .mpc-small-button {
+            border: 1px solid var(--dark-blue);
+            border-radius: 6px;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 6px 9px;
+            font: inherit;
+            font-size: .7rem;
+            font-weight: 750;
+            cursor: pointer;
+        }
+
+        .mpc-small-button:hover {
+            background: #E8F5F6;
+        }
+
+        .mpc-allocation-status {
+            margin-top: 7px;
+            color: var(--text-muted);
+            font-size: .69rem;
+            line-height: 1.3;
+        }
+
+        .mpc-allocation-status strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-business-overheads {
+            border: 1px solid var(--grey-line);
+            border-radius: 9px;
+            margin: 12px 0 0;
+            background: #FBFCFC;
+        }
+
+        .mpc-business-overheads>summary {
+            cursor: pointer;
+            padding: 10px 13px;
+            color: var(--dark-blue);
+            font-size: .78rem;
+            font-weight: 750;
+            list-style: none;
+        }
+
+        .mpc-business-overheads>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .mpc-business-overheads>summary::before {
+            content: "▸ ";
+        }
+
+        .mpc-business-overheads[open]>summary::before {
+            content: "▾ ";
+        }
+
+        .mpc-business-overheads-body {
+            padding: 0 13px 13px;
+        }
+
+        .mpc-business-overheads-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .mpc-business-overheads-grid label {
+            display: grid;
+            gap: 3px;
+            color: var(--text-muted);
+            font-size: .67rem;
+            font-weight: 700;
+        }
+
+        .mpc-business-overheads-grid input {
+            width: 100%;
+            min-width: 0;
+            border: 1px solid #B9C6C9;
+            border-radius: 6px;
+            padding: 7px;
+            color: var(--dark-blue);
+            font: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .mpc-business-overheads-total {
+            margin-top: 9px;
+            font-size: .76rem;
+            color: var(--text-muted);
+        }
+
+        .mpc-business-overheads-total strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-overhead-flow {
+            display: grid;
+            gap: 7px;
+            margin: 0 0 9px;
+        }
+
+        .mpc-overhead-step {
+            border-left: 3px solid var(--aqua);
+            padding: 5px 8px;
+            background: #F4FBFC;
+            color: var(--text-muted);
+            font-size: .69rem;
+            line-height: 1.35;
+        }
+
+        .mpc-overhead-step strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-overhead-formula {
+            margin: 8px 0 0;
+            padding: 7px 8px;
+            border-radius: 6px;
+            background: var(--white);
+            border: 1px solid var(--grey-line);
+            color: var(--text-muted);
+            font-size: .69rem;
+            line-height: 1.35;
+        }
+
+        .mpc-overhead-formula strong {
+            color: var(--dark-blue);
+        }
+
+        .mpc-audit-grid {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .mpc-audit-step {
+            border: 1px solid var(--grey-line);
+            border-radius: 7px;
+            padding: 8px 9px;
+            background: var(--white);
+        }
+
+        .mpc-audit-step .label {
+            display: block;
+            color: var(--text-muted);
+            font-size: .64rem;
+            line-height: 1.2;
+        }
+
+        .mpc-audit-step .value {
+            display: block;
+            margin-top: 3px;
+            color: var(--dark-blue);
+            font-size: .83rem;
+            font-weight: 800;
+        }
+
+        .mpc-audit-wide {
+            grid-column: span 2;
+        }
+
+        .mpc-audit-note {
+            grid-column: 1 / -1;
+            color: var(--text-muted);
+            font-size: .69rem;
+            line-height: 1.35;
+        }
+
+        .mpc-choice-group {
+            display: flex;
+            max-width: 100%;
+            border: 2px solid var(--dark-blue);
+            border-radius: 7px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: inset 0 1px 2px rgba(0, 57, 93, .06);
+        }
+
+        .mpc-choice-group button {
+            align-items: center;
+            gap: 6px;
+            border: 0;
+            border-right: 2px solid var(--dark-blue);
+            background: var(--grey-bg);
+            color: var(--dark-blue);
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: .78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color .12s ease, color .12s ease;
+            flex-grow: 1;
+        }
+
+    
+        .mpc-choice-group button::before {
+            flex: 0 0 auto;
+            font-size: .95em;
+            line-height: 1;
+        }
+
+        .mpc-choice-group button:last-child {
+            border-right: 0;
+        }
+
+        .mpc-choice-group button:hover:not(.active) {
+            background: #DCEBEC;
+        }
+
+        .mpc-choice-group button.active {
+            background: var(--dark-blue);
+            color: var(--white);
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+        }
+
+        .mpc-choice-group button:focus-visible {
+            outline: 3px solid var(--dark-blue);
+            outline-offset: 2px;
+        }
+
+        .mpc-summary {
+            margin: 0 0 18px;
+        }
+
+        .mpc-summary-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .mpc-summary-stat .value.mpc-positive {
+            color: #FFFFFF;
+            font-weight: 800;
+        }
+
+        .mpc-summary-stat .value.mpc-negative {
+            color: #FFFFFF;
+            font-weight: 800;
+        }
+
+        .mpc-summary-stat .value.mpc-neutral-value {
+            color: var(--aqua);
+        }
+
+        /* Supporting commentary sits on the dark summary banner, so keep it
+           at the same high-contrast light blue used by the other summary text. */
+        .mpc-summary .mpc-target-word {
+            color: #CFE9EC;
+        }
+
+        .mpc-positive {
+            color: #00BF00 !important;
+        }
+
+        .mpc-negative {
+            color: #9A3B1F !important;
+        }
+
+        .mpc-cost-pair {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        .mpc-subinput {
+            display: grid;
+            grid-template-columns: 60px minmax(78px, 1fr);
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mpc-subinput .mpc-help-button {
+            width: 15px;
+            height: 15px;
+            font-size: .6rem;
+            line-height: 13px;
+        }
+
+        .mpc-subinput .mpc-help-bubble {
+            left: 0;
+            transform: none;
+        }
+
+        .mpc-subinput .mpc-help-bubble::before {
+            left: 8px;
+            transform: none;
+        }
+
+        /* Safari can make nested grid inputs narrower than their formatted value.
+           Keep annual money fields wide enough for values such as 13,000. */
+        .mpc-subinput input[data-field="vehicle"],
+        .mpc-subinput input[data-field="tools"] {
+            min-width: 78px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        .mpc-cell input[data-field="wage"],
+        .mpc-cell input[data-field="overheads"],
+        .mpc-cell input[data-field="nonBillablePct"],
+        .mpc-cell input[data-field="currentRate"],
+        .mpc-field input[data-veh-field="motorExpenses"],
+        .mpc-field input[data-oh-field] {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        /* Keep calculated numeric columns aligned with the editable money fields. */
+        .mpc-input-table .mpc-readout {
+            justify-content: flex-end;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        .mpc-input-table .mpc-rate-cell-box {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+        }
+
+        .mpc-subinput>span {
+            color: var(--text-muted);
+            font-size: .63rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .mpc-separate-vehicle-note {
+            color: #73510D;
+            font-size: .66rem;
+            line-height: 1.25;
+            background: #FFF8E7;
+            border-radius: 5px;
+            padding: 4px 5px;
+        }
+
+        .mpc-role-choice {
+            display: grid;
+            gap: 5px;
+        }
+
+        .mpc-role-choice select {
+            font-size: .78rem;
+            padding: 6px 7px;
+        }
+
+        .mpc-remove-apprentice {
+            align-self: start;
+            border: 0;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 0;
+            font-size: .68rem;
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .mpc-apprentice-tools {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 9px;
+        }
+
+        .mpc-add-apprentice {
+            border: 1px solid var(--dark-blue);
+            border-radius: 7px;
+            background: var(--white);
+            color: var(--dark-blue);
+            padding: 7px 11px;
+            font-family: inherit;
+            font-size: .76rem;
+            font-weight: 750;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: auto;
+            margin-left: 5px;
+        }
+
+        .mpc-add-apprentice:hover {
+            background: #E8F5F6;
+        }
+
+        .mpc-role-banner {
+            background: var(--aqua);
+            color: var(--dark-blue);
+            font-weight: 800;
+            font-size: .82rem;
+            letter-spacing: .2px;
+            padding: 8px 12px;
+            border-top: 1px solid var(--grey-line);
+        }
+
+        .mpc-role-banner-note {
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        .mpc-input-table>.mpc-role-banner:first-child {
+            border-top: 0;
+        }
+
+        @media print {
+            .mpc-role-banner {
+                background: var(--aqua) !important;
+                color: #00253d !important;
+                padding: 4px 6px;
+                font-size: 7.5pt;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        .mpc-role-type-mode.mpc-choice-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-color: var(--dark-blue);
+            margin: 2px 0 1px;
+        }
+
+        .mpc-role-type-mode.mpc-choice-group button {
+            width: 100%;
+            justify-content: flex-start;
+            padding: 7px 8px;
+            font-size: .71rem;
+            border-right: 0;
+            border-bottom: 2px solid var(--dark-blue);
+        }
+
+        .mpc-role-type-mode.mpc-choice-group button:last-child {
+            border-bottom: 0;
+        }
+
+        @media print {
+            .mpc-role-type-mode {
+                display: none !important;
+            }
+        }
+
+        .mpc-detail-kpi .value.mpc-positive {
+            color: #087F5B;
+        }
+
+        .mpc-detail-kpi .value.mpc-negative {
+            color: #9A3B1F;
+        }
+
+        .mpc-target-word {
+            display: block;
+            margin-top: 2px;
+            color: var(--text-muted);
+            font-size: .66rem;
+            font-weight: 650;
+        }
+
+        .mpc-rate-context {
+            margin-top: 3px;
+            color: var(--text-muted);
+            font-size: .65rem;
+            line-height: 1.2;
+        }
+
+        .mpc-disclaimer .mpc-survey-disclaimer {
+            display: block;
+            margin-top: 6px;
+        }
+
+        .mpc-role-trade-select {
+            font-size: .78rem !important;
+            padding: 6px 7px !important;
+            font-weight: 700 !important;
+        }
+
+        @media print {
+            .mpc-role-trade-select {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .mpc-control-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .mpc-control-left {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mpc-overhead-workflow-grid {
+                grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr);
+            }
+
+            .mpc-business-overheads-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mpc-audit-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mpc-summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .mpc-role-choice {
+                width: 100%;
+            }
+
+            .mpc-role-cell {
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .mpc-control-left,
+            .mpc-overhead-workflow-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .mpc-choice-group {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                width: 100%;
+            }
+
+            .mpc-global-entry,
+            .mpc-business-overheads-grid,
+            .mpc-audit-grid,
+            .mpc-control-insight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mpc-audit-wide {
+                grid-column: auto;
+            }
+
+            .mpc-choice-group button {
+                border-right: 2px solid var(--dark-blue);
+            }
+
+            .mpc-control-card {
+                padding: 11px 12px;
+            }
+
+            .mpc-summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+
+            .mpc-control-panel,
+            .mpc-business-overheads,
+            .mpc-target-range,
+            .mpc-target-scale,
+            .mpc-use-current-margin,
+            .mpc-add-apprentice,
+            .mpc-remove-apprentice,
+            .mpc-apprentice-tools,
+            .mpc-separate-vehicle-note {
+                display: none !important;
+            }
+
+            .mpc-summary {
+                margin-top: 0;
+            }
+
+            .mpc-summary-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            }
+
+            .mpc-cost-pair {
+                gap: 1px;
+            }
+
+            .mpc-subinput {
+                grid-template-columns: 34px 1fr;
+                gap: 2px;
+            }
+
+            .mpc-subinput .mpc-help {
+                display: none !important;
+            }
+
+            .mpc-subinput input[data-field="vehicle"],
+            .mpc-subinput input[data-field="tools"] {
+                min-width: 0;
+            }
+
+            .mpc-subinput>span {
+                font-size: 5.8pt;
+            }
+
+            .mpc-role-choice select {
+                border: 0 !important;
+                padding: 0 !important;
+            }
+        }
+  

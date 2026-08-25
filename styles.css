@@ -300,7 +300,7 @@
         .mpc-table-head {
             background: var(--dark-blue);
             position: sticky;
-            top: 0;
+            top: var(--mpc-sticky-offset, 0px);
             z-index: 1;
             color: var(--white);
             border-top-left-radius: 9px;
